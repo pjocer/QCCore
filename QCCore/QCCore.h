@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for QCCore.
 FOUNDATION_EXPORT double QCCoreVersionNumber;
-
-//! Project version string for QCCore.
 FOUNDATION_EXPORT const unsigned char QCCoreVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <QCCore/PublicHeader.h>
+#import <QCCore/RequestApi.h>
+#import <QCCore/QCRequestCache.h>
+#import <QCCore/QCNetworkService.h>
+#import <QCCore/QCAPIRequest.h>
+#import <QCCore/QCHttpRequest.h>
 
+#import <QCCore/QCCodingUtilities.h>
 
+#import <QCCore/UIDevice+Hardware.h>
