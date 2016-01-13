@@ -11,12 +11,9 @@
 FOUNDATION_EXPORT double QCCoreVersionNumber;
 FOUNDATION_EXPORT const unsigned char QCCoreVersionString[];
 
-#import <QCCore/RequestApi.h>
 #import <QCCore/QCRequestCache.h>
 #import <QCCore/QCNetworkService.h>
 #import <QCCore/QCAPIRequest.h>
 #import <QCCore/QCHttpRequest.h>
-
 #import <QCCore/QCCodingUtilities.h>
-
 #import <QCCore/UIDevice+Hardware.h>

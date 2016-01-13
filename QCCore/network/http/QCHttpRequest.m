@@ -13,6 +13,8 @@
 @interface QCHttpRequest ()
 {
     NSMutableDictionary *_requestHeaders;
+    SuccessBlock _successBlock;
+    FailedBlock _failedBlock;
 }
 @property (nonatomic, strong) AFHTTPRequestOperation *requestOperation;
 @end
@@ -36,6 +38,7 @@ static NSTimeInterval DEFAULT_TIMEOUT_INTERVAL = 20.0f;
         _requestMethod = requestMethod;
         _timeoutInterval = timeoutInterval;
         _requestHeaders = [NSMutableDictionary dictionary];
+        _requestParams = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -49,32 +52,37 @@ static NSTimeInterval DEFAULT_TIMEOUT_INTERVAL = 20.0f;
     return uniqueKey;
 }
 
-- (void)setValue:(id)value forHeaderField:(NSString *)headerField
-{
-    NSParameterAssert(value);
-    NSParameterAssert(headerField);
-    [_requestHeaders setValue:value forKey:headerField];
-}
-
 - (void)start {
     [[QCNetworkService sharedInstance] exec:self];
 }
 
-- (void)startWithCompletionBlock:(nullable CompletionBlock)block {
-    _block = block;
+- (void)startWithSuccessBlock:(SuccessBlock)successBlock failedBlock:(FailedBlock)failedBlock
+{
+    _successBlock = successBlock;
+    _failedBlock = failedBlock;
     [self start];
 }
 
 - (void)cancel {
     [[QCNetworkService sharedInstance] abort:self];
-    _block = nil;
+    _successBlock = nil;
+    _failedBlock = nil;
 }
 
 - (void)formatResponseOperation:(AFHTTPRequestOperation *)operation {
     self.requestOperation = operation;
     _responseStatusCode = operation.response.statusCode;
-    _responseHeaders = operation.response.allHeaderFields;
     _responseData = operation.responseData;
+}
+
+- (void)postprocessRequest
+{
+    
+}
+
+- (void)preprocessRequest
+{
+    
 }
 
 - (NSDictionary *)requestHeaders
@@ -87,19 +95,29 @@ static NSTimeInterval DEFAULT_TIMEOUT_INTERVAL = 20.0f;
     return _responseStatusCode;
 }
 
-- (NSDictionary *)responseHeaders
-{
-    return _responseHeaders;
-}
-
 - (NSData *)responseData
 {
     return _responseData;
 }
 
-- (CompletionBlock)completionBlock
+- (SuccessBlock)successBlock
 {
-    return _block;
+    return _successBlock;
+}
+
+- (void)setSuccessBlock:(SuccessBlock)successBlock
+{
+    _successBlock = successBlock;
+}
+
+- (FailedBlock)failedBlock
+{
+    return _failedBlock;
+}
+
+- (void)setFailedBlock:(FailedBlock)failedBlock
+{
+    _failedBlock = failedBlock;
 }
 
 @end

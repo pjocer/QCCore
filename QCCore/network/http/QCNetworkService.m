@@ -12,14 +12,11 @@
 
 @interface QCHttpRequest ()
 @property (nonatomic, strong) AFHTTPRequestOperation *requestOperation;
+@property (assign) id successBlock;
+@property (assign) id failedBlock;
 - (void)formatResponseOperation:(AFHTTPRequestOperation *)operation;
-- (CompletionBlock)completionBlock;
-@end
-
-@interface QCAPIRequest ()
-- (void)preprocessRequest;
 - (void)postprocessRequest;
-- (APICompletionBlock)completionBlock;
+- (void)preprocessRequest;;
 @end
 
 @implementation QCNetworkService {
@@ -55,9 +52,7 @@
     if ([_runningRequestArray containsObject:request]) {
         NSLog(@"Can't exec duplicate request at same time");
     } else {
-        if ([request isKindOfClass:[QCAPIRequest class]]) {
-            [(QCAPIRequest *)request preprocessRequest];
-        }
+        [request preprocessRequest];
         [self handleRequest:request];
     }
 }
@@ -145,15 +140,13 @@
 - (void)handleResult:(QCHttpRequest *)request error:(NSError *)error {
     _endTimeInterval = [[NSDate date] timeIntervalSince1970] - _startTimeInterval;
     [_runningRequestArray removeObject:request];
-    if ([request isKindOfClass:[QCAPIRequest class]]) {
-        [(QCAPIRequest *)request postprocessRequest];
-    }
+    [request postprocessRequest];
     
     if (request.responseStatusCode >= 200 && request.responseStatusCode <= 299) {
         NSLog([NSString stringWithFormat:@"Request Finish(%zd,%f) %@", request.responseStatusCode, _endTimeInterval * 1000, request.url], nil);
-    }
-    if (request.completionBlock) {
-        request.completionBlock(request, error);
+        if (request.successBlock) ((SuccessBlock)request.successBlock)(request);
+    }else {
+        if (request.failedBlock) ((FailedBlock)request.failedBlock)(request);
     }
 }
 

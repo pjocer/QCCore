@@ -17,24 +17,23 @@ typedef NS_OPTIONS(short, RequestMethod) {
     DELETE
 };
 
-typedef void (^CompletionBlock)(QCHttpRequest * _Nonnull request, NSError * _Nullable error);
+typedef void (^SuccessBlock)(QCHttpRequest * _Nonnull request);
+typedef void (^FailedBlock)(QCHttpRequest * _Nonnull request);
 
 @interface QCHttpRequest : NSObject
 {
     @protected
     NSInteger _responseStatusCode;
-    NSDictionary *_responseHeaders;
     NSData *_responseData;
-    CompletionBlock _block;
 }
 
 @property (nonatomic, strong, readonly, nullable) NSString *url;
 
 @property (nonatomic, assign, readonly) RequestMethod requestMethod;
 
-@property (readonly, nullable) NSDictionary *requestHeaders;
+@property (nonatomic, strong, readonly, nonnull) NSDictionary *requestHeaders;
 
-@property (nonatomic, strong, readonly, nullable) NSDictionary *requestParams;
+@property (nonatomic, strong, nullable) NSDictionary *requestParams;
 
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
@@ -50,9 +49,7 @@ typedef void (^CompletionBlock)(QCHttpRequest * _Nonnull request, NSError * _Nul
 
 - (nullable NSString *)uniqueKey;
 
-- (void)setValue:(nonnull id)value forHeaderField:(nonnull NSString *)headerField;
-
-- (void)startWithCompletionBlock:(nullable CompletionBlock)block;
+- (void)startWithSuccessBlock:(nullable SuccessBlock)successBlock failedBlock:(nullable FailedBlock)failedBlock;
 
 - (void)cancel;
 

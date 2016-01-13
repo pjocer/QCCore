@@ -7,9 +7,10 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "QCCore.h"
 
 @interface QCCoreTests : XCTestCase
-
+@property (nonatomic) dispatch_group_t requestGroup;
 @end
 
 @implementation QCCoreTests
@@ -20,20 +21,46 @@
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    self.requestGroup = dispatch_group_create();
+    [self waitForGroupToBeEmptyWithTimeout:3];
+    
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (BOOL)waitForGroupToBeEmptyWithTimeout:(NSTimeInterval)timeout;
+{
+    NSDate * const end = [[NSDate date] dateByAddingTimeInterval:5];
+    
+    __block BOOL didComplete = NO;
+    dispatch_group_notify(self.requestGroup, dispatch_get_main_queue(), ^{
+        didComplete = YES;
+    });
+    while ((! didComplete) && (0. < [end timeIntervalSinceNow])) {
+        if (! [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.2]]) {
+            [NSThread sleepForTimeInterval:1];
+        }
+    }
+    return didComplete;
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
+- (void)testNetwork
+{
+    XCTestExpectation *exp = [self expectationWithDescription:@"async"];
+    
+    NSString *url = @"http://dev.fk.com/api/home/manage";
+    QCAPIRequest *request = [[QCAPIRequest alloc] initWithUrl:url requestMethod:POST];
+    request.cacheStrategy = CacheStrategyNone;
+    [request startWithAPISuccessBlock:^(QCAPIRequest * _Nonnull request) {
+        [exp fulfill];
+        NSLog(@"request was success");
+        NSLog(@"%@",request.responseDict);
+    } APIFailedBlock:^(QCAPIRequest * _Nonnull request) {
+        [exp fulfill];
+        XCTFail(@"request was failed");
     }];
+    
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 @end

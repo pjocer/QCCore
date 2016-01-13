@@ -11,23 +11,26 @@
 #import "QCRequestCache.h"
 #import "sys/utsname.h"
 #import "RNDecryptor.h"
-#import "RequestApi.h"
 #import "AFNetworking.h"
 #import "UIDevice+Hardware.h"
 
 #define ENCRYPTION_AES @"CLB_AES"
 #define ENCRYOT_PASSWORD @"ELQmHaX5ECDEJDd5r19eAWdZBzIwci4u"
 
-NSString * const APIRequestErrorMessage = @"APIRequestErrorMessage";
-
 //隐藏了AFNetorking相关内容
 
 @interface QCHttpRequest ()
 - (void)formatResponseOperation:(AFHTTPRequestOperation *)operation;
+- (void)postprocessRequest;
+- (void)preprocessRequest;
 - (void)start;
 @end
 
 @implementation QCAPIRequest
+{
+    APISuccessBlock _successBlock;
+    APIFailedBlock _failedBlock;
+}
 
 - (id)initWithUrl:(NSString *)url requestMethod:(RequestMethod)requestMethod timeoutInterval:(NSTimeInterval)timeoutInterval cacheStrategy:(CacheStrategy)cacheStrategy {
     self = [super initWithUrl:url requestMethod:requestMethod timeoutInterval:timeoutInterval];
@@ -37,12 +40,17 @@ NSString * const APIRequestErrorMessage = @"APIRequestErrorMessage";
     return self;
 }
 
-- (void)start {
+- (void)start
+{
+    [super start];
+}
+
+- (void)startRequest {
     //Tricky settings for api domain
-    NSString *apiDomain = [[NSUserDefaults standardUserDefaults] objectForKey:@"CustomDomain"];
-    if (apiDomain.length > 0) {
+//    NSString *apiDomain = [[NSUserDefaults standardUserDefaults] objectForKey:@"CustomDomain"];
+//    if (apiDomain.length > 0) {
 //        self.url = [self.url stringByReplacingOccurrencesOfString:APIHost withString:apiDomain];
-    }
+//    }
     
     if (_cacheStrategy != CacheStrategyNone) {
         NSData *cacheResponseData = [[QCRequestCache sharedInstance] get:self];
@@ -51,30 +59,19 @@ NSString * const APIRequestErrorMessage = @"APIRequestErrorMessage";
             _responseData = cacheResponseData;
             [self decodeResponseData];
             _isFromCache = YES;
-            if (_block) {
-                _block(self, nil);
-            }
+            if (_successBlock) _successBlock(self);
 
-            if (_cacheStrategy != CacheStrategyCachePrecedence) {
-                return;
-            }
+            if (_cacheStrategy != CacheStrategyCachePrecedence) return;
         }
     }
     [super start];
 }
 
-- (void)startWithAPICompletionBlock:(nullable APICompletionBlock)block
+- (void)startWithAPISuccessBlock:(APISuccessBlock)successBlock APIFailedBlock:(APISuccessBlock)failedBlock
 {
-    [super startWithCompletionBlock:^(QCHttpRequest *request, NSError *error) {
-        if (!error) {
-            if ([self status] == 0) {
-                if (block) block((QCAPIRequest *)request, nil);
-            }else {
-                if (block) block((QCAPIRequest *)request, [NSError errorWithDomain:@"QCAPIRequest" code:[self status] userInfo:@{APIRequestErrorMessage:[self message]?:@""}]);
-            }
-        }
-        
-    }];
+    _successBlock = successBlock;
+    _failedBlock = failedBlock;
+    [self startRequest];
 }
 
 - (void)formatResponseOperation:(AFHTTPRequestOperation *)operation {
@@ -98,17 +95,19 @@ NSString * const APIRequestErrorMessage = @"APIRequestErrorMessage";
 }
 
 - (void)preprocessRequest {
+    [super preprocessRequest];
     NSDictionary *bundleDict = [[NSBundle mainBundle] infoDictionary];
     NSString *version = [bundleDict objectForKey:@"CFBundleShortVersionString"];
     NSString *agent = [NSString stringWithFormat:@"(iOS;%@;%@)", [[UIDevice currentDevice] systemVersion], [UIDevice currentDevice].platform];
     
-    [self setValue:ENCRYPTION_AES forHeaderField:@"Encryption"];
-    [self setValue:version forHeaderField:@"VersionCode"];
-    [self setValue:agent forHeaderField:@"Agent"];
-    [self setValue:@"application/vnd.columbus.v1+json" forHeaderField:@"Accept"];
+    [self.requestHeaders setValue:ENCRYPTION_AES forKey:@"Encryption"];
+    [self.requestHeaders setValue:version forKey:@"VersionCode"];
+    [self.requestHeaders setValue:agent forKey:@"Agent"];
+    [self.requestHeaders setValue:@"application/vnd.columbus.v1+json" forKey:@"Accept"];
 }
 
 - (void)postprocessRequest {
+    [super postprocessRequest];
     if (self.cacheStrategy != CacheStrategyNone && self.responseData.length > 0 && self.status == 0) {
         [[QCRequestCache sharedInstance] put:self];
     }
@@ -137,9 +136,24 @@ NSString * const APIRequestErrorMessage = @"APIRequestErrorMessage";
     return nil;
 }
 
-- (APICompletionBlock)completionBlock
+- (APISuccessBlock)successBlock
 {
-    return _block;
+    return _successBlock;
+}
+
+- (void)setSuccessBlock:(APISuccessBlock)successBlock
+{
+    _successBlock = successBlock;
+}
+
+- (APIFailedBlock)failedBlock
+{
+    return _failedBlock;
+}
+
+- (void)setFailedBlock:(APIFailedBlock)failedBlock
+{
+    _failedBlock = failedBlock;
 }
 
 @end

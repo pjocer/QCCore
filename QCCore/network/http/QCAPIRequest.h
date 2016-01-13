@@ -7,11 +7,6 @@
 //
 
 #import "QCHttpRequest.h"
-@class QCAPIRequest;
-
-FOUNDATION_EXTERN NSString * _Nonnull const APIRequestErrorMessage;
-
-typedef void (^APICompletionBlock)(QCAPIRequest * _Nonnull request, NSError * _Nullable error);
 
 /**
  网络数据的缓存策略
@@ -30,6 +25,11 @@ typedef NS_OPTIONS(short, CacheStrategy) {
     /// 网络数据的缓存策略：优先读取缓存，请求结束刷新缓存
     CacheStrategyCachePrecedence
 };
+
+@class QCAPIRequest;
+
+typedef void (^APISuccessBlock)(QCAPIRequest * _Nonnull request);
+typedef void (^APIFailedBlock)(QCAPIRequest * _Nonnull request);
 
 @interface QCAPIRequest : QCHttpRequest
 
@@ -64,7 +64,18 @@ typedef NS_OPTIONS(short, CacheStrategy) {
            timeoutInterval:(NSTimeInterval)timeoutInterval
              cacheStrategy:(CacheStrategy)cacheStrategy;
 
-- (void)startWithAPICompletionBlock:(nullable APICompletionBlock)block;
+
+- (void)startWithAPISuccessBlock:(nullable APISuccessBlock)successBlock
+                  APIFailedBlock:(nullable APISuccessBlock)failedBlock;
+
+
+#pragma mark - 失效函数
+
+/// @unavailable 弃用父类函数
+- (void)startWithSuccessBlock:(nullable SuccessBlock)successBlock failedBlock:(nullable FailedBlock)failedBlock NS_UNAVAILABLE;
+
+/// @deprecated 为保证入口统一，弃用start函数，统一使用startWithAPISuccessBlock:APIFailedBlock:函数
+- (void)start DEPRECATED_ATTRIBUTE;
 
 @end
 
