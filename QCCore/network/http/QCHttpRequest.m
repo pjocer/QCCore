@@ -49,6 +49,7 @@ static NSTimeInterval DEFAULT_TIMEOUT_INTERVAL = 20.0f;
 }
 
 - (NSString *)uniqueKey {
+    
     NSString *uniqueKey = [NSString stringWithFormat:@"%@?", self.url];
     for (NSString *key in _requestParams) {
         uniqueKey = [uniqueKey stringByAppendingString:[NSString stringWithFormat:@"%@=", key]];
@@ -123,6 +124,20 @@ static NSTimeInterval DEFAULT_TIMEOUT_INTERVAL = 20.0f;
 - (void)setFailedBlock:(FailedBlock)failedBlock
 {
     _failedBlock = failedBlock;
+}
+
+- (NSString *)description
+{
+    NSMutableString *desc = [NSMutableString string];
+    [desc appendString:[super description]];
+    [desc appendFormat:@"\nURL= %@",self.url];
+    [desc appendFormat:@"\nMethod= %@", (self.requestMethod == GET?@"GET":(self.requestMethod == POST?@"POST":(self.requestMethod == PUT?@"PUT":@"DELETE")))];
+    [desc appendFormat:@"\nTimeOut= %.3fs",self.timeoutInterval];
+    [desc appendFormat:@"\nHeaders= %@",self.requestHeaders.description];
+    [desc appendFormat:@"\nParameters= %@",self.requestParams.description];
+    [desc appendFormat:@"\nResponseCode= %d",(int)self.responseStatusCode];
+    [desc appendFormat:@"\nResponseDataLength= %ld", (long)self.responseData.length];
+    return desc;
 }
 
 @end

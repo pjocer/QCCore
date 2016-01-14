@@ -31,6 +31,16 @@ typedef NS_OPTIONS(short, CacheStrategy) {
 typedef void (^APISuccessBlock)(QCAPIRequest * _Nonnull request);
 typedef void (^APIFailedBlock)(QCAPIRequest * _Nonnull request);
 
+/**
+ QCAPIRequest用来创建全程后端HTTP请求
+ 
+ Demo:
+ 
+ QCAPIRequest *request = [[QCAPIRequest alloc] initWithAPIName:<APIName> requestMethod:<RequestMethod>];
+ [request startWithAPISuccessBlock:nil APIFailedBlock:nil];
+ 
+ 原可用函数已经置为deprecated，请使用 initWithAPIName:requestMethod: 代替
+*/
 @interface QCAPIRequest : QCHttpRequest
 
 //Whether response data is from cache or not
@@ -60,16 +70,22 @@ typedef void (^APIFailedBlock)(QCAPIRequest * _Nonnull request);
 - (nullable id)initWithAPIName:(nonnull NSString *)apiName
                  requestMethod:(RequestMethod)requestMethod;
 
+/**
+ 启动请求操作
+ @param successBlock 上传成功的回调 可传nil
+ @param failedBlock 上传失败的回调 可传nil
+ */
 - (void)startWithAPISuccessBlock:(nullable APISuccessBlock)successBlock
                   APIFailedBlock:(nullable APISuccessBlock)failedBlock;
 
-
 #pragma mark - 失效函数
 
-/// @deprecated 使用
-- (nullable id)initWithUrl:(nonnull NSString *)url DEPRECATED_ATTRIBUTE;
-- (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod DEPRECATED_ATTRIBUTE;
-- (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod timeoutInterval:(NSTimeInterval)timeoutInterval DEPRECATED_ATTRIBUTE;
+/// @deprecated 使用 initWithAPIName:requestMethod: 代替
+- (nullable id)initWithUrl:(nonnull NSString *)url DEPRECATED_MSG_ATTRIBUTE("use initWithAPIName:requestMethod: instead");
+/// @deprecated 使用 initWithAPIName:requestMethod: 代替
+- (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod DEPRECATED_MSG_ATTRIBUTE("use initWithAPIName:requestMethod: instead");
+/// @deprecated 使用 initWithAPIName:requestMethod: 代替
+- (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod timeoutInterval:(NSTimeInterval)timeoutInterval DEPRECATED_MSG_ATTRIBUTE("use initWithAPIName:requestMethod: instead");
 
 /// @unavailable 弃用父类函数
 - (void)startWithSuccessBlock:(nullable SuccessBlock)successBlock failedBlock:(nullable FailedBlock)failedBlock NS_UNAVAILABLE;

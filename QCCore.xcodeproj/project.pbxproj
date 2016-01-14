@@ -85,7 +85,7 @@
 		21CED7D71C3118A0003875EA /* QCHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CED7CE1C3118A0003875EA /* QCHttpRequest.m */; };
 		21CED7D91C3118A0003875EA /* QCNetworkService.h in Headers */ = {isa = PBXBuildFile; fileRef = 21CED7D01C3118A0003875EA /* QCNetworkService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		21CED7DA1C3118A0003875EA /* QCNetworkService.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CED7D11C3118A0003875EA /* QCNetworkService.m */; };
-		21CED7DB1C3118A0003875EA /* QCRequestCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 21CED7D21C3118A0003875EA /* QCRequestCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21CED7DB1C3118A0003875EA /* QCRequestCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 21CED7D21C3118A0003875EA /* QCRequestCache.h */; };
 		21CED7DC1C3118A0003875EA /* QCRequestCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CED7D31C3118A0003875EA /* QCRequestCache.m */; };
 /* End PBXBuildFile section */
 
@@ -436,15 +436,18 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2135AE461C28F3F300AB3C1C /* QCCore.h in Headers */,
 				219C0A051C434599002E10CB /* RNCryptorEngine.h in Headers */,
+				21CED7D41C3118A0003875EA /* QCAPIRequest.h in Headers */,
+				218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */,
 				21CED7D61C3118A0003875EA /* QCHttpRequest.h in Headers */,
 				21CED7C81C2D2236003875EA /* UIDevice+Hardware.h in Headers */,
 				219C09FC1C434599002E10CB /* FMDatabaseQueue.h in Headers */,
 				219C09D11C434599002E10CB /* AFHTTPSessionManager.h in Headers */,
-				218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */,
 				219C09D81C434599002E10CB /* AFURLConnectionOperation.h in Headers */,
 				219C09D31C434599002E10CB /* AFNetworking.h in Headers */,
 				219C09E81C434599002E10CB /* UIButton+AFNetworking.h in Headers */,
+				21CED7DB1C3118A0003875EA /* QCRequestCache.h in Headers */,
 				219C0A071C434599002E10CB /* RNDecryptor.h in Headers */,
 				219C09DE1C434599002E10CB /* AFURLSessionManager.h in Headers */,
 				219C09E41C434599002E10CB /* UIActivityIndicatorView+AFNetworking.h in Headers */,
@@ -454,8 +457,6 @@
 				219C09F21C434599002E10CB /* UIWebView+AFNetworking.h in Headers */,
 				219C09ED1C434599002E10CB /* UIKit+AFNetworking.h in Headers */,
 				219C09FA1C434599002E10CB /* FMDatabasePool.h in Headers */,
-				21CED7D41C3118A0003875EA /* QCAPIRequest.h in Headers */,
-				21CED7DB1C3118A0003875EA /* QCRequestCache.h in Headers */,
 				219C09F61C434599002E10CB /* FMDatabase.h in Headers */,
 				219C09EB1C434599002E10CB /* UIImageView+AFNetworking.h in Headers */,
 				219C09FF1C434599002E10CB /* FMResultSet.h in Headers */,
@@ -465,7 +466,6 @@
 				219C0A0B1C434599002E10CB /* RNOpenSSLCryptor.h in Headers */,
 				219C0A0D1C434599002E10CB /* RNOpenSSLDecryptor.h in Headers */,
 				219C09FE1C434599002E10CB /* FMDB.h in Headers */,
-				2135AE461C28F3F300AB3C1C /* QCCore.h in Headers */,
 				219C09D61C434599002E10CB /* AFSecurityPolicy.h in Headers */,
 				219C09D41C434599002E10CB /* AFNetworkReachabilityManager.h in Headers */,
 				219C09DA1C434599002E10CB /* AFURLRequestSerialization.h in Headers */,

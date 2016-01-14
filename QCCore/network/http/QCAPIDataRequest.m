@@ -30,11 +30,12 @@
     AFURLSessionManager *_manager;
     NSURLSessionConfiguration *_configuration;
     NSData *_data;
+    NSURLSessionUploadTask *_task;
 }
 
-- (id)initWithUrl:(NSString *)url data:(NSData *)data
+- (id)initWithAPIName:(NSString *)apiName data:(NSData *)data
 {
-    if (self = [super initWithUrl:url requestMethod:POST]) {
+    if (self = [super initWithAPIName:apiName requestMethod:POST]) {
         
         _data = data;
         
@@ -51,7 +52,7 @@
 }
 
 - (NSURLSessionUploadTask *)startWithSuccessBlock:(APIDataSuccessBlock)successBlock
-                                       faildBlock:(APIDataFailedBlock)faildBlock
+                                       failedBlock:(APIDataFailedBlock)failedBlock
 {
     
     _configuration.HTTPAdditionalHeaders = self.requestHeaders;
@@ -63,19 +64,24 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:self.url]];
     [request setHTTPMethod:@"POST"];
     
-    NSURLSessionUploadTask *task = [_manager uploadTaskWithRequest:request fromData:[QCAPIDataRequest requestHttpBody:_data] progress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject, NSError * _Nonnull error) {
+    _task = [_manager uploadTaskWithRequest:request fromData:[QCAPIDataRequest requestHttpBody:_data] progress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject, NSError * _Nonnull error) {
         
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         _responseStatusCode = httpResponse.statusCode;
         if(_responseStatusCode == 200){
             _responseData = responseObject;
             [super decodeResponseData];
-            successBlock(self);
+            if (successBlock) successBlock(self);
         }else{
-            faildBlock(self);
+            failedBlock(self);
         }
     }];
-    return task;
+    return _task;
+}
+
+- (void)cancel
+{
+    if (_task) [_task cancel];
 }
 
 - (void)preprocessRequest {
@@ -102,6 +108,22 @@
     }
     [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", QCDataRequestBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
     return body;
+}
+
+- (NSString *)description
+{
+    NSMutableString *desc = [NSMutableString string];
+    [desc appendString:[super description]];
+    [desc appendFormat:@"\nURL= %@",self.url];
+    [desc appendFormat:@"\nMethod= %@", (self.requestMethod == GET?@"GET":(self.requestMethod == POST?@"POST":(self.requestMethod == PUT?@"PUT":@"DELETE")))];
+    [desc appendFormat:@"\nTimeOut= %.3fs",self.timeoutInterval];
+    [desc appendFormat:@"\nHeaders= %@",self.requestHeaders.description];
+    [desc appendFormat:@"\nDataLength= %lu",(long)_data.length];
+    [desc appendFormat:@"\nResponseCode= %d",(int)self.responseStatusCode];
+    [desc appendFormat:@"\nResponseStatus= %d", (int)self.status];
+    [desc appendFormat:@"\nResponseMessage= %@", self.message];
+    [desc appendFormat:@"\nResponseData= %@", self.data];
+    return desc;
 }
 
 @end
