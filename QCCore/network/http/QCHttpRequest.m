@@ -43,6 +43,11 @@ static NSTimeInterval DEFAULT_TIMEOUT_INTERVAL = 20.0f;
     return self;
 }
 
+- (void)setValue:(nonnull id)value forHTTPHeaderKey:(nonnull NSString *)HTTPHeaderKey
+{
+    [_requestHeaders setValue:value forKey:HTTPHeaderKey];
+}
+
 - (NSString *)uniqueKey {
     NSString *uniqueKey = [NSString stringWithFormat:@"%@?", self.url];
     for (NSString *key in _requestParams) {

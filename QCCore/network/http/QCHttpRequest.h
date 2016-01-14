@@ -47,6 +47,8 @@ typedef void (^FailedBlock)(QCHttpRequest * _Nonnull request);
 - (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod;
 - (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod timeoutInterval:(NSTimeInterval)timeoutInterval;
 
+- (void)setValue:(nonnull id)value forHTTPHeaderKey:(nonnull NSString *)HTTPHeaderKey;
+
 - (nullable NSString *)uniqueKey;
 
 - (void)startWithSuccessBlock:(nullable SuccessBlock)successBlock failedBlock:(nullable FailedBlock)failedBlock;

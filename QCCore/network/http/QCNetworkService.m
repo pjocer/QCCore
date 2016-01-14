@@ -40,6 +40,7 @@
     if (self) {
         _manager = [AFHTTPRequestOperationManager manager];
         _runningRequestArray = [NSMutableArray new];
+        _currentDomain = @"http://trial.qccost.com/";
     }
     return self;
 }

@@ -53,23 +53,23 @@ typedef void (^APIFailedBlock)(QCAPIRequest * _Nonnull request);
 
 /**
  创建请求
- @param url 非空的请求地址
+ @param apiName 只需要传入API名即可，无需填入完整URL
  @param requestMethod 即HTTPMethod
- @param timeoutInterval 超时时间
- @param cacheStrategy 缓存策略
  @return QCAPIRequest对象
 */
-- (nullable id)initWithUrl:(nonnull NSString *)url
-             requestMethod:(RequestMethod)requestMethod
-           timeoutInterval:(NSTimeInterval)timeoutInterval
-             cacheStrategy:(CacheStrategy)cacheStrategy;
-
+- (nullable id)initWithAPIName:(nonnull NSString *)apiName
+                 requestMethod:(RequestMethod)requestMethod;
 
 - (void)startWithAPISuccessBlock:(nullable APISuccessBlock)successBlock
                   APIFailedBlock:(nullable APISuccessBlock)failedBlock;
 
 
 #pragma mark - 失效函数
+
+/// @deprecated 使用
+- (nullable id)initWithUrl:(nonnull NSString *)url DEPRECATED_ATTRIBUTE;
+- (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod DEPRECATED_ATTRIBUTE;
+- (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod timeoutInterval:(NSTimeInterval)timeoutInterval DEPRECATED_ATTRIBUTE;
 
 /// @unavailable 弃用父类函数
 - (void)startWithSuccessBlock:(nullable SuccessBlock)successBlock failedBlock:(nullable FailedBlock)failedBlock NS_UNAVAILABLE;

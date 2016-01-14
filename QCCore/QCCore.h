@@ -17,3 +17,4 @@ FOUNDATION_EXPORT const unsigned char QCCoreVersionString[];
 #import <QCCore/QCHttpRequest.h>
 #import <QCCore/QCCodingUtilities.h>
 #import <QCCore/UIDevice+Hardware.h>
+#import <QCCore/QCAPIDataRequest.h>

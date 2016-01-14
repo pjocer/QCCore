@@ -10,7 +10,7 @@
 		2135AE461C28F3F300AB3C1C /* QCCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 2135AE451C28F3F300AB3C1C /* QCCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2135AE4D1C28F3F300AB3C1C /* QCCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2135AE421C28F3F300AB3C1C /* QCCore.framework */; };
 		2135AE521C28F3F300AB3C1C /* QCCoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2135AE511C28F3F300AB3C1C /* QCCoreTests.m */; };
-		218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 218F16B51C464354005D6C8B /* QCAPIDataRequest.h */; };
+		218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 218F16B51C464354005D6C8B /* QCAPIDataRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		218F16B81C464354005D6C8B /* QCAPIDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 218F16B61C464354005D6C8B /* QCAPIDataRequest.m */; };
 		219C09CD1C434599002E10CB /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 219C09831C434599002E10CB /* AFHTTPRequestOperation.h */; };
 		219C09CE1C434599002E10CB /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 219C09841C434599002E10CB /* AFHTTPRequestOperation.m */; };
@@ -226,6 +226,7 @@
 		2135AE441C28F3F300AB3C1C /* QCCore */ = {
 			isa = PBXGroup;
 			children = (
+				218F16C11C465606005D6C8B /* debug */,
 				21CED7C51C2D2236003875EA /* category */,
 				21CED7AA1C2D1E94003875EA /* secure */,
 				21CED7AD1C2D1E94003875EA /* network */,
@@ -242,6 +243,13 @@
 				2135AE531C28F3F300AB3C1C /* Info.plist */,
 			);
 			path = QCCoreTests;
+			sourceTree = "<group>";
+		};
+		218F16C11C465606005D6C8B /* debug */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = debug;
 			sourceTree = "<group>";
 		};
 		219C09801C434599002E10CB /* Frameworks */ = {
@@ -433,9 +441,9 @@
 				21CED7C81C2D2236003875EA /* UIDevice+Hardware.h in Headers */,
 				219C09FC1C434599002E10CB /* FMDatabaseQueue.h in Headers */,
 				219C09D11C434599002E10CB /* AFHTTPSessionManager.h in Headers */,
+				218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */,
 				219C09D81C434599002E10CB /* AFURLConnectionOperation.h in Headers */,
 				219C09D31C434599002E10CB /* AFNetworking.h in Headers */,
-				218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */,
 				219C09E81C434599002E10CB /* UIButton+AFNetworking.h in Headers */,
 				219C0A071C434599002E10CB /* RNDecryptor.h in Headers */,
 				219C09DE1C434599002E10CB /* AFURLSessionManager.h in Headers */,

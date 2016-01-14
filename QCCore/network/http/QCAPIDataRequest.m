@@ -68,14 +68,7 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         _responseStatusCode = httpResponse.statusCode;
         if(_responseStatusCode == 200){
-            NSError *err = nil;
-            NSData *decodedBase64Data = [[NSData alloc] initWithBase64EncodedData:responseObject options:0];
-            NSData *decryptedData = [RNDecryptor decryptData:decodedBase64Data
-                                                withPassword:@"ELQmHaX5ECDEJDd5r19eAWdZBzIwci4u"
-                                                       error:&err];
-            
-            _responseData = [NSJSONSerialization JSONObjectWithData:decryptedData options:NSJSONReadingMutableLeaves error:&err];
-            
+            _responseData = responseObject;
             [super decodeResponseData];
             successBlock(self);
         }else{

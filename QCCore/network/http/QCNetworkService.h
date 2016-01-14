@@ -11,6 +11,12 @@
 
 @interface QCNetworkService : NSObject
 
+/// 默认为 http://trial.qccost.com/ 即trial正式接口
+@property (nonatomic, strong) NSString *currentDomain;
+
+/// 为deprecated函数专门生成的header，deprecated完之后可以删除
+@property (nonatomic, strong) NSDictionary *deprecatedHeader;
+
 + (QCNetworkService *)sharedInstance;
 
 - (void)exec:(QCHttpRequest *)request;

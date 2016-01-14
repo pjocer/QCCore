@@ -17,6 +17,22 @@
 #define ENCRYPTION_AES @"CLB_AES"
 #define ENCRYOT_PASSWORD @"ELQmHaX5ECDEJDd5r19eAWdZBzIwci4u"
 
+// 配合deprecated方法写的函数，去除deprecated函数后可以删除
+static inline NSString * FilteURLDomain(NSString * url)
+{
+    NSString *domain = [QCNetworkService sharedInstance].currentDomain;
+    if ([url containsString:@"http://dev.fk.com/api/"]) {
+        return [url stringByReplacingOccurrencesOfString:@"http://dev.fk.com/api/" withString:domain];
+    }else if ([url containsString:@"http://trial.fk.com/api/"]) {
+        return [url stringByReplacingOccurrencesOfString:@"http://trial.fk.com/api/" withString:domain];
+    }else if ([url containsString:@"http://api.qccost.com/"]) {
+        return [url stringByReplacingOccurrencesOfString:@"http://api.qccost.com/" withString:domain];
+    }else if ([url containsString:@"http://trial.qccost.com/"]) {
+        return [url stringByReplacingOccurrencesOfString:@"http://trial.qccost.com/" withString:domain];
+    }
+    return url;
+}
+
 //隐藏了AFNetorking相关内容
 
 @interface QCHttpRequest ()
@@ -32,17 +48,15 @@
     APIFailedBlock _failedBlock;
 }
 
-- (id)initWithUrl:(NSString *)url requestMethod:(RequestMethod)requestMethod timeoutInterval:(NSTimeInterval)timeoutInterval cacheStrategy:(CacheStrategy)cacheStrategy {
-    self = [super initWithUrl:url requestMethod:requestMethod timeoutInterval:timeoutInterval];
-    if (self) {
-        _cacheStrategy = cacheStrategy;
+- (nullable id)initWithAPIName:(nonnull NSString *)apiName
+                 requestMethod:(RequestMethod)requestMethod {
+    
+    if (![QCNetworkService sharedInstance].currentDomain) {
+        return nil;
     }
+    
+    self = [super initWithUrl:[NSString stringWithFormat:@"%@%@",[QCNetworkService sharedInstance].currentDomain,apiName] requestMethod:requestMethod];
     return self;
-}
-
-- (void)start
-{
-    [super start];
 }
 
 - (void)startRequest {
@@ -51,7 +65,7 @@
 //    if (apiDomain.length > 0) {
 //        self.url = [self.url stringByReplacingOccurrencesOfString:APIHost withString:apiDomain];
 //    }
-    
+
     if (_cacheStrategy != CacheStrategyNone) {
         NSData *cacheResponseData = [[QCRequestCache sharedInstance] get:self];
         if (cacheResponseData) {
@@ -156,4 +170,34 @@
     _failedBlock = failedBlock;
 }
 
+#pragma mark - deprecated
+
+- (id)initWithUrl:(NSString *)url
+{
+    self = [super initWithUrl:FilteURLDomain(url)];
+    [self.requestHeaders setValuesForKeysWithDictionary:[QCNetworkService sharedInstance].deprecatedHeader];
+    return self;
+}
+
+- (id)initWithUrl:(NSString *)url requestMethod:(RequestMethod)requestMethod
+{
+    self = [super initWithUrl:FilteURLDomain(url) requestMethod:requestMethod];
+    [self.requestHeaders setValuesForKeysWithDictionary:[QCNetworkService sharedInstance].deprecatedHeader];
+    return self;
+}
+
+- (id)initWithUrl:(NSString *)url requestMethod:(RequestMethod)requestMethod timeoutInterval:(NSTimeInterval)timeoutInterval
+{
+    self = [super initWithUrl:FilteURLDomain(url) requestMethod:requestMethod timeoutInterval:timeoutInterval];
+    [self.requestHeaders setValuesForKeysWithDictionary:[QCNetworkService sharedInstance].deprecatedHeader];
+    return self;
+}
+
+- (void)start
+{
+    [super start];
+}
+
 @end
+
+
