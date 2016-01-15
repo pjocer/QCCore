@@ -8,6 +8,8 @@
 
 #import "QCHttpRequest.h"
 
+typedef NSString * const APIName;
+
 /**
  网络数据的缓存策略
  */
@@ -67,7 +69,7 @@ typedef void (^APIFailedBlock)(QCAPIRequest * _Nonnull request);
  @param requestMethod 即HTTPMethod
  @return QCAPIRequest对象
 */
-- (nullable id)initWithAPIName:(nonnull NSString *)apiName
+- (nullable id)initWithAPIName:(nonnull APIName)apiName
                  requestMethod:(RequestMethod)requestMethod;
 
 /**

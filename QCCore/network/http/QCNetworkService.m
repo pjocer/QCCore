@@ -151,4 +151,9 @@
     }
 }
 
+- (void)clearCaches
+{
+    [[QCRequestCache sharedInstance] clear];
+}
+
 @end

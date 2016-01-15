@@ -48,7 +48,7 @@ static inline NSString * FilteURLDomain(NSString * url)
     APIFailedBlock _failedBlock;
 }
 
-- (nullable id)initWithAPIName:(nonnull NSString *)apiName
+- (nullable id)initWithAPIName:(nonnull APIName)apiName
                  requestMethod:(RequestMethod)requestMethod {
     
     if (![QCNetworkService sharedInstance].currentDomain) {

@@ -28,8 +28,8 @@ typedef void (^APIDataFailedBlock)(QCAPIDataRequest * _Nonnull request);
  @param failedBlock 上传失败的回调 可传nil
  @return 启动上传后，返回Task信息
  */
-- (nullable NSURLSessionUploadTask *)startWithSuccessBlock:(nullable APIDataSuccessBlock)successBlock
-                                               failedBlock:(nullable APIDataFailedBlock)failedBlock;
+- (nullable NSURLSessionUploadTask *)uploadWithSuccessBlock:(nullable APIDataSuccessBlock)successBlock
+                                                failedBlock:(nullable APIDataFailedBlock)failedBlock;
 
 #pragma mark - 失效函数
 /// @unavailable 弃用父类函数

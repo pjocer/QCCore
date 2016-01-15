@@ -51,7 +51,7 @@
     return self;
 }
 
-- (NSURLSessionUploadTask *)startWithSuccessBlock:(APIDataSuccessBlock)successBlock
+- (NSURLSessionUploadTask *)uploadWithSuccessBlock:(APIDataSuccessBlock)successBlock
                                        failedBlock:(APIDataFailedBlock)failedBlock
 {
     
