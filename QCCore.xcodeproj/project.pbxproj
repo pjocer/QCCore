@@ -10,6 +10,10 @@
 		2135AE461C28F3F300AB3C1C /* QCCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 2135AE451C28F3F300AB3C1C /* QCCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2135AE4D1C28F3F300AB3C1C /* QCCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2135AE421C28F3F300AB3C1C /* QCCore.framework */; };
 		2135AE521C28F3F300AB3C1C /* QCCoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2135AE511C28F3F300AB3C1C /* QCCoreTests.m */; };
+		215C781A1C48995F008B1B65 /* QCCrashLogManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C78181C48995F008B1B65 /* QCCrashLogManager.h */; };
+		215C781B1C48995F008B1B65 /* QCCrashLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C78191C48995F008B1B65 /* QCCrashLogManager.m */; };
+		215C781E1C48997B008B1B65 /* CrashLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C781C1C48997B008B1B65 /* CrashLog.h */; };
+		215C781F1C48997B008B1B65 /* CrashLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C781D1C48997B008B1B65 /* CrashLog.m */; };
 		218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 218F16B51C464354005D6C8B /* QCAPIDataRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		218F16B81C464354005D6C8B /* QCAPIDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 218F16B61C464354005D6C8B /* QCAPIDataRequest.m */; };
 		219C09CD1C434599002E10CB /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 219C09831C434599002E10CB /* AFHTTPRequestOperation.h */; };
@@ -106,6 +110,10 @@
 		2135AE4C1C28F3F300AB3C1C /* QCCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QCCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2135AE511C28F3F300AB3C1C /* QCCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QCCoreTests.m; sourceTree = "<group>"; };
 		2135AE531C28F3F300AB3C1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		215C78181C48995F008B1B65 /* QCCrashLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCCrashLogManager.h; sourceTree = "<group>"; };
+		215C78191C48995F008B1B65 /* QCCrashLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCCrashLogManager.m; sourceTree = "<group>"; };
+		215C781C1C48997B008B1B65 /* CrashLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashLog.h; sourceTree = "<group>"; };
+		215C781D1C48997B008B1B65 /* CrashLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashLog.m; sourceTree = "<group>"; };
 		218F16B51C464354005D6C8B /* QCAPIDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCAPIDataRequest.h; sourceTree = "<group>"; };
 		218F16B61C464354005D6C8B /* QCAPIDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCAPIDataRequest.m; sourceTree = "<group>"; };
 		219C09831C434599002E10CB /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -226,6 +234,7 @@
 		2135AE441C28F3F300AB3C1C /* QCCore */ = {
 			isa = PBXGroup;
 			children = (
+				215C78171C489914008B1B65 /* log */,
 				218F16C11C465606005D6C8B /* debug */,
 				21CED7C51C2D2236003875EA /* category */,
 				21CED7AA1C2D1E94003875EA /* secure */,
@@ -243,6 +252,17 @@
 				2135AE531C28F3F300AB3C1C /* Info.plist */,
 			);
 			path = QCCoreTests;
+			sourceTree = "<group>";
+		};
+		215C78171C489914008B1B65 /* log */ = {
+			isa = PBXGroup;
+			children = (
+				215C78181C48995F008B1B65 /* QCCrashLogManager.h */,
+				215C78191C48995F008B1B65 /* QCCrashLogManager.m */,
+				215C781C1C48997B008B1B65 /* CrashLog.h */,
+				215C781D1C48997B008B1B65 /* CrashLog.m */,
+			);
+			path = log;
 			sourceTree = "<group>";
 		};
 		218F16C11C465606005D6C8B /* debug */ = {
@@ -451,7 +471,9 @@
 				219C0A071C434599002E10CB /* RNDecryptor.h in Headers */,
 				219C09DE1C434599002E10CB /* AFURLSessionManager.h in Headers */,
 				219C09E41C434599002E10CB /* UIActivityIndicatorView+AFNetworking.h in Headers */,
+				215C781E1C48997B008B1B65 /* CrashLog.h in Headers */,
 				219C09CF1C434599002E10CB /* AFHTTPRequestOperationManager.h in Headers */,
+				215C781A1C48995F008B1B65 /* QCCrashLogManager.h in Headers */,
 				219C0A021C434599002E10CB /* RNCryptor+Private.h in Headers */,
 				21CED7D91C3118A0003875EA /* QCNetworkService.h in Headers */,
 				219C09F21C434599002E10CB /* UIWebView+AFNetworking.h in Headers */,
@@ -605,11 +627,13 @@
 				219C09E71C434599002E10CB /* UIAlertView+AFNetworking.m in Sources */,
 				219C09D51C434599002E10CB /* AFNetworkReachabilityManager.m in Sources */,
 				21CED7D51C3118A0003875EA /* QCAPIRequest.m in Sources */,
+				215C781B1C48995F008B1B65 /* QCCrashLogManager.m in Sources */,
 				219C09E91C434599002E10CB /* UIButton+AFNetworking.m in Sources */,
 				219C09D91C434599002E10CB /* AFURLConnectionOperation.m in Sources */,
 				219C09E51C434599002E10CB /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				219C09E31C434599002E10CB /* AFNetworkActivityIndicatorManager.m in Sources */,
 				219C09D21C434599002E10CB /* AFHTTPSessionManager.m in Sources */,
+				215C781F1C48997B008B1B65 /* CrashLog.m in Sources */,
 				219C09F71C434599002E10CB /* FMDatabase.m in Sources */,
 				219C09DB1C434599002E10CB /* AFURLRequestSerialization.m in Sources */,
 				219C0A0C1C434599002E10CB /* RNOpenSSLCryptor.m in Sources */,
@@ -761,6 +785,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.qcwl.QCCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Debug;
 		};
@@ -784,6 +809,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.qcwl.QCCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Release;
 		};
