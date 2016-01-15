@@ -515,6 +515,7 @@
 				2135AE401C28F3F300AB3C1C /* Resources */,
 				2135AE5C1C28F4FE00AB3C1C /* ShellScript */,
 				624E053D70911DD107CC7B5D /* Frameworks */,
+				215C79721C48F463008B1B65 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -609,6 +610,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
+		};
+		215C79721C48F463008B1B65 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FRAMEWORK_LOCN=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework\"\nMERGE_LOCN=\"${SRCROOT}/Build\"\n\nif [ ! -d \"$MERGE_LOCN\" ]; then\n    mkdir -p \"$MERGE_LOCN\"\nfi\n\ncp -rf \"$FRAMEWORK_LOCN\" \"$MERGE_LOCN/${PLATFORM_NAME}_${PRODUCT_NAME}.framework\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
