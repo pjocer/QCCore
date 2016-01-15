@@ -23,4 +23,6 @@
 
 - (void)abort:(QCHttpRequest *)request;
 
+- (void)clearCaches;
+
 @end
