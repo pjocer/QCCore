@@ -68,6 +68,7 @@
 - (NSString *) macaddress;
 
 - (BOOL) hasRetinaDisplay;
+- (NSString *)network;
 
 #pragma mark - JailBroken
 

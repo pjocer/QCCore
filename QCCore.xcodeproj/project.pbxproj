@@ -10,10 +10,11 @@
 		2135AE461C28F3F300AB3C1C /* QCCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 2135AE451C28F3F300AB3C1C /* QCCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2135AE4D1C28F3F300AB3C1C /* QCCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2135AE421C28F3F300AB3C1C /* QCCore.framework */; };
 		2135AE521C28F3F300AB3C1C /* QCCoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2135AE511C28F3F300AB3C1C /* QCCoreTests.m */; };
-		215C781A1C48995F008B1B65 /* QCCrashLogManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C78181C48995F008B1B65 /* QCCrashLogManager.h */; };
-		215C781B1C48995F008B1B65 /* QCCrashLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C78191C48995F008B1B65 /* QCCrashLogManager.m */; };
-		215C781E1C48997B008B1B65 /* CrashLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C781C1C48997B008B1B65 /* CrashLog.h */; };
+		215C781E1C48997B008B1B65 /* CrashLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C781C1C48997B008B1B65 /* CrashLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		215C781F1C48997B008B1B65 /* CrashLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C781D1C48997B008B1B65 /* CrashLog.m */; };
+		215C79751C49F7A7008B1B65 /* CrashManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C79731C49F7A7008B1B65 /* CrashManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		215C79761C49F7A7008B1B65 /* CrashManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C79741C49F7A7008B1B65 /* CrashManager.m */; };
+		215C79791C4A1A15008B1B65 /* DebugKits.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C79781C4A0E78008B1B65 /* DebugKits.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 218F16B51C464354005D6C8B /* QCAPIDataRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		218F16B81C464354005D6C8B /* QCAPIDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 218F16B61C464354005D6C8B /* QCAPIDataRequest.m */; };
 		219C09CD1C434599002E10CB /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 219C09831C434599002E10CB /* AFHTTPRequestOperation.h */; };
@@ -110,10 +111,12 @@
 		2135AE4C1C28F3F300AB3C1C /* QCCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QCCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2135AE511C28F3F300AB3C1C /* QCCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QCCoreTests.m; sourceTree = "<group>"; };
 		2135AE531C28F3F300AB3C1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		215C78181C48995F008B1B65 /* QCCrashLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCCrashLogManager.h; sourceTree = "<group>"; };
-		215C78191C48995F008B1B65 /* QCCrashLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCCrashLogManager.m; sourceTree = "<group>"; };
 		215C781C1C48997B008B1B65 /* CrashLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashLog.h; sourceTree = "<group>"; };
 		215C781D1C48997B008B1B65 /* CrashLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashLog.m; sourceTree = "<group>"; };
+		215C79731C49F7A7008B1B65 /* CrashManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashManager.h; sourceTree = "<group>"; };
+		215C79741C49F7A7008B1B65 /* CrashManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashManager.m; sourceTree = "<group>"; };
+		215C79771C4A0D78008B1B65 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		215C79781C4A0E78008B1B65 /* DebugKits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugKits.h; sourceTree = "<group>"; };
 		218F16B51C464354005D6C8B /* QCAPIDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCAPIDataRequest.h; sourceTree = "<group>"; };
 		218F16B61C464354005D6C8B /* QCAPIDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCAPIDataRequest.m; sourceTree = "<group>"; };
 		219C09831C434599002E10CB /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -240,6 +243,7 @@
 				21CED7AA1C2D1E94003875EA /* secure */,
 				21CED7AD1C2D1E94003875EA /* network */,
 				2135AE451C28F3F300AB3C1C /* QCCore.h */,
+				215C79771C4A0D78008B1B65 /* PrefixHeader.pch */,
 				2135AE471C28F3F300AB3C1C /* Info.plist */,
 			);
 			path = QCCore;
@@ -257,10 +261,10 @@
 		215C78171C489914008B1B65 /* log */ = {
 			isa = PBXGroup;
 			children = (
-				215C78181C48995F008B1B65 /* QCCrashLogManager.h */,
-				215C78191C48995F008B1B65 /* QCCrashLogManager.m */,
 				215C781C1C48997B008B1B65 /* CrashLog.h */,
 				215C781D1C48997B008B1B65 /* CrashLog.m */,
+				215C79731C49F7A7008B1B65 /* CrashManager.h */,
+				215C79741C49F7A7008B1B65 /* CrashManager.m */,
 			);
 			path = log;
 			sourceTree = "<group>";
@@ -268,6 +272,7 @@
 		218F16C11C465606005D6C8B /* debug */ = {
 			isa = PBXGroup;
 			children = (
+				215C79781C4A0E78008B1B65 /* DebugKits.h */,
 			);
 			path = debug;
 			sourceTree = "<group>";
@@ -462,7 +467,10 @@
 				218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */,
 				21CED7D61C3118A0003875EA /* QCHttpRequest.h in Headers */,
 				21CED7C81C2D2236003875EA /* UIDevice+Hardware.h in Headers */,
+				215C781E1C48997B008B1B65 /* CrashLog.h in Headers */,
 				219C09FC1C434599002E10CB /* FMDatabaseQueue.h in Headers */,
+				215C79791C4A1A15008B1B65 /* DebugKits.h in Headers */,
+				215C79751C49F7A7008B1B65 /* CrashManager.h in Headers */,
 				219C09D11C434599002E10CB /* AFHTTPSessionManager.h in Headers */,
 				219C09D81C434599002E10CB /* AFURLConnectionOperation.h in Headers */,
 				219C09D31C434599002E10CB /* AFNetworking.h in Headers */,
@@ -471,9 +479,7 @@
 				219C0A071C434599002E10CB /* RNDecryptor.h in Headers */,
 				219C09DE1C434599002E10CB /* AFURLSessionManager.h in Headers */,
 				219C09E41C434599002E10CB /* UIActivityIndicatorView+AFNetworking.h in Headers */,
-				215C781E1C48997B008B1B65 /* CrashLog.h in Headers */,
 				219C09CF1C434599002E10CB /* AFHTTPRequestOperationManager.h in Headers */,
-				215C781A1C48995F008B1B65 /* QCCrashLogManager.h in Headers */,
 				219C0A021C434599002E10CB /* RNCryptor+Private.h in Headers */,
 				21CED7D91C3118A0003875EA /* QCNetworkService.h in Headers */,
 				219C09F21C434599002E10CB /* UIWebView+AFNetworking.h in Headers */,
@@ -633,6 +639,7 @@
 			files = (
 				219C0A061C434599002E10CB /* RNCryptorEngine.m in Sources */,
 				219C09F11C434599002E10CB /* UIRefreshControl+AFNetworking.m in Sources */,
+				215C79761C49F7A7008B1B65 /* CrashManager.m in Sources */,
 				219C09DF1C434599002E10CB /* AFURLSessionManager.m in Sources */,
 				21CED7DC1C3118A0003875EA /* QCRequestCache.m in Sources */,
 				219C09EF1C434599002E10CB /* UIProgressView+AFNetworking.m in Sources */,
@@ -641,7 +648,6 @@
 				219C09E71C434599002E10CB /* UIAlertView+AFNetworking.m in Sources */,
 				219C09D51C434599002E10CB /* AFNetworkReachabilityManager.m in Sources */,
 				21CED7D51C3118A0003875EA /* QCAPIRequest.m in Sources */,
-				215C781B1C48995F008B1B65 /* QCCrashLogManager.m in Sources */,
 				219C09E91C434599002E10CB /* UIButton+AFNetworking.m in Sources */,
 				219C09D91C434599002E10CB /* AFURLConnectionOperation.m in Sources */,
 				219C09E51C434599002E10CB /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -787,6 +793,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = QCCore/PrefixHeader.pch;
 				INFOPLIST_FILE = QCCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -811,6 +819,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = QCCore/PrefixHeader.pch;
 				INFOPLIST_FILE = QCCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

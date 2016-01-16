@@ -15,7 +15,7 @@ typedef NS_OPTIONS(uint8_t, CrashType) {
 };
 
 typedef NS_OPTIONS(uint8_t, SignalType) {
-    UnknownType                     = 0,
+    UnknownSignalType               = 0,
     AbortType                       = SIGABRT,
     IllegalInstructionType          = SIGILL,
     ZombieMemoryType                = SIGSEGV,
@@ -24,14 +24,13 @@ typedef NS_OPTIONS(uint8_t, SignalType) {
     WildPointerType                 = SIGPIPE
 };
 
-@interface CrashLog : NSObject
+@interface CrashLog : NSObject <NSSecureCoding>
 
-@property (readonly, nonnull) NSDictionary *content;
 @property (nonatomic, assign, readonly) CrashType crashType;
 @property (nonatomic, assign, readonly) SignalType signalType;
 @property (nonatomic, weak, readonly, nullable) NSString *name;
 @property (nonatomic, weak, readonly, nullable) NSString *reason;
-@property (nonatomic, weak, readonly, nullable) NSString *stack;
+@property (nonatomic, weak, readonly, nullable) NSArray *stack;
 @property (nonatomic, weak, readonly, nullable) NSString *lanchedDate;
 @property (nonatomic, weak, readonly, nullable) NSString *occursDate;
 @property (nonatomic, weak, readonly, nullable) NSString *appName;
@@ -58,6 +57,6 @@ typedef NS_OPTIONS(uint8_t, SignalType) {
 @property (nonatomic, assign, readonly) BOOL isCYExist;
 
 + (nullable instancetype)newCrashLog;
-
+- (void)excuteWithException:(nonnull NSException *)exception;
 
 @end
