@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:archive.sh">
+   </FileRef>
+   <FileRef
+      location = "group:QCCoreExample/QCCoreExample.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:QCCore.xcodeproj">
+   </FileRef>
+</Workspace>
