@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+#define iPhone4 ([[UIDevice currentDevice].platform containsString:@"iPhone3"])
+#define iPhone4s ([[UIDevice currentDevice].platform containsString:@"iPhone4"])
+#define iPhone5 ([[UIDevice currentDevice].platform containsString:@"iPhone5"])
+#define iPhone5s ([[UIDevice currentDevice].platform containsString:@"iPhone6"])
+#define iPhone6 ([[UIDevice currentDevice].platform containsString:@"iPhone7,2"])
+#define iPhone6p ([[UIDevice currentDevice].platform containsString:@"iPhone7,1"])
+#define iPhone6s ([[UIDevice currentDevice].platform containsString:@"iPhone8,2"])
+#define iPhone6sp ([[UIDevice currentDevice].platform containsString:@"iPhone8,1"])
+
+#define IOS8Later (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1)
+#define IOS7Later (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
+
+#define Display640Less ([[UIScreen mainScreen] currentMode].size.width <= 640)
+#define DisplayScale [UIScreen mainScreen].scale
+
 @interface UIDevice (Hardware)
 
 /**

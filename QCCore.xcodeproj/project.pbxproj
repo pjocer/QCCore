@@ -15,6 +15,9 @@
 		215C79751C49F7A7008B1B65 /* CrashManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C79731C49F7A7008B1B65 /* CrashManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		215C79761C49F7A7008B1B65 /* CrashManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C79741C49F7A7008B1B65 /* CrashManager.m */; };
 		215C79791C4A1A15008B1B65 /* DebugKits.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C79781C4A0E78008B1B65 /* DebugKits.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		215C79C81C4C88BB008B1B65 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 215C79C71C4C88BB008B1B65 /* CoreLocation.framework */; };
+		215C79CB1C4C8909008B1B65 /* QCLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C79C91C4C8909008B1B65 /* QCLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		215C79CC1C4C8909008B1B65 /* QCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C79CA1C4C8909008B1B65 /* QCLocationManager.m */; };
 		218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 218F16B51C464354005D6C8B /* QCAPIDataRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		218F16B81C464354005D6C8B /* QCAPIDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 218F16B61C464354005D6C8B /* QCAPIDataRequest.m */; };
 		219C09CD1C434599002E10CB /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 219C09831C434599002E10CB /* AFHTTPRequestOperation.h */; };
@@ -118,6 +121,9 @@
 		215C79771C4A0D78008B1B65 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		215C79781C4A0E78008B1B65 /* DebugKits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugKits.h; sourceTree = "<group>"; };
 		215C79AB1C4A2A2C008B1B65 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		215C79C71C4C88BB008B1B65 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		215C79C91C4C8909008B1B65 /* QCLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCLocationManager.h; sourceTree = "<group>"; };
+		215C79CA1C4C8909008B1B65 /* QCLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCLocationManager.m; sourceTree = "<group>"; };
 		218F16B51C464354005D6C8B /* QCAPIDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCAPIDataRequest.h; sourceTree = "<group>"; };
 		218F16B61C464354005D6C8B /* QCAPIDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCAPIDataRequest.m; sourceTree = "<group>"; };
 		219C09831C434599002E10CB /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -210,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				215C79C81C4C88BB008B1B65 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +245,7 @@
 		2135AE441C28F3F300AB3C1C /* QCCore */ = {
 			isa = PBXGroup;
 			children = (
+				215C79C61C4C88A4008B1B65 /* location */,
 				215C78171C489914008B1B65 /* log */,
 				218F16C11C465606005D6C8B /* debug */,
 				21CED7C51C2D2236003875EA /* category */,
@@ -270,6 +278,15 @@
 			path = log;
 			sourceTree = "<group>";
 		};
+		215C79C61C4C88A4008B1B65 /* location */ = {
+			isa = PBXGroup;
+			children = (
+				215C79C91C4C8909008B1B65 /* QCLocationManager.h */,
+				215C79CA1C4C8909008B1B65 /* QCLocationManager.m */,
+			);
+			path = location;
+			sourceTree = "<group>";
+		};
 		218F16C11C465606005D6C8B /* debug */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +298,7 @@
 		219C09801C434599002E10CB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				215C79C71C4C88BB008B1B65 /* CoreLocation.framework */,
 				215C79AB1C4A2A2C008B1B65 /* libsqlite3.tbd */,
 				219C09811C434599002E10CB /* AFNetworking */,
 				219C09AB1C434599002E10CB /* FMDB */,
@@ -471,6 +489,7 @@
 				21CED7C81C2D2236003875EA /* UIDevice+Hardware.h in Headers */,
 				215C781E1C48997B008B1B65 /* CrashLog.h in Headers */,
 				219C09FC1C434599002E10CB /* FMDatabaseQueue.h in Headers */,
+				215C79CB1C4C8909008B1B65 /* QCLocationManager.h in Headers */,
 				215C79791C4A1A15008B1B65 /* DebugKits.h in Headers */,
 				215C79751C49F7A7008B1B65 /* CrashManager.h in Headers */,
 				219C09D11C434599002E10CB /* AFHTTPSessionManager.h in Headers */,
@@ -640,6 +659,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				219C0A061C434599002E10CB /* RNCryptorEngine.m in Sources */,
+				215C79CC1C4C8909008B1B65 /* QCLocationManager.m in Sources */,
 				219C09F11C434599002E10CB /* UIRefreshControl+AFNetworking.m in Sources */,
 				215C79761C49F7A7008B1B65 /* CrashManager.m in Sources */,
 				219C09DF1C434599002E10CB /* AFURLSessionManager.m in Sources */,
