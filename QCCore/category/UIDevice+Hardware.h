@@ -50,14 +50,14 @@
 - (NSString *) hwmodel;
 - (NSString *) UUID;
 
-- (int) cpuFrequency;
-- (int) busFrequency;
-- (int) cpuCount;
-- (int) totalMemory;
-- (int) userMemory;
-- (int) pageSize;
-- (int) physicalMemorySize;
-- (int) maxSocketBufferSize;
+- (unsigned long) cpuFrequency;
+- (unsigned long) busFrequency;
+- (unsigned long) cpuCount;
+- (unsigned long) totalMemory;
+- (unsigned long) userMemory;
+- (unsigned long) pageSize;
+- (unsigned long) physicalMemorySize;
+- (unsigned long) maxSocketBufferSize;
 - (NSNumber *) totalDiskSpace;
 - (NSNumber *) freeDiskSpace;
 - (natural_t)getFreeMemory;

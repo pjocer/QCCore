@@ -50,49 +50,49 @@
 }
 
 #pragma mark sysctl utils
-- (int) getSysInfo: (u_int) typeSpecifier
+- (unsigned long) getSysInfo: (u_int) typeSpecifier
 {
     size_t size = sizeof(int);
-    int results;
+    unsigned long results;
     int mib[2] = {CTL_HW, typeSpecifier};
     sysctl(mib, 2, &results, &size, NULL, 0);
     return results;
 }
 
-- (int) cpuFrequency
+- (unsigned long) cpuFrequency
 {
     return [self getSysInfo:HW_CPU_FREQ];
 }
 
-- (int) busFrequency
+- (unsigned long) busFrequency
 {
     return [self getSysInfo:HW_BUS_FREQ];
 }
 
-- (int) cpuCount
+- (unsigned long) cpuCount
 {
     return [self getSysInfo:HW_NCPU];
 }
 
-- (int) totalMemory
+- (unsigned long) totalMemory
 {
     return [self getSysInfo:HW_PHYSMEM];
 }
 
-- (int) userMemory
+- (unsigned long) userMemory
 {
     return [self getSysInfo:HW_USERMEM];
 }
 
-- (int) pageSize {
+- (unsigned long) pageSize {
     return [self getSysInfo:HW_PAGESIZE];
 }
 
-- (int) physicalMemorySize {
+- (unsigned long) physicalMemorySize {
     return [self getSysInfo:HW_MEMSIZE];
 }
 
-- (int) maxSocketBufferSize
+- (unsigned long) maxSocketBufferSize
 {
     return [self getSysInfo:KIPC_MAXSOCKBUF];
 }
@@ -162,6 +162,11 @@
     
     unsigned long mem_free = vm_stat.free_count * pagesize;
     return (natural_t)mem_free;
+}
+
+- (NSString *)network
+{
+    return @"";
 }
 
 #pragma mark MAC addy

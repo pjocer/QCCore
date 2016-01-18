@@ -11,6 +11,9 @@
 FOUNDATION_EXPORT double QCCoreVersionNumber;
 FOUNDATION_EXPORT const unsigned char QCCoreVersionString[];
 
+/// category
+#import <QCCore/UIDevice+Hardware.h>
+
 /// network
 #import <QCCore/QCNetworkService.h>
 #import <QCCore/QCAPIRequest.h>
@@ -23,9 +26,6 @@ FOUNDATION_EXPORT const unsigned char QCCoreVersionString[];
 
 /// secure
 #import <QCCore/QCCodingUtilities.h>
-
-/// category
-#import <QCCore/UIDevice+Hardware.h>
 
 /// debug
 #import <QCCore/DebugKits.h>

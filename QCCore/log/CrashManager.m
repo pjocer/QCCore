@@ -7,6 +7,7 @@
 //
 
 #import "CrashManager.h"
+#import "UIDevice+Hardware.h"
 #include <libkern/OSAtomic.h>
 #include <execinfo.h>
 
@@ -84,7 +85,7 @@ static void SignalHandler(int signal)
         _logPath = [XQCrashLogPath() stringByAppendingPathComponent:_logName];
         
         NSString *statusPath = [XQCrashLogPath() stringByAppendingPathComponent:@"info.plist"];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:statusPath]) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:statusPath]) {
             _logStatus = [NSMutableArray arrayWithContentsOfFile:statusPath];
         }else {
             _logStatus = [NSMutableArray array];
@@ -94,7 +95,7 @@ static void SignalHandler(int signal)
     return self;
 }
 
-- (NSArray<CrashLog *> *)unCheckedLogs
+- (NSArray *)unCheckedLogNames
 {
     NSMutableArray *logs = [NSMutableArray array];
     for (NSDictionary *dic in _logStatus) {
@@ -103,6 +104,11 @@ static void SignalHandler(int signal)
         }
     }
     return logs;
+}
+
+- (NSArray *)allLogNames
+{
+    return _logStatus;
 }
 
 - (CrashLog *)crashLogWithName:(NSString *)name
@@ -147,6 +153,7 @@ static void SignalHandler(int signal)
     
     [NSKeyedArchiver archiveRootObject:_currentLog toFile:_logPath];
     [_logStatus addObject:@{@"name":_logName, @"status":[NSNumber numberWithBool:NO]}];
+    [_logStatus writeToFile:[XQCrashLogPath() stringByAppendingPathComponent:@"info.plist"] atomically:YES];
 }
 
 - (void)clearHistoryLogs

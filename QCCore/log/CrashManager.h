@@ -18,8 +18,11 @@
 /// 在APP启动时安装崩溃观察者
 - (void)installCrashHandler;
 
-/// 显示未check的崩溃日志
-@property (readonly) NSArray<CrashLog *> *unCheckedLogs;
+/// 显示未check的崩溃日志名，日志名不是日志详情，使用crashLogWithName:来获取详情
+@property (readonly) NSArray *unCheckedLogNames;
+
+/// 显示所有的崩溃日志名
+@property (readonly) NSArray *allLogNames;
 
 /// 通过文件名获取一个日志
 - (CrashLog *)crashLogWithName:(NSString *)name;

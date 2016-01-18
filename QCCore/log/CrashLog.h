@@ -28,20 +28,19 @@ typedef NS_OPTIONS(uint8_t, SignalType) {
 
 @property (nonatomic, assign, readonly) CrashType crashType;
 @property (nonatomic, assign, readonly) SignalType signalType;
-@property (nonatomic, weak, readonly, nullable) NSString *name;
-@property (nonatomic, weak, readonly, nullable) NSString *reason;
-@property (nonatomic, weak, readonly, nullable) NSArray *stack;
-@property (nonatomic, weak, readonly, nullable) NSString *lanchedDate;
-@property (nonatomic, weak, readonly, nullable) NSString *occursDate;
-@property (nonatomic, weak, readonly, nullable) NSString *appName;
-@property (nonatomic, weak, readonly, nullable) NSString *appVersion;
-@property (nonatomic, weak, readonly, nullable) NSString *sandbox;
-@property (nonatomic, weak, readonly, nullable) NSString *scheme;
-@property (nonatomic, weak, readonly, nullable) NSString *channel;
-@property (nonatomic, weak, readonly, nullable) NSString *platform;
-@property (nonatomic, weak, readonly, nullable) NSString *osv;
+@property (nonatomic, strong, readonly, nullable) NSString *name;
+@property (nonatomic, strong, readonly, nullable) NSString *reason;
+@property (nonatomic, strong, readonly, nullable) NSArray *stack;
+@property (nonatomic, strong, readonly, nullable) NSString *lanchedDate;
+@property (nonatomic, strong, readonly, nullable) NSString *occursDate;
+@property (nonatomic, strong, readonly, nullable) NSString *appName;
+@property (nonatomic, strong, readonly, nullable) NSString *appVersion;
+@property (nonatomic, strong, readonly, nullable) NSString *sandbox;
+@property (nonatomic, strong, readonly, nullable) NSString *scheme;
+@property (nonatomic, strong, readonly, nullable) NSString *channel;
+@property (nonatomic, strong, readonly, nullable) NSString *platform;
+@property (nonatomic, strong, readonly, nullable) NSString *osv;
 @property (nonatomic, assign, readonly) UIDeviceOrientation orientation;
-@property (nonatomic, assign, readonly) unsigned long cpuFrequency;
 @property (nonatomic, assign, readonly) unsigned long busFrequency;
 @property (nonatomic, assign, readonly) int cpuCount;
 @property (nonatomic, assign, readonly) unsigned long totalMemory;
@@ -52,7 +51,7 @@ typedef NS_OPTIONS(uint8_t, SignalType) {
 @property (nonatomic, assign, readonly) unsigned long sockBufferSize;
 @property (nonatomic, assign, readonly) unsigned long totalSDSize;
 @property (nonatomic, assign, readonly) unsigned long freeSDSize;
-@property (nonatomic, weak, readonly, nullable) NSString *network;
+@property (nonatomic, strong, readonly, nullable) NSString *network;
 @property (nonatomic, assign, readonly) BOOL isJB;
 @property (nonatomic, assign, readonly) BOOL isCYExist;
 

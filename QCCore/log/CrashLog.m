@@ -44,8 +44,6 @@ static inline NSString * GetCrashDateString()
         _osv = [aDecoder decodeObjectForKey:@"osv"];
         _network = [aDecoder decodeObjectForKey:@"network"];
         _orientation = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"orientation"] integerValue];
-        _cpuFrequency = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"cpuFrequency"] unsignedLongValue];
-        _busFrequency = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"busFrequency"] unsignedLongValue];
         _cpuCount = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"cpuCount"] intValue];
         _totalMemory = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"totalMemory"] unsignedLongValue];
         _userMemory = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"userMemory"] unsignedLongValue];
@@ -79,9 +77,7 @@ static inline NSString * GetCrashDateString()
         _platform = [UIDevice currentDevice].platform;
         _osv = [UIDevice currentDevice].systemVersion;
         _orientation = [UIDevice currentDevice].orientation;
-        _cpuFrequency = [UIDevice currentDevice].cpuFrequency;
-        _busFrequency = [UIDevice currentDevice].busFrequency;
-        _cpuCount = [UIDevice currentDevice].cpuCount;
+        _cpuCount = (int)[UIDevice currentDevice].cpuCount;
         _isJB = [UIDevice currentDevice].isJB;
         _isCYExist = [UIDevice currentDevice].isCYExist;
     }
@@ -137,8 +133,6 @@ static inline NSString * GetCrashDateString()
     [aCoder encodeObject:_osv?:@"" forKey:@"osv"];
     [aCoder encodeObject:_network?:@"" forKey:@"network"];
     [aCoder encodeObject:[NSNumber numberWithInteger:_orientation] forKey:@"orientation"];
-    [aCoder encodeObject:[NSNumber numberWithUnsignedLong:_cpuFrequency] forKey:@"cpuFrequency"];
-    [aCoder encodeObject:[NSNumber numberWithUnsignedLong:_busFrequency] forKey:@"busFrequency"];
     [aCoder encodeObject:[NSNumber numberWithInt:_cpuCount] forKey:@"cpuCount"];
     [aCoder encodeObject:[NSNumber numberWithUnsignedLong:_totalMemory] forKey:@"totalMemory"];
     [aCoder encodeObject:[NSNumber numberWithUnsignedLong:_userMemory] forKey:@"userMemory"];
@@ -181,8 +175,6 @@ static inline NSString * GetCrashDateString()
     [str appendFormat:@"\nnetwork: %@",_network];
     [str appendFormat:@"\norientation: %d", (int)_orientation];
     [str appendFormat:@"\ncpuCount: %d", (int)_cpuCount];
-    [str appendFormat:@"\ncpuFrequency: %lu", _cpuFrequency];
-    [str appendFormat:@"\nbusFrequency: %lu", _busFrequency];
     [str appendFormat:@"\ntotalMemory: %lu", _totalMemory];
     [str appendFormat:@"\nuserMemory: %lu", _userMemory];
     [str appendFormat:@"\nfreeMemory: %lu", _freeMemory];
