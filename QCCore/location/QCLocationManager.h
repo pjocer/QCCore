@@ -56,6 +56,24 @@ typedef NS_OPTIONS(uint8_t, LocationStatus) {
 /// 海拔高度
 @property (readonly) CLLocationDistance altitude;
 
+//unavailable super functions
++ (CLAuthorizationStatus)authorizationStatus NS_UNAVAILABLE;
+- (CLLocation *)location NS_UNAVAILABLE;
+
+@end
+
+FOUNDATION_EXTERN NSString * const LocationUpdatedGEOInfoNotification;
+
+FOUNDATION_EXTERN NSString * const LocationPlacemarkName;
+FOUNDATION_EXTERN NSString * const LocationGEOErrorName;
+
+@interface QCLocationManager (GEOKits)
+
+@property (nonatomic, strong, readonly) CLGeocoder *geoCoder;
+
+- (void)reloadGEOInfo;
+- (void)cancelGEOCoding;
+
 @end
 
 @interface QCLocationManager (OffsetCalculate)

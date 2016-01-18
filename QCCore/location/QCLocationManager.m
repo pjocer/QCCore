@@ -8,6 +8,7 @@
 
 #import "QCLocationManager.h"
 #import "UIDevice+Hardware.h"
+#import <objc/runtime.h>
 
 #define LOCATION_TIMEOUT 20
 
@@ -211,7 +212,52 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
 
 @end
 
+NSString * const LocationUpdatedGEOInfoNotification = @"__location_updated_geo_info_notification";
+NSString * const LocationPlacemarkName = @"LocationPlacemark";
+NSString * const LocationGEOErrorName = @"LocationGEOError";
 
+@implementation QCLocationManager (GEOKits)
+
+- (void)setGeoCoder:(CLGeocoder *)geoCoder
+{
+    [self willChangeValueForKey:@"geoCoder"];
+    objc_setAssociatedObject(self, @selector(geoCoder), geoCoder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self didChangeValueForKey:@"geoCoder"];
+}
+
+- (CLGeocoder *)geoCoder
+{
+    return objc_getAssociatedObject(self, @selector(geoCoder));
+}
+
+- (void)reloadGEOInfo
+{
+    if (![self geoCoder]) {
+        CLGeocoder *coder = [[CLGeocoder alloc] init];
+        [self setGeoCoder:coder];
+    }
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.coordinateWGS.latitude longitude:self.coordinateWGS.longitude];
+    [[self geoCoder] reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        CLPlacemark *placemark = (placemarks.count > 0 ? placemarks.firstObject: nil);
+        
+        if (!placemark && !error) error = [NSError errorWithDomain:@"QCLocationDomain" code:-1 userInfo:@{@"reason":@"no placemark exist"}];
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        if (placemark) [dic setObject:placemark forKey:LocationPlacemarkName];
+        if (error) [dic setObject:error forKey:LocationGEOErrorName];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:LocationUpdatedGEOInfoNotification object:nil userInfo:dic];
+    }];
+}
+
+- (void)cancelGEOCoding
+{
+    if ([self geoCoder]) {
+        [[self geoCoder] cancelGeocode];
+    }
+}
+
+@end
 
 @implementation QCLocationManager (OffsetCalculate)
 
