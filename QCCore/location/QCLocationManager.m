@@ -59,7 +59,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
 //        }
         
         if (IOS8Later &&
-            [QCLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined &&
+            [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined &&
             [self respondsToSelector:@selector(requestAlwaysAuthorization)])
         {
             [self performSelector:@selector(requestAlwaysAuthorization) withObject:nil];
@@ -76,7 +76,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
             return;
         }
         
-        _authStatus = [QCLocationManager authorizationStatus];
+        _authStatus = [CLLocationManager authorizationStatus];
         if (_authStatus == kCLAuthorizationStatusDenied || _authStatus == kCLAuthorizationStatusRestricted) {
             [[NSNotificationCenter defaultCenter] postNotificationName:LocationAuthStatusChangedNotification
                                                                 object:nil
@@ -116,7 +116,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
         [_stableTimer invalidate];
         _stableTimer = nil;
     }
-    if (self.location) {
+    if (super.location) {
         self.currentStatus = LocationSucceed;
     }else {
         _stableTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(locationSucceed) userInfo:nil repeats:NO];
@@ -147,7 +147,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
         if (locations && locations.count > 0) {
             _lastLocation = [locations.firstObject copy];
         }else {
-            _lastLocation = self.location;
+            _lastLocation = super.location;
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:LocationUpdatedNotification
                                                             object:nil

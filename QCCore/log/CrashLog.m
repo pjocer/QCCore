@@ -110,8 +110,8 @@ static inline NSString * GetCrashDateString()
     _pageSize = device.pageSize;
     _physMemory = device.physicalMemorySize;
     _sockBufferSize = device.maxSocketBufferSize;
-    _totalSDSize = [device.totalDiskSpace unsignedLongValue];
-    _freeSDSize = [device.freeDiskSpace unsignedLongValue];
+    _totalSDSize = device.totalDiskSpace;
+    _freeSDSize = device.freeDiskSpace;
     _network = device.network;
 }
 

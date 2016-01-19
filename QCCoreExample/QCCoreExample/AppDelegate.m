@@ -23,15 +23,7 @@
     [[CrashManager manager] installCrashHandler];
     
     
-//    NSArray *logs = [CrashManager manager].unCheckedLogNames;
-//    for (NSDictionary *dic in logs) {
-//        CrashLog *log = [[CrashManager manager] crashLogWithName:dic[@"name"]];
-//        NSLog(@"%@",log);
-//    }
     
-//    array = [NSArray array];
-//    NSString *str = @"";
-//    [array addObject:str];
     
     return YES;
 }

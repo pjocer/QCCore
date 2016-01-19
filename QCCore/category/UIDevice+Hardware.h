@@ -73,8 +73,8 @@
 - (unsigned long) pageSize;
 - (unsigned long) physicalMemorySize;
 - (unsigned long) maxSocketBufferSize;
-- (NSNumber *) totalDiskSpace;
-- (NSNumber *) freeDiskSpace;
+- (unsigned long) totalDiskSpace;
+- (unsigned long) freeDiskSpace;
 - (natural_t)getFreeMemory;
 
 - (double)availableMemory;

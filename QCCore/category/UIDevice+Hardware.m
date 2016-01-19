@@ -129,16 +129,18 @@
     return taskInfo.resident_size;
 }
 
-- (NSNumber *) totalDiskSpace
+- (unsigned long) totalDiskSpace
 {
     NSDictionary *fattributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
-    return [fattributes objectForKey:NSFileSystemSize];
+    NSNumber *value = [fattributes objectForKey:NSFileSystemSize];
+    return value ? [value unsignedLongValue] : 0;
 }
 
-- (NSNumber *) freeDiskSpace
+- (unsigned long) freeDiskSpace
 {
     NSDictionary *fattributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
-    return [fattributes objectForKey:NSFileSystemFreeSize];
+    NSNumber *value = [fattributes objectForKey:NSFileSystemFreeSize];
+    return value ? [value unsignedLongValue] : 0;
 }
 
 - (BOOL) hasRetinaDisplay
