@@ -17,13 +17,13 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [[CrashManager manager] installCrashHandler];
     
+    [[QCLocationManager defaultManager] startUpdatingLocation];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getLocation:) name:LocationUpdatedNotification object:nil];
     
     return YES;
 }
@@ -48,6 +48,15 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)getLocation:(NSNotification *)notification
+{
+    NSLog(@"%@",notification.userInfo);
+    
+    CLLocationCoordinate2D dis = [notification.userInfo[LocationCoordinateBDName] locationCoordinateValue];
+    NSLog(@"%.6f,%.6f",dis.latitude, dis.longitude);
+    NSLog(@"%.6f,%.6f",[QCLocationManager defaultManager].coordinateBD.latitude, [QCLocationManager defaultManager].coordinateBD.longitude);
 }
 
 @end

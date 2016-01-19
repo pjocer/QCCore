@@ -62,7 +62,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
             [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined &&
             [self respondsToSelector:@selector(requestAlwaysAuthorization)])
         {
-            [self performSelector:@selector(requestAlwaysAuthorization) withObject:nil];
+            [self requestWhenInUseAuthorization];
         }
     }
     return self;
@@ -81,6 +81,10 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
             [[NSNotificationCenter defaultCenter] postNotificationName:LocationAuthStatusChangedNotification
                                                                 object:nil
                                                               userInfo:@{LocationCurrentAuthStatusName:[NSNumber numberWithInt:_authStatus]}];
+            return;
+        }
+        
+        if (_authStatus == kCLAuthorizationStatusNotDetermined || _authStatus == kCLAuthorizationStatusDenied || _authStatus == kCLAuthorizationStatusRestricted) {
             return;
         }
         
@@ -118,6 +122,8 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
     }
     if (super.location) {
         self.currentStatus = LocationSucceed;
+        _lastLocation = super.location;
+        [self sendLocationNotification];
     }else {
         _stableTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(locationSucceed) userInfo:nil repeats:NO];
     }
@@ -149,15 +155,20 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
         }else {
             _lastLocation = super.location;
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:LocationUpdatedNotification
-                                                            object:nil
-                                                          userInfo:@{LocationCurrentAuthStatusName:[NSNumber numberWithInt:_authStatus],
-                                                                     LocationCurrentStatusName:[NSNumber numberWithInt:_currentStatus],
-                                                                     LocationCoordinateWGSName:[NSValue valueWithLocationCoordinate:self.coordinateWGS],
-                                                                     LocationCoordinateGCJName:[NSValue valueWithLocationCoordinate:self.coordinateGCJ],
-                                                                     LocationCoordinateBDName:[NSValue valueWithLocationCoordinate:self.coordinateBD],
-                                                                     LocationAltitudeName:[NSValue valueWithLocationDistance:self.altitude]}];
+        [self sendLocationNotification];
     }
+}
+
+- (void)sendLocationNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:LocationUpdatedNotification
+                                                        object:nil
+                                                      userInfo:@{LocationCurrentAuthStatusName:[NSNumber numberWithInt:_authStatus],
+                                                                 LocationCurrentStatusName:[NSNumber numberWithInt:_currentStatus],
+                                                                 LocationCoordinateWGSName:[NSValue valueWithLocationCoordinate:self.coordinateWGS],
+                                                                 LocationCoordinateGCJName:[NSValue valueWithLocationCoordinate:self.coordinateGCJ],
+                                                                 LocationCoordinateBDName:[NSValue valueWithLocationCoordinate:self.coordinateBD],
+                                                                 LocationAltitudeName:[NSValue valueWithLocationDistance:self.altitude]}];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
@@ -179,7 +190,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
     
     _authStatus = status;
     
-    if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted) {
+    if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusNotDetermined) {
         return;
     }
     
@@ -318,15 +329,15 @@ const double x_pi = 3.14159265358979324 * 3000.0 / 180.0;
     double x = gcLoc.longitude, y = gcLoc.latitude;
     double z = sqrt(x * x + y * y) + 0.00002 * sin(y * x_pi);
     double theta = atan2(y, x) + 0.000003 * cos(x * x_pi);
-    return CLLocationCoordinate2DMake(z*cos(theta)+0.0065, z*sin(theta)+0.006);
+    return CLLocationCoordinate2DMake(z*sin(theta)+0.006, z*cos(theta)+0.0065);
 }
 
 + (CLLocationCoordinate2D)transformFromBDToGCJ:(CLLocationCoordinate2D)bdLoc
 {
-    double x = bdLoc.longitude - 0.0065, y = bdLoc.latitude - 0.006;
+    double x = bdLoc.latitude - 0.0065, y = bdLoc.longitude - 0.006;
     double z = sqrt(x * x + y * y) - 0.00002 * sin(y * x_pi);
     double theta = atan2(y, x) - 0.000003 * cos(x * x_pi);
-    return CLLocationCoordinate2DMake(z*cos(theta), z*sin(theta));
+    return CLLocationCoordinate2DMake(z*sin(theta), z*cos(theta));
 }
 
 @end

@@ -335,6 +335,7 @@
 				215C79A81C4A2124008B1B65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
