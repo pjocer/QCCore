@@ -53,10 +53,12 @@
 - (void)getLocation:(NSNotification *)notification
 {
     NSLog(@"%@",notification.userInfo);
-    
     CLLocationCoordinate2D dis = [notification.userInfo[LocationCoordinateBDName] locationCoordinateValue];
     NSLog(@"%.6f,%.6f",dis.latitude, dis.longitude);
     NSLog(@"%.6f,%.6f",[QCLocationManager defaultManager].coordinateBD.latitude, [QCLocationManager defaultManager].coordinateBD.longitude);
+    
+    [[QCLocationManager defaultManager] reloadGEOInfo];
+    
 }
 
 @end

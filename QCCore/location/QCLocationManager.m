@@ -115,7 +115,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
     
 }
 
-- (void)locationSucceed {
+- (void)excLocationSucceed {
     if (_stableTimer != nil) {
         [_stableTimer invalidate];
         _stableTimer = nil;
@@ -124,8 +124,9 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
         self.currentStatus = LocationSucceed;
         _lastLocation = super.location;
         [self sendLocationNotification];
+        [[QCLocationManager defaultManager] reloadGEOInfo];
     }else {
-        _stableTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(locationSucceed) userInfo:nil repeats:NO];
+        _stableTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(excLocationSucceed) userInfo:nil repeats:NO];
     }
 }
 
@@ -148,7 +149,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
             [_stableTimer invalidate];
             _stableTimer = nil;
         }
-        _stableTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(locationSucceed) userInfo:nil repeats:NO];
+        _stableTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(excLocationSucceed) userInfo:nil repeats:NO];
     }else {
         if (locations && locations.count > 0) {
             _lastLocation = [locations.firstObject copy];
@@ -241,24 +242,53 @@ NSString * const LocationGEOErrorName = @"LocationGEOError";
     return objc_getAssociatedObject(self, @selector(geoCoder));
 }
 
+- (void)setLastPlacemark:(CLPlacemark *)lastPlacemark
+{
+    [self willChangeValueForKey:@"lastPlacemark"];
+    objc_setAssociatedObject(self, @selector(lastPlacemark), lastPlacemark, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self didChangeValueForKey:@"lastPlacemark"];
+}
+
+- (CLPlacemark *)lastPlacemark
+{
+    return objc_getAssociatedObject(self, @selector(lastPlacemark));
+}
+
+- (NSString *)address
+{
+    if ([self lastPlacemark]) {
+        NSMutableString *str = [NSMutableString string];
+        [str appendString:[self lastPlacemark].locality];
+        [str appendString:[self lastPlacemark].subLocality];
+        [str appendString:[self lastPlacemark].thoroughfare];
+        [str appendString:[self lastPlacemark].subThoroughfare];
+        return str;
+    }
+    return nil;
+}
+
 - (void)reloadGEOInfo
 {
     if (![self geoCoder]) {
         CLGeocoder *coder = [[CLGeocoder alloc] init];
         [self setGeoCoder:coder];
     }
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.coordinateWGS.latitude longitude:self.coordinateWGS.longitude];
-    [[self geoCoder] reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        CLPlacemark *placemark = (placemarks.count > 0 ? placemarks.firstObject: nil);
-        
-        if (!placemark && !error) error = [NSError errorWithDomain:@"QCLocationDomain" code:-1 userInfo:@{@"reason":@"no placemark exist"}];
-        
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        if (placemark) [dic setObject:placemark forKey:LocationPlacemarkName];
-        if (error) [dic setObject:error forKey:LocationGEOErrorName];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:LocationUpdatedGEOInfoNotification object:nil userInfo:dic];
-    }];
+    if ([super location]) {
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.coordinateWGS.latitude longitude:self.coordinateWGS.longitude];
+        [[self geoCoder] reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+            CLPlacemark *placemark = (placemarks.count > 0 ? placemarks.firstObject: nil);
+            
+            if (!placemark && !error) error = [NSError errorWithDomain:@"QCLocationDomain" code:-1 userInfo:@{@"reason":@"no placemark exist"}];
+            
+            if (placemark) [self setLastPlacemark:placemark];
+            
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            if (placemark) [dic setObject:placemark forKey:LocationPlacemarkName];
+            if (error) [dic setObject:error forKey:LocationGEOErrorName];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:LocationUpdatedGEOInfoNotification object:nil userInfo:dic];
+        }];
+    }
 }
 
 - (void)cancelGEOCoding

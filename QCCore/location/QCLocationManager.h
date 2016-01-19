@@ -70,6 +70,8 @@ FOUNDATION_EXTERN NSString * const LocationGEOErrorName;
 @interface QCLocationManager (GEOKits)
 
 @property (nonatomic, strong, readonly) CLGeocoder *geoCoder;
+@property (nonatomic, strong, readonly) CLPlacemark *lastPlacemark;
+@property (readonly) NSString *address;
 
 - (void)reloadGEOInfo;
 - (void)cancelGEOCoding;
