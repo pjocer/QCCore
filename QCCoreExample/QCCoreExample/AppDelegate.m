@@ -24,7 +24,7 @@
     [[QCLocationManager defaultManager] startUpdatingLocation];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getLocation:) name:LocationUpdatedNotification object:nil];
-    
+        
     return YES;
 }
 

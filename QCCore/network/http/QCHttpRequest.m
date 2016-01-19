@@ -15,6 +15,7 @@
     NSMutableDictionary *_requestHeaders;
     SuccessBlock _successBlock;
     FailedBlock _failedBlock;
+    NSDate *_startDate;
 }
 @property (nonatomic, strong) AFHTTPRequestOperation *requestOperation;
 @end
@@ -59,6 +60,7 @@ static NSTimeInterval DEFAULT_TIMEOUT_INTERVAL = 20.0f;
 }
 
 - (void)start {
+    _startDate = [NSDate date];
     [[QCNetworkService sharedInstance] exec:self];
 }
 
@@ -89,6 +91,12 @@ static NSTimeInterval DEFAULT_TIMEOUT_INTERVAL = 20.0f;
 - (void)preprocessRequest
 {
     
+}
+
+- (void)setRequestFinished
+{
+    _responseInterval = [[NSDate date] timeIntervalSinceDate:_startDate];
+    DLog(@"ResponseInterval= %.3f, ResponseLength= %lu, URL= %@",self.responseInterval, self.responseData.length, self.url);
 }
 
 - (NSDictionary *)requestHeaders
@@ -137,6 +145,7 @@ static NSTimeInterval DEFAULT_TIMEOUT_INTERVAL = 20.0f;
     [desc appendFormat:@"\nParameters= %@",self.requestParams.description];
     [desc appendFormat:@"\nResponseCode= %d",(int)self.responseStatusCode];
     [desc appendFormat:@"\nResponseDataLength= %ld", (long)self.responseData.length];
+    [desc appendFormat:@"\nResponseInterval= %.3f",self.responseInterval];
     return desc;
 }
 

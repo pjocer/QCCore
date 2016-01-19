@@ -46,6 +46,8 @@ typedef void (^FailedBlock)(QCHttpRequest * _Nonnull request);
 /// 请求唯一标识字符串
 @property (readonly, nullable) NSString *uniqueKey;
 
+@property (nonatomic, readonly) NSTimeInterval responseInterval;
+
 - (nullable id)initWithUrl:(nonnull NSString *)url;
 - (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod;
 - (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod timeoutInterval:(NSTimeInterval)timeoutInterval;

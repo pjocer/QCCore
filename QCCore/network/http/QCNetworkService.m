@@ -16,14 +16,13 @@
 @property (assign) id failedBlock;
 - (void)formatResponseOperation:(AFHTTPRequestOperation *)operation;
 - (void)postprocessRequest;
-- (void)preprocessRequest;;
+- (void)preprocessRequest;
+- (void)setRequestFinished;
 @end
 
 @implementation QCNetworkService {
     AFHTTPRequestOperationManager *_manager;
     NSMutableArray *_runningRequestArray;
-    NSTimeInterval _startTimeInterval;
-    NSTimeInterval _endTimeInterval;
 }
 
 + (QCNetworkService *)sharedInstance {
@@ -63,7 +62,6 @@
 }
 
 - (void)handleRequest:(QCHttpRequest *)request {
-    _startTimeInterval = [[NSDate date] timeIntervalSince1970];
     _manager.requestSerializer.timeoutInterval = request.timeoutInterval;
 
     NSDictionary *headerDict = [request requestHeaders];
@@ -139,12 +137,12 @@
 }
 
 - (void)handleResult:(QCHttpRequest *)request error:(NSError *)error {
-    _endTimeInterval = [[NSDate date] timeIntervalSince1970] - _startTimeInterval;
+    [request setRequestFinished];
+    
     [_runningRequestArray removeObject:request];
     [request postprocessRequest];
     
     if (request.responseStatusCode >= 200 && request.responseStatusCode <= 299) {
-        NSLog([NSString stringWithFormat:@"Request Finish(%zd,%f) %@", request.responseStatusCode, _endTimeInterval * 1000, request.url], nil);
         if (request.successBlock) ((SuccessBlock)request.successBlock)(request);
     }else {
         if (request.failedBlock) ((FailedBlock)request.failedBlock)(request);
