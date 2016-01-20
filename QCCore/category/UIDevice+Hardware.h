@@ -73,8 +73,8 @@
 - (unsigned long) pageSize;
 - (unsigned long) physicalMemorySize;
 - (unsigned long) maxSocketBufferSize;
-- (unsigned long) totalDiskSpace;
-- (unsigned long) freeDiskSpace;
+- (unsigned long long) totalDiskSpace;
+- (unsigned long long) freeDiskSpace;
 - (natural_t)getFreeMemory;
 
 - (double)availableMemory;

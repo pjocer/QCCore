@@ -13,14 +13,25 @@
 #import "RNDecryptor.h"
 #import "AFNetworking.h"
 #import "UIDevice+Hardware.h"
+#import "DebugManager.h"
 
 #define ENCRYPTION_AES @"CLB_AES"
 #define ENCRYOT_PASSWORD @"ELQmHaX5ECDEJDd5r19eAWdZBzIwci4u"
 
+static APIMode _api_mode = DefaultAPI;
+
+#ifdef DEBUG
+static NSString *const DefaultAPIHost = @"http://dev.fk.com/api/"; //开发
+static NSString *const TrialAPIHost = @"http://trial.fk.com/api/";
+#else
+static NSString *const DefaultAPIHost = @"http://api.qccost.com/"; //正式
+static NSString *const TrialAPIHost = @"http://trial.qccost.com/";
+#endif
+
 // 配合deprecated方法写的函数，去除deprecated函数后可以删除
 static inline NSString * FilteURLDomain(NSString * url)
 {
-    NSString *domain = [QCNetworkService sharedInstance].currentDomain;
+    NSString *domain = [QCAPIRequest currentDomain];
     if ([url rangeOfString:@"http://dev.fk.com/api/"].location != NSNotFound) {
         return [url stringByReplacingOccurrencesOfString:@"http://dev.fk.com/api/" withString:domain];
     }else if ([url rangeOfString:@"http://trial.fk.com/api//"].location != NSNotFound) {
@@ -50,12 +61,7 @@ static inline NSString * FilteURLDomain(NSString * url)
 
 - (nullable id)initWithAPIName:(nonnull APIName *)apiName
                  requestMethod:(RequestMethod)requestMethod {
-    
-    if (![QCNetworkService sharedInstance].currentDomain) {
-        return nil;
-    }
-    
-    self = [super initWithUrl:[NSString stringWithFormat:@"%@%@",[QCNetworkService sharedInstance].currentDomain,apiName] requestMethod:requestMethod];
+    self = [super initWithUrl:[NSString stringWithFormat:@"%@%@", [QCAPIRequest currentDomain], apiName] requestMethod:requestMethod];
     return self;
 }
 
@@ -127,6 +133,25 @@ static inline NSString * FilteURLDomain(NSString * url)
     }
     
     _isFromCache = NO;
+}
+
++ (void)setAPIMode:(APIMode)mode
+{
+    _api_mode = mode;
+}
+
++ (NSString *)currentDomain
+{
+    NSString *domain;
+    if (_api_mode == DefaultAPI) {
+        domain = DefaultAPIHost;
+    }else {
+        domain = TrialAPIHost;
+    }
+    if ([DebugManager manager].customDomain) {
+        domain = [DebugManager manager].customDomain;
+    }
+    return domain;
 }
 
 // 拆分了responseModel

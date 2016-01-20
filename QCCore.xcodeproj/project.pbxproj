@@ -18,6 +18,14 @@
 		215C79C81C4C88BB008B1B65 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 215C79C71C4C88BB008B1B65 /* CoreLocation.framework */; };
 		215C79CB1C4C8909008B1B65 /* QCLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C79C91C4C8909008B1B65 /* QCLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		215C79CC1C4C8909008B1B65 /* QCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C79CA1C4C8909008B1B65 /* QCLocationManager.m */; };
+		218340921C4F64B600D0B9E7 /* QCDebugController.h in Headers */ = {isa = PBXBuildFile; fileRef = 218340901C4F64B600D0B9E7 /* QCDebugController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		218340931C4F64B600D0B9E7 /* QCDebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218340911C4F64B600D0B9E7 /* QCDebugController.m */; };
+		218340981C4F784E00D0B9E7 /* DebugManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 218340961C4F784E00D0B9E7 /* DebugManager.h */; };
+		218340991C4F784E00D0B9E7 /* DebugManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 218340971C4F784E00D0B9E7 /* DebugManager.m */; };
+		2183409C1C4F8A8200D0B9E7 /* QCDebugInfoController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2183409A1C4F8A8200D0B9E7 /* QCDebugInfoController.h */; };
+		2183409D1C4F8A8200D0B9E7 /* QCDebugInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2183409B1C4F8A8200D0B9E7 /* QCDebugInfoController.m */; };
+		218340A01C4F93D300D0B9E7 /* NetworkUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 2183409E1C4F93D300D0B9E7 /* NetworkUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		218340A11C4F93D300D0B9E7 /* NetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2183409F1C4F93D300D0B9E7 /* NetworkUtil.m */; };
 		218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 218F16B51C464354005D6C8B /* QCAPIDataRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		218F16B81C464354005D6C8B /* QCAPIDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 218F16B61C464354005D6C8B /* QCAPIDataRequest.m */; };
 		219C09CD1C434599002E10CB /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 219C09831C434599002E10CB /* AFHTTPRequestOperation.h */; };
@@ -124,6 +132,14 @@
 		215C79C71C4C88BB008B1B65 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		215C79C91C4C8909008B1B65 /* QCLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCLocationManager.h; sourceTree = "<group>"; };
 		215C79CA1C4C8909008B1B65 /* QCLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCLocationManager.m; sourceTree = "<group>"; };
+		218340901C4F64B600D0B9E7 /* QCDebugController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCDebugController.h; sourceTree = "<group>"; };
+		218340911C4F64B600D0B9E7 /* QCDebugController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCDebugController.m; sourceTree = "<group>"; };
+		218340961C4F784E00D0B9E7 /* DebugManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugManager.h; sourceTree = "<group>"; };
+		218340971C4F784E00D0B9E7 /* DebugManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugManager.m; sourceTree = "<group>"; };
+		2183409A1C4F8A8200D0B9E7 /* QCDebugInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCDebugInfoController.h; sourceTree = "<group>"; };
+		2183409B1C4F8A8200D0B9E7 /* QCDebugInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCDebugInfoController.m; sourceTree = "<group>"; };
+		2183409E1C4F93D300D0B9E7 /* NetworkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkUtil.h; sourceTree = "<group>"; };
+		2183409F1C4F93D300D0B9E7 /* NetworkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkUtil.m; sourceTree = "<group>"; };
 		218F16B51C464354005D6C8B /* QCAPIDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCAPIDataRequest.h; sourceTree = "<group>"; };
 		218F16B61C464354005D6C8B /* QCAPIDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCAPIDataRequest.m; sourceTree = "<group>"; };
 		219C09831C434599002E10CB /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -287,9 +303,23 @@
 			path = location;
 			sourceTree = "<group>";
 		};
+		2183408F1C4F64A800D0B9E7 /* debugCenter */ = {
+			isa = PBXGroup;
+			children = (
+				218340901C4F64B600D0B9E7 /* QCDebugController.h */,
+				218340911C4F64B600D0B9E7 /* QCDebugController.m */,
+				2183409A1C4F8A8200D0B9E7 /* QCDebugInfoController.h */,
+				2183409B1C4F8A8200D0B9E7 /* QCDebugInfoController.m */,
+				218340961C4F784E00D0B9E7 /* DebugManager.h */,
+				218340971C4F784E00D0B9E7 /* DebugManager.m */,
+			);
+			path = debugCenter;
+			sourceTree = "<group>";
+		};
 		218F16C11C465606005D6C8B /* debug */ = {
 			isa = PBXGroup;
 			children = (
+				2183408F1C4F64A800D0B9E7 /* debugCenter */,
 				215C79781C4A0E78008B1B65 /* DebugKits.h */,
 			);
 			path = debug;
@@ -443,6 +473,8 @@
 		21CED7AD1C2D1E94003875EA /* network */ = {
 			isa = PBXGroup;
 			children = (
+				2183409E1C4F93D300D0B9E7 /* NetworkUtil.h */,
+				2183409F1C4F93D300D0B9E7 /* NetworkUtil.m */,
 				21CED7CA1C3118A0003875EA /* http */,
 			);
 			path = network;
@@ -488,8 +520,11 @@
 				21CED7D61C3118A0003875EA /* QCHttpRequest.h in Headers */,
 				21CED7C81C2D2236003875EA /* UIDevice+Hardware.h in Headers */,
 				215C781E1C48997B008B1B65 /* CrashLog.h in Headers */,
+				2183409C1C4F8A8200D0B9E7 /* QCDebugInfoController.h in Headers */,
+				218340A01C4F93D300D0B9E7 /* NetworkUtil.h in Headers */,
 				219C09FC1C434599002E10CB /* FMDatabaseQueue.h in Headers */,
 				215C79CB1C4C8909008B1B65 /* QCLocationManager.h in Headers */,
+				218340921C4F64B600D0B9E7 /* QCDebugController.h in Headers */,
 				215C79791C4A1A15008B1B65 /* DebugKits.h in Headers */,
 				215C79751C49F7A7008B1B65 /* CrashManager.h in Headers */,
 				219C09D11C434599002E10CB /* AFHTTPSessionManager.h in Headers */,
@@ -502,6 +537,7 @@
 				219C09E41C434599002E10CB /* UIActivityIndicatorView+AFNetworking.h in Headers */,
 				219C09CF1C434599002E10CB /* AFHTTPRequestOperationManager.h in Headers */,
 				219C0A021C434599002E10CB /* RNCryptor+Private.h in Headers */,
+				218340981C4F784E00D0B9E7 /* DebugManager.h in Headers */,
 				21CED7D91C3118A0003875EA /* QCNetworkService.h in Headers */,
 				219C09F21C434599002E10CB /* UIWebView+AFNetworking.h in Headers */,
 				219C09ED1C434599002E10CB /* UIKit+AFNetworking.h in Headers */,
@@ -669,13 +705,17 @@
 				21CED7C91C2D2236003875EA /* UIDevice+Hardware.m in Sources */,
 				219C09E71C434599002E10CB /* UIAlertView+AFNetworking.m in Sources */,
 				219C09D51C434599002E10CB /* AFNetworkReachabilityManager.m in Sources */,
+				2183409D1C4F8A8200D0B9E7 /* QCDebugInfoController.m in Sources */,
 				21CED7D51C3118A0003875EA /* QCAPIRequest.m in Sources */,
 				219C09E91C434599002E10CB /* UIButton+AFNetworking.m in Sources */,
+				218340931C4F64B600D0B9E7 /* QCDebugController.m in Sources */,
 				219C09D91C434599002E10CB /* AFURLConnectionOperation.m in Sources */,
+				218340991C4F784E00D0B9E7 /* DebugManager.m in Sources */,
 				219C09E51C434599002E10CB /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				219C09E31C434599002E10CB /* AFNetworkActivityIndicatorManager.m in Sources */,
 				219C09D21C434599002E10CB /* AFHTTPSessionManager.m in Sources */,
 				215C781F1C48997B008B1B65 /* CrashLog.m in Sources */,
+				218340A11C4F93D300D0B9E7 /* NetworkUtil.m in Sources */,
 				219C09F71C434599002E10CB /* FMDatabase.m in Sources */,
 				219C09DB1C434599002E10CB /* AFURLRequestSerialization.m in Sources */,
 				219C0A0C1C434599002E10CB /* RNOpenSSLCryptor.m in Sources */,

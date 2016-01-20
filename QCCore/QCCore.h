@@ -19,6 +19,7 @@ FOUNDATION_EXPORT const unsigned char QCCoreVersionString[];
 #import <QCCore/QCAPIRequest.h>
 #import <QCCore/QCHttpRequest.h>
 #import <QCCore/QCAPIDataRequest.h>
+#import <QCCore/NetworkUtil.h>
 
 /// log
 #import <QCCore/CrashLog.h>
@@ -29,6 +30,7 @@ FOUNDATION_EXPORT const unsigned char QCCoreVersionString[];
 
 /// debug
 #import <QCCore/DebugKits.h>
+#import <QCCore/QCDebugController.h>
 
 /// location
 #import <QCCore/QCLocationManager.h>

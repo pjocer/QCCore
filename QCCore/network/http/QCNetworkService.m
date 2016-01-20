@@ -9,6 +9,7 @@
 #import "QCNetworkService.h"
 #import "AFNetworking.h"
 #import "QCRequestCache.h"
+#import "NetworkUtil.h"
 
 @interface QCHttpRequest ()
 @property (nonatomic, strong) AFHTTPRequestOperation *requestOperation;
@@ -39,7 +40,8 @@
     if (self) {
         _manager = [AFHTTPRequestOperationManager manager];
         _runningRequestArray = [NSMutableArray new];
-        _currentDomain = @"http://trial.qccost.com/";
+        
+        [NetSniffer defaultSniffer];
     }
     return self;
 }

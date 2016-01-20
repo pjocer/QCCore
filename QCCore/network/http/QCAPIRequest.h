@@ -10,6 +10,11 @@
 
 typedef const NSString APIName;
 
+typedef NS_OPTIONS(short, APIMode) {
+    DefaultAPI,
+    TrialAPI
+};
+
 /**
  网络数据的缓存策略
  */
@@ -79,6 +84,9 @@ typedef void (^APIFailedBlock)(QCAPIRequest * _Nonnull request);
  */
 - (void)startWithAPISuccessBlock:(nullable APISuccessBlock)successBlock
                   APIFailedBlock:(nullable APISuccessBlock)failedBlock;
+
++ (nonnull NSString *)currentDomain;
++ (void)setAPIMode:(APIMode)mode;
 
 #pragma mark - 失效函数
 

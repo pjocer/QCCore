@@ -13,8 +13,8 @@
 		215C799D1C4A2124008B1B65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 215C799B1C4A2124008B1B65 /* Main.storyboard */; };
 		215C799F1C4A2124008B1B65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 215C799E1C4A2124008B1B65 /* Assets.xcassets */; };
 		215C79A21C4A2124008B1B65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 215C79A01C4A2124008B1B65 /* LaunchScreen.storyboard */; };
-		215C79AA1C4A2155008B1B65 /* QCCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 215C79A91C4A2155008B1B65 /* QCCore.framework */; };
 		215C79B01C4A2BA8008B1B65 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 215C79AF1C4A2BA8008B1B65 /* libsqlite3.dylib */; };
+		218340951C4F75FF00D0B9E7 /* QCCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 218340941C4F75FF00D0B9E7 /* QCCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +28,8 @@
 		215C799E1C4A2124008B1B65 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		215C79A11C4A2124008B1B65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		215C79A31C4A2124008B1B65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		215C79A91C4A2155008B1B65 /* QCCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QCCore.framework; path = "../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphoneos/QCCore.framework"; sourceTree = "<group>"; };
 		215C79AF1C4A2BA8008B1B65 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = ../../../../../usr/lib/libsqlite3.dylib; sourceTree = "<group>"; };
+		218340941C4F75FF00D0B9E7 /* QCCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QCCore.framework; path = "../../../Library/Developer/Xcode/DerivedData/Build/Products/Debug-iphoneos/QCCore.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,8 +37,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				218340951C4F75FF00D0B9E7 /* QCCore.framework in Frameworks */,
 				215C79B01C4A2BA8008B1B65 /* libsqlite3.dylib in Frameworks */,
-				215C79AA1C4A2155008B1B65 /* QCCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,8 +48,8 @@
 		215C79861C4A2124008B1B65 = {
 			isa = PBXGroup;
 			children = (
+				218340941C4F75FF00D0B9E7 /* QCCore.framework */,
 				215C79AF1C4A2BA8008B1B65 /* libsqlite3.dylib */,
-				215C79A91C4A2155008B1B65 /* QCCore.framework */,
 				215C79911C4A2124008B1B65 /* QCCoreExample */,
 				215C79901C4A2124008B1B65 /* Products */,
 			);

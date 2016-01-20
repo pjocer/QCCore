@@ -71,7 +71,11 @@
 
 - (unsigned long) cpuCount
 {
-    return [self getSysInfo:HW_NCPU];
+    size_t size = sizeof(int);
+    int results;
+    int mib[2] = {CTL_HW, HW_NCPU};
+    sysctl(mib, 2, &results, &size, NULL, 0);
+    return results;
 }
 
 - (unsigned long) totalMemory
@@ -129,18 +133,18 @@
     return taskInfo.resident_size;
 }
 
-- (unsigned long) totalDiskSpace
+- (unsigned long long) totalDiskSpace
 {
     NSDictionary *fattributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
     NSNumber *value = [fattributes objectForKey:NSFileSystemSize];
-    return value ? [value unsignedLongValue] : 0;
+    return value ? [value unsignedLongLongValue] : 0;
 }
 
-- (unsigned long) freeDiskSpace
+- (unsigned long long) freeDiskSpace
 {
     NSDictionary *fattributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
     NSNumber *value = [fattributes objectForKey:NSFileSystemFreeSize];
-    return value ? [value unsignedLongValue] : 0;
+    return value ? [value unsignedLongLongValue] : 0;
 }
 
 - (BOOL) hasRetinaDisplay

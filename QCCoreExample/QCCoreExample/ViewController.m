@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <QCCore/QCCore.h>
 
 @interface ViewController ()
 
@@ -17,6 +18,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+//    QCDebugController *controller = [[QCDebugController alloc] init];
+//    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
+//    [self presentViewController:navi animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

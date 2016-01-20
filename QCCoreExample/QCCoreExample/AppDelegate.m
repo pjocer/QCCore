@@ -21,10 +21,21 @@
     
     [[CrashManager manager] installCrashHandler];
     
-    [[QCLocationManager defaultManager] startUpdatingLocation];
+//    [[QCLocationManager defaultManager] startUpdatingLocation];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getLocation:) name:LocationUpdatedNotification object:nil];
+    
+    QCDebugController *controller = [[QCDebugController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
+    self.window.rootViewController = navi;
+    
+    QCAPIRequest *request = [[QCAPIRequest alloc] initWithAPIName:@"home/backlog" requestMethod:POST];
+    [request startWithAPISuccessBlock:^(QCAPIRequest * _Nonnull request) {
         
+    } APIFailedBlock:^(QCAPIRequest * _Nonnull request) {
+        
+    }];
+    
     return YES;
 }
 
