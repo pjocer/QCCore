@@ -26,6 +26,9 @@
 		2183409D1C4F8A8200D0B9E7 /* QCDebugInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2183409B1C4F8A8200D0B9E7 /* QCDebugInfoController.m */; };
 		218340A01C4F93D300D0B9E7 /* NetworkUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 2183409E1C4F93D300D0B9E7 /* NetworkUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		218340A11C4F93D300D0B9E7 /* NetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2183409F1C4F93D300D0B9E7 /* NetworkUtil.m */; };
+		218340A41C4F970D00D0B9E7 /* QCDebugAnnoSelectController.h in Headers */ = {isa = PBXBuildFile; fileRef = 218340A21C4F970D00D0B9E7 /* QCDebugAnnoSelectController.h */; };
+		218340A51C4F970D00D0B9E7 /* QCDebugAnnoSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218340A31C4F970D00D0B9E7 /* QCDebugAnnoSelectController.m */; };
+		218340A71C4F972300D0B9E7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 218340A61C4F972300D0B9E7 /* MapKit.framework */; };
 		218F16B71C464354005D6C8B /* QCAPIDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 218F16B51C464354005D6C8B /* QCAPIDataRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		218F16B81C464354005D6C8B /* QCAPIDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 218F16B61C464354005D6C8B /* QCAPIDataRequest.m */; };
 		219C09CD1C434599002E10CB /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 219C09831C434599002E10CB /* AFHTTPRequestOperation.h */; };
@@ -140,6 +143,9 @@
 		2183409B1C4F8A8200D0B9E7 /* QCDebugInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCDebugInfoController.m; sourceTree = "<group>"; };
 		2183409E1C4F93D300D0B9E7 /* NetworkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkUtil.h; sourceTree = "<group>"; };
 		2183409F1C4F93D300D0B9E7 /* NetworkUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkUtil.m; sourceTree = "<group>"; };
+		218340A21C4F970D00D0B9E7 /* QCDebugAnnoSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCDebugAnnoSelectController.h; sourceTree = "<group>"; };
+		218340A31C4F970D00D0B9E7 /* QCDebugAnnoSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCDebugAnnoSelectController.m; sourceTree = "<group>"; };
+		218340A61C4F972300D0B9E7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		218F16B51C464354005D6C8B /* QCAPIDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCAPIDataRequest.h; sourceTree = "<group>"; };
 		218F16B61C464354005D6C8B /* QCAPIDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCAPIDataRequest.m; sourceTree = "<group>"; };
 		219C09831C434599002E10CB /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -232,6 +238,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				218340A71C4F972300D0B9E7 /* MapKit.framework in Frameworks */,
 				215C79C81C4C88BB008B1B65 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,6 +317,8 @@
 				218340911C4F64B600D0B9E7 /* QCDebugController.m */,
 				2183409A1C4F8A8200D0B9E7 /* QCDebugInfoController.h */,
 				2183409B1C4F8A8200D0B9E7 /* QCDebugInfoController.m */,
+				218340A21C4F970D00D0B9E7 /* QCDebugAnnoSelectController.h */,
+				218340A31C4F970D00D0B9E7 /* QCDebugAnnoSelectController.m */,
 				218340961C4F784E00D0B9E7 /* DebugManager.h */,
 				218340971C4F784E00D0B9E7 /* DebugManager.m */,
 			);
@@ -328,6 +337,7 @@
 		219C09801C434599002E10CB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				218340A61C4F972300D0B9E7 /* MapKit.framework */,
 				215C79C71C4C88BB008B1B65 /* CoreLocation.framework */,
 				215C79AB1C4A2A2C008B1B65 /* libsqlite3.tbd */,
 				219C09811C434599002E10CB /* AFNetworking */,
@@ -546,6 +556,7 @@
 				219C09EB1C434599002E10CB /* UIImageView+AFNetworking.h in Headers */,
 				219C09FF1C434599002E10CB /* FMResultSet.h in Headers */,
 				219C09EE1C434599002E10CB /* UIProgressView+AFNetworking.h in Headers */,
+				218340A41C4F970D00D0B9E7 /* QCDebugAnnoSelectController.h in Headers */,
 				219C09DC1C434599002E10CB /* AFURLResponseSerialization.h in Headers */,
 				219C09F81C434599002E10CB /* FMDatabaseAdditions.h in Headers */,
 				219C0A0B1C434599002E10CB /* RNOpenSSLCryptor.h in Headers */,
@@ -733,6 +744,7 @@
 				219C09DD1C434599002E10CB /* AFURLResponseSerialization.m in Sources */,
 				219C09FB1C434599002E10CB /* FMDatabasePool.m in Sources */,
 				219C0A0E1C434599002E10CB /* RNOpenSSLDecryptor.m in Sources */,
+				218340A51C4F970D00D0B9E7 /* QCDebugAnnoSelectController.m in Sources */,
 				219C09EC1C434599002E10CB /* UIImageView+AFNetworking.m in Sources */,
 				219C09CE1C434599002E10CB /* AFHTTPRequestOperation.m in Sources */,
 				219C0A081C434599002E10CB /* RNDecryptor.m in Sources */,

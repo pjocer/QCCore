@@ -10,6 +10,7 @@
 #import "QCAPIRequest.h"
 #import "DebugManager.h"
 #import "QCDebugInfoController.h"
+#import "QCDebugAnnoSelectController.h"
 
 @interface QCDebugController () <UIAlertViewDelegate, UIActionSheetDelegate>
 
@@ -85,8 +86,14 @@
         UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"API" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"正式" otherButtonTitles:@"试用", @"预发布", @"测试", @"开发", @"自定义", nil];
         [sheet showInView:self.view];
     }else {
-        UIViewController *controller = [[QCDebugInfoController alloc] initWithStyle:UITableViewStyleGrouped];
-        [self.navigationController pushViewController:controller animated:YES];
+        UIViewController *controller;
+        if (indexPath.row == 0) {
+            controller = [[QCDebugInfoController alloc] initWithStyle:UITableViewStyleGrouped];
+        }else if (indexPath.row == 1) {
+            controller = [[QCDebugAnnoSelectController alloc] init];
+        }
+        
+        if (controller) [self.navigationController pushViewController:controller animated:YES];
     }
 }
 

@@ -30,6 +30,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
     NSTimer *_stableTimer;
     CLLocation *_lastLocation;
     CLAuthorizationStatus _authStatus;
+    CLLocationCoordinate2D _debugCoordinate;
 }
 
 @end
@@ -57,6 +58,8 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
 //        if (IOS8Later) {
 //            [self requestWhenInUseAuthorization];
 //        }
+        
+        _debugCoordinate = CLLocationCoordinate2DMake(0, 0);
         
         if (IOS8Later &&
             [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined &&
@@ -200,16 +203,20 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
 
 - (CLLocationCoordinate2D)coordinateWGS
 {
+    if ([self debugLocationExist]) return _debugCoordinate;
     return _lastLocation?_lastLocation.coordinate:CLLocationCoordinate2DMake(0, 0);
 }
 
 - (CLLocationCoordinate2D)coordinateGCJ
 {
+    if ([self debugLocationExist]) return _debugCoordinate;
     return _lastLocation?[QCLocationManager transformFromWGSToGCJ:_lastLocation.coordinate]:CLLocationCoordinate2DMake(0, 0);
 }
 
 - (CLLocationCoordinate2D)coordinateBD
 {
+    if ([self debugLocationExist]) return [QCLocationManager transformFromGCJToBD:_debugCoordinate];
+    
     if (_lastLocation) {
         CLLocationCoordinate2D gcj = [QCLocationManager transformFromWGSToGCJ:_lastLocation.coordinate];
         return [QCLocationManager transformFromGCJToBD:gcj];
@@ -220,6 +227,20 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
 - (CLLocationDistance)altitude
 {
     return _lastLocation?_lastLocation.altitude:0;
+}
+
+- (BOOL)debugLocationExist
+{
+    if (_debugCoordinate.latitude != 0 && _debugCoordinate.longitude != 0) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)setDebugCoordinate:(CLLocationCoordinate2D)coordinate
+{
+    _debugCoordinate = coordinate;
+    [[QCLocationManager defaultManager] reloadGEOInfo];
 }
 
 @end
@@ -258,10 +279,10 @@ NSString * const LocationGEOErrorName = @"LocationGEOError";
 {
     if ([self lastPlacemark]) {
         NSMutableString *str = [NSMutableString string];
-        [str appendString:[self lastPlacemark].locality];
-        [str appendString:[self lastPlacemark].subLocality];
-        [str appendString:[self lastPlacemark].thoroughfare];
-        [str appendString:[self lastPlacemark].subThoroughfare];
+        [str appendString:[self lastPlacemark].locality?:@""];
+        [str appendString:[self lastPlacemark].subLocality?:@""];
+        [str appendString:[self lastPlacemark].thoroughfare?:@""];
+        [str appendString:[self lastPlacemark].subThoroughfare?:@""];
         return str;
     }
     return nil;
