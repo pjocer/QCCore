@@ -21,13 +21,13 @@
 static inline NSString * FilteURLDomain(NSString * url)
 {
     NSString *domain = [QCNetworkService sharedInstance].currentDomain;
-    if ([url containsString:@"http://dev.fk.com/api/"]) {
+    if ([url rangeOfString:@"http://dev.fk.com/api/"].location != NSNotFound) {
         return [url stringByReplacingOccurrencesOfString:@"http://dev.fk.com/api/" withString:domain];
-    }else if ([url containsString:@"http://trial.fk.com/api/"]) {
+    }else if ([url rangeOfString:@"http://trial.fk.com/api//"].location != NSNotFound) {
         return [url stringByReplacingOccurrencesOfString:@"http://trial.fk.com/api/" withString:domain];
-    }else if ([url containsString:@"http://api.qccost.com/"]) {
+    }else if ([url rangeOfString:@"http://api.qccost.com/"].location != NSNotFound) {
         return [url stringByReplacingOccurrencesOfString:@"http://api.qccost.com/" withString:domain];
-    }else if ([url containsString:@"http://trial.qccost.com/"]) {
+    }else if ([url rangeOfString:@"http://trial.qccost.com/"].location != NSNotFound) {
         return [url stringByReplacingOccurrencesOfString:@"http://trial.qccost.com/" withString:domain];
     }
     return url;
