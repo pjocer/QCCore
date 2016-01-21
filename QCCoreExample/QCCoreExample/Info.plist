@@ -24,12 +24,10 @@
 	<true/>
 	<key>NSLocationUsageDescription</key>
 	<string>请求位置信息</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>全程费控请求后台定位权限</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>全程费控请求后台定位权限</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

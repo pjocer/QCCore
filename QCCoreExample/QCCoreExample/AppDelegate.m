@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <QCCore/QCCore.h>
+//#import "QCDebugLogo.h"
 
 @interface AppDelegate ()
 {
@@ -25,16 +26,24 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getLocation:) name:LocationUpdatedNotification object:nil];
     
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
     QCDebugController *controller = [[QCDebugController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
     self.window.rootViewController = navi;
     
-    QCAPIRequest *request = [[QCAPIRequest alloc] initWithAPIName:@"home/backlog" requestMethod:POST];
-    [request startWithAPISuccessBlock:^(QCAPIRequest * _Nonnull request) {
-        
-    } APIFailedBlock:^(QCAPIRequest * _Nonnull request) {
-        
-    }];
+//    QCAPIRequest *request = [[QCAPIRequest alloc] initWithAPIName:@"home/backlog" requestMethod:POST];
+//    [request startWithAPISuccessBlock:^(QCAPIRequest * _Nonnull request) {
+//        
+//    } APIFailedBlock:^(QCAPIRequest * _Nonnull request) {
+//        
+//    }];
+    
+//    [@[] objectAtIndex:1];
+    [self.window makeKeyAndVisible];
+    
+//    [self.window addSubview:[QCDebugLogo logo]];
     
     return YES;
 }

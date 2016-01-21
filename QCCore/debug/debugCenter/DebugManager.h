@@ -8,11 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+FOUNDATION_EXTERN NSString *const DefaultAPIHost;
+FOUNDATION_EXTERN NSString *const TrialAPIHost;
+FOUNDATION_EXTERN NSString *const PreReleaseAPIHost;
+FOUNDATION_EXTERN NSString *const QAAPIHost;
+FOUNDATION_EXTERN NSString *const DeveloperAPIHost;
+
 @interface DebugManager : NSObject
 
 + (instancetype)manager;
 - (id)init NS_UNAVAILABLE;
 
-@property (nonatomic, strong) NSString *customDomain;
+@property (readwrite) NSString *customDomain;
 
 @end

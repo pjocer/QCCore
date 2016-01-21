@@ -31,6 +31,7 @@ FOUNDATION_EXPORT const unsigned char QCCoreVersionString[];
 /// debug
 #import <QCCore/DebugKits.h>
 #import <QCCore/QCDebugController.h>
+#import <QCCore/QCDebugLogo.h>
 
 /// location
 #import <QCCore/QCLocationManager.h>

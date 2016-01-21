@@ -152,7 +152,7 @@ static void SignalHandler(int signal)
     DLog(@"%@", _currentLog);
     
     [NSKeyedArchiver archiveRootObject:_currentLog toFile:_logPath];
-    [_logStatus addObject:@{@"name":_logName, @"status":[NSNumber numberWithBool:NO]}];
+    [_logStatus insertObject:@{@"name":_logName, @"status":[NSNumber numberWithBool:NO]} atIndex:0];
     [_logStatus writeToFile:[XQCrashLogPath() stringByAppendingPathComponent:@"info.plist"] atomically:YES];
 }
 

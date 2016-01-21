@@ -40,8 +40,10 @@ typedef NS_OPTIONS(uint8_t, SignalType) {
 @property (nonatomic, strong, readonly, nullable) NSString *channel;
 @property (nonatomic, strong, readonly, nullable) NSString *platform;
 @property (nonatomic, strong, readonly, nullable) NSString *osv;
+@property (nonatomic, strong, readonly, nullable) NSString *apiDomain;
 @property (nonatomic, assign, readonly) UIDeviceOrientation orientation;
 @property (nonatomic, assign, readonly) unsigned long busFrequency;
+@property (nonatomic, assign, readonly) unsigned long cpuFrequency;
 @property (nonatomic, assign, readonly) int cpuCount;
 @property (nonatomic, assign, readonly) unsigned long totalMemory;
 @property (nonatomic, assign, readonly) unsigned long userMemory;
