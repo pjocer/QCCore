@@ -293,6 +293,7 @@ NSString * const LocationGEOErrorName = @"LocationGEOError";
     if (![self geoCoder]) {
         CLGeocoder *coder = [[CLGeocoder alloc] init];
         [self setGeoCoder:coder];
+        [[NSUserDefaults standardUserDefaults] setObject:@[@"zh-hans"] forKey:@"AppleLanguages"]; //使返回内容强制转为简体中文
     }
     if ([super location]) {
         CLLocation *location = [[CLLocation alloc] initWithLatitude:self.coordinateWGS.latitude longitude:self.coordinateWGS.longitude];
