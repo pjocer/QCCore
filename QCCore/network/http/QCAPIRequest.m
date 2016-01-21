@@ -127,20 +127,19 @@ static inline NSString * FilteURLDomain(NSString * url)
 
 - (int)status
 {
-    if (_responseDict && _responseDict[@"status"])
-        return [_responseDict[@"status"] intValue];
+    if (_responseDict && _responseDict[@"status"]) return [_responseDict[@"status"] intValue];
     return -1;
 }
 
 - (NSDictionary *)data
 {
-    if (_responseDict && _responseDict[@"data"]) return _responseDict[@"data"];
+    if (_responseDict && _responseDict[@"data"] && [_responseDict[@"data"] isKindOfClass:[NSDictionary class]]) return _responseDict[@"data"];
     return nil;
 }
 
 - (NSString *)message
 {
-    if (_responseDict && _responseDict[@"message"]) return _responseDict[@"message"];
+    if (_responseDict && _responseDict[@"message"] && [_responseDict[@"message"] isKindOfClass:[NSString class]]) return _responseDict[@"message"];
     return nil;
 }
 
