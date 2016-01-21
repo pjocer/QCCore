@@ -7,6 +7,20 @@
 //
 
 #import "DebugManager.h"
+#import <UIKit/UIKit.h>
+#import "QCDebugLogo.h"
+
+#ifdef DEBUG
+NSString *const DefaultAPIHost = @"http://api.qccost.com/";
+NSString *const TrialAPIHost = @"http://trial.fk.com/api/";
+#else
+NSString *const DefaultAPIHost = @"http://api.qccost.com/";
+NSString *const TrialAPIHost = @"http://trial.qccost.com/";
+#endif
+
+NSString *const PreReleaseAPIHost = @"http://dev.qccost.com/api/";
+NSString *const QAAPIHost = @"http://api.qa.fk.com/";
+NSString *const DeveloperAPIHost = @"http://dev.fk.com/api/";
 
 @implementation DebugManager
 
@@ -24,19 +38,17 @@
 {
     if (self = [super init]) {
         
-        NSString *apiDomain = [[NSUserDefaults standardUserDefaults] objectForKey:@"CustomDomain"];
-        if (apiDomain && apiDomain.length > 0) {
-            _customDomain = apiDomain;
-        }
-        
-        
     }
     return self;
 }
 
+- (NSString *)customDomain
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"CustomDomain"];
+}
+
 - (void)setCustomDomain:(NSString *)customDomain
 {
-    _customDomain = customDomain;
     if (!customDomain || customDomain.length == 0) {
         [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"CustomDomain"];
     }else {

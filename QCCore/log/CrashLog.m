@@ -9,6 +9,8 @@
 #import "CrashLog.h"
 #import "UIDevice+Hardware.h"
 #import "AFNetworkReachabilityManager.h"
+#import "QCAPIRequest.h"
+#import "NetworkUtil.h"
 
 static inline NSString * GetCrashDateString()
 {
@@ -43,8 +45,11 @@ static inline NSString * GetCrashDateString()
         _platform = [aDecoder decodeObjectForKey:@"platform"];
         _osv = [aDecoder decodeObjectForKey:@"osv"];
         _network = [aDecoder decodeObjectForKey:@"network"];
+        _apiDomain = [aDecoder decodeObjectForKey:@"apiDomain"];
         _orientation = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"orientation"] integerValue];
         _cpuCount = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"cpuCount"] intValue];
+        _busFrequency = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"busFrequency"] unsignedIntegerValue];
+        _cpuFrequency = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"cpuFrequency"] unsignedIntegerValue];
         _totalMemory = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"totalMemory"] unsignedLongValue];
         _userMemory = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"userMemory"] unsignedLongValue];
         _freeMemory = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"freeMemory"] unsignedLongValue];
@@ -104,6 +109,8 @@ static inline NSString * GetCrashDateString()
     _stack = stack;
     
     UIDevice *device = [UIDevice currentDevice];
+    _busFrequency = device.busFrequency;
+    _cpuFrequency = device.cpuFrequency;
     _totalMemory = device.totalMemory;
     _userMemory = device.userMemory;
     _freeMemory = device.getFreeMemory;
@@ -112,7 +119,8 @@ static inline NSString * GetCrashDateString()
     _sockBufferSize = device.maxSocketBufferSize;
     _totalSDSize = device.totalDiskSpace;
     _freeSDSize = device.freeDiskSpace;
-    _network = device.network;
+    _network = [NetSniffer defaultSniffer].currentStatusString;
+    _apiDomain = [QCAPIRequest currentDomain];
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
@@ -132,7 +140,10 @@ static inline NSString * GetCrashDateString()
     [aCoder encodeObject:_platform?:@"" forKey:@"platform"];
     [aCoder encodeObject:_osv?:@"" forKey:@"osv"];
     [aCoder encodeObject:_network?:@"" forKey:@"network"];
+    [aCoder encodeObject:_apiDomain?:@"" forKey:@"apiDomain"];
     [aCoder encodeObject:[NSNumber numberWithInteger:_orientation] forKey:@"orientation"];
+    [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:_busFrequency] forKey:@"busFrequency"];
+    [aCoder encodeObject:[NSNumber numberWithUnsignedInteger:_cpuFrequency] forKey:@"cpuFrequency"];
     [aCoder encodeObject:[NSNumber numberWithInt:_cpuCount] forKey:@"cpuCount"];
     [aCoder encodeObject:[NSNumber numberWithUnsignedLong:_totalMemory] forKey:@"totalMemory"];
     [aCoder encodeObject:[NSNumber numberWithUnsignedLong:_userMemory] forKey:@"userMemory"];
@@ -173,7 +184,10 @@ static inline NSString * GetCrashDateString()
     [str appendFormat:@"\nplatform: %@",_platform];
     [str appendFormat:@"\nosv: %@",_osv];
     [str appendFormat:@"\nnetwork: %@",_network];
+    [str appendFormat:@"\napiDomain: %@",_apiDomain];
     [str appendFormat:@"\norientation: %d", (int)_orientation];
+    [str appendFormat:@"\ncpuFrequency: %lu", _cpuFrequency];
+    [str appendFormat:@"\nbusFrequency: %lu", _busFrequency];
     [str appendFormat:@"\ncpuCount: %d", (int)_cpuCount];
     [str appendFormat:@"\ntotalMemory: %lu", _totalMemory];
     [str appendFormat:@"\nuserMemory: %lu", _userMemory];

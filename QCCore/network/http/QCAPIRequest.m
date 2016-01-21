@@ -18,28 +18,14 @@
 #define ENCRYPTION_AES @"CLB_AES"
 #define ENCRYOT_PASSWORD @"ELQmHaX5ECDEJDd5r19eAWdZBzIwci4u"
 
-static APIMode _api_mode = DefaultAPI;
-
-#ifdef DEBUG
-static NSString *const DefaultAPIHost = @"http://dev.fk.com/api/"; //开发
-static NSString *const TrialAPIHost = @"http://trial.fk.com/api/";
-#else
-static NSString *const DefaultAPIHost = @"http://api.qccost.com/"; //正式
-static NSString *const TrialAPIHost = @"http://trial.qccost.com/";
-#endif
-
 // 配合deprecated方法写的函数，去除deprecated函数后可以删除
 static inline NSString * FilteURLDomain(NSString * url)
 {
     NSString *domain = [QCAPIRequest currentDomain];
-    if ([url rangeOfString:@"http://dev.fk.com/api/"].location != NSNotFound) {
-        return [url stringByReplacingOccurrencesOfString:@"http://dev.fk.com/api/" withString:domain];
-    }else if ([url rangeOfString:@"http://trial.fk.com/api//"].location != NSNotFound) {
-        return [url stringByReplacingOccurrencesOfString:@"http://trial.fk.com/api/" withString:domain];
-    }else if ([url rangeOfString:@"http://api.qccost.com/"].location != NSNotFound) {
-        return [url stringByReplacingOccurrencesOfString:@"http://api.qccost.com/" withString:domain];
-    }else if ([url rangeOfString:@"http://trial.qccost.com/"].location != NSNotFound) {
-        return [url stringByReplacingOccurrencesOfString:@"http://trial.qccost.com/" withString:domain];
+    if ([url rangeOfString:DefaultAPIHost].location != NSNotFound) {
+        return [url stringByReplacingOccurrencesOfString:DefaultAPIHost withString:domain];
+    }else if ([url rangeOfString:TrialAPIHost].location != NSNotFound) {
+        return [url stringByReplacingOccurrencesOfString:TrialAPIHost withString:domain];
     }
     return url;
 }
@@ -66,12 +52,6 @@ static inline NSString * FilteURLDomain(NSString * url)
 }
 
 - (void)startRequest {
-    //Tricky settings for api domain
-//    NSString *apiDomain = [[NSUserDefaults standardUserDefaults] objectForKey:@"CustomDomain"];
-//    if (apiDomain.length > 0) {
-//        self.url = [self.url stringByReplacingOccurrencesOfString:APIHost withString:apiDomain];
-//    }
-
     if (_cacheStrategy != CacheStrategyNone) {
         NSData *cacheResponseData = [[QCRequestCache sharedInstance] get:self];
         if (cacheResponseData) {
@@ -135,23 +115,12 @@ static inline NSString * FilteURLDomain(NSString * url)
     _isFromCache = NO;
 }
 
-+ (void)setAPIMode:(APIMode)mode
-{
-    _api_mode = mode;
-}
-
 + (NSString *)currentDomain
 {
-    NSString *domain;
-    if (_api_mode == DefaultAPI) {
-        domain = DefaultAPIHost;
-    }else {
-        domain = TrialAPIHost;
+    if ([DebugManager manager].customDomain && [DebugManager manager].customDomain.length > 0) {
+        return [DebugManager manager].customDomain;
     }
-    if ([DebugManager manager].customDomain) {
-        domain = [DebugManager manager].customDomain;
-    }
-    return domain;
+    return DefaultAPIHost;
 }
 
 // 拆分了responseModel

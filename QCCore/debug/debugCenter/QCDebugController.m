@@ -11,6 +11,8 @@
 #import "DebugManager.h"
 #import "QCDebugInfoController.h"
 #import "QCDebugAnnoSelectController.h"
+#import "QCDebugCrashListController.h"
+#import "QCDebugLogo.h"
 
 @interface QCDebugController () <UIAlertViewDelegate, UIActionSheetDelegate>
 
@@ -91,6 +93,8 @@
             controller = [[QCDebugInfoController alloc] initWithStyle:UITableViewStyleGrouped];
         }else if (indexPath.row == 1) {
             controller = [[QCDebugAnnoSelectController alloc] init];
+        }else if (indexPath.row == 2) {
+            controller = [[QCDebugCrashListController alloc] init];
         }
         
         if (controller) [self.navigationController pushViewController:controller animated:YES];
@@ -100,16 +104,15 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        [DebugManager manager].customDomain = @"http://api.qccost.com/";
+        [DebugManager manager].customDomain = nil;
     }else if (buttonIndex == 1) {
-        [QCAPIRequest setAPIMode:TrialAPI];
-        [QCAPIRequest currentDomain];
+        [DebugManager manager].customDomain = TrialAPIHost;
     }else if (buttonIndex == 2) {
-        [DebugManager manager].customDomain = @"http://dev.qccost.com/api/";
+        [DebugManager manager].customDomain = PreReleaseAPIHost;
     }else if (buttonIndex == 3) {
-        [DebugManager manager].customDomain = @"http://api.qa.fk.com/";
+        [DebugManager manager].customDomain = QAAPIHost;
     }else if (buttonIndex == 4) {
-        [DebugManager manager].customDomain = @"http://dev.fk.com/api/";
+        [DebugManager manager].customDomain = DeveloperAPIHost;
     }else if (buttonIndex == 5) {
         UIAlertView *alert = [[UIAlertView alloc] init];
         alert.delegate = self;
@@ -119,6 +122,7 @@
         [alert addButtonWithTitle:@"cancel"];
         [alert show];
     }
+    [[QCDebugLogo logo] reloadView];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -128,6 +132,7 @@
         UITextField *textField = [alertView textFieldAtIndex:0];
         [DebugManager manager].customDomain = textField ? textField.text : @"";
         [textField resignFirstResponder];
+        [[QCDebugLogo logo] reloadView];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }

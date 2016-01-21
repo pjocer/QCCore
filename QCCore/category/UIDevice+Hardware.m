@@ -170,11 +170,6 @@
     return (natural_t)mem_free;
 }
 
-- (NSString *)network
-{
-    return @"";
-}
-
 #pragma mark MAC addy
 
 - (NSString *) macaddress
