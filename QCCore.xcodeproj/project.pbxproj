@@ -904,7 +904,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				MACH_O_TYPE = staticlib;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qcwl.QCCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -932,7 +932,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				MACH_O_TYPE = staticlib;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qcwl.QCCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
