@@ -120,7 +120,11 @@ static inline NSString * FilteURLDomain(NSString * url)
     if ([DebugManager manager].customDomain && [DebugManager manager].customDomain.length > 0) {
         return [DebugManager manager].customDomain;
     }
+#if TARGET_IPHONE_SIMULATOR
+    return DeveloperAPIHost;
+#else
     return DefaultAPIHost;
+#endif
 }
 
 // 拆分了responseModel
