@@ -56,8 +56,8 @@ static inline NSString * GetCrashDateString()
         _pageSize = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"pageSize"] unsignedLongValue];
         _physMemory = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"physMemory"] unsignedLongValue];
         _sockBufferSize = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"sockBufferSize"] unsignedLongValue];
-        _totalSDSize = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"totalSDSize"] unsignedLongValue];
-        _freeSDSize = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"freeSDSize"] unsignedLongValue];
+        _totalSDSize = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"totalSDSize"] unsignedLongLongValue];
+        _freeSDSize = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"freeSDSize"] unsignedLongLongValue];
         _isJB = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"isJB"] boolValue];
         _isCYExist = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"isCYExist"] boolValue];
     }
@@ -78,7 +78,6 @@ static inline NSString * GetCrashDateString()
 #else
         _scheme = @"RELEASE";
 #endif
-        // TODO: add Channel
         _platform = [UIDevice currentDevice].platform;
         _osv = [UIDevice currentDevice].systemVersion;
         _orientation = [UIDevice currentDevice].orientation;
@@ -151,7 +150,8 @@ static inline NSString * GetCrashDateString()
     [aCoder encodeObject:[NSNumber numberWithUnsignedLong:_pageSize] forKey:@"pageSize"];
     [aCoder encodeObject:[NSNumber numberWithUnsignedLong:_physMemory] forKey:@"physMemory"];
     [aCoder encodeObject:[NSNumber numberWithUnsignedLong:_sockBufferSize] forKey:@"sockBufferSize"];
-    [aCoder encodeObject:[NSNumber numberWithUnsignedLong:_freeSDSize] forKey:@"freeSDSize"];
+    [aCoder encodeObject:[NSNumber numberWithUnsignedLongLong:_totalSDSize] forKey:@"totalSDSize"];
+    [aCoder encodeObject:[NSNumber numberWithUnsignedLongLong:_freeSDSize] forKey:@"freeSDSize"];
     [aCoder encodeObject:[NSNumber numberWithBool:_isJB] forKey:@"isJB"];
     [aCoder encodeObject:[NSNumber numberWithBool:_isCYExist] forKey:@"isCYExist"];
 }
@@ -195,8 +195,8 @@ static inline NSString * GetCrashDateString()
     [str appendFormat:@"\npageSize: %lu", _pageSize];
     [str appendFormat:@"\nphysMemory: %lu", _physMemory];
     [str appendFormat:@"\nsockBufferSize: %lu", _sockBufferSize];
-    [str appendFormat:@"\ntotalSDSize: %lu", _totalSDSize];
-    [str appendFormat:@"\nfreeSDSize: %lu", _freeSDSize];
+    [str appendFormat:@"\ntotalSDSize: %llu", _totalSDSize];
+    [str appendFormat:@"\nfreeSDSize: %llu", _freeSDSize];
     [str appendFormat:@"\nisJailBreak: %@", _isJB?@"YES":@"NO"];
     [str appendFormat:@"\nisCydiaExist: %@", _isCYExist?@"YES":@"NO"];
     return str;

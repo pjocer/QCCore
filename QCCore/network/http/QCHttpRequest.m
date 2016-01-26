@@ -96,7 +96,7 @@ static NSTimeInterval DEFAULT_TIMEOUT_INTERVAL = 20.0f;
 - (void)setRequestFinished
 {
     _responseInterval = [[NSDate date] timeIntervalSinceDate:_startDate];
-    DLog(@"ResponseInterval= %.3f, ResponseLength= %lu, URL= %@",self.responseInterval, self.responseData.length, self.url);
+    DLog(@"ResponseInterval= %.3f, ResponseLength= %lu, URL= %@",self.responseInterval, (unsigned long)self.responseData.length, self.url);
 }
 
 - (NSDictionary *)requestHeaders

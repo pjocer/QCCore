@@ -51,8 +51,8 @@ typedef NS_OPTIONS(uint8_t, SignalType) {
 @property (nonatomic, assign, readonly) unsigned long pageSize;
 @property (nonatomic, assign, readonly) unsigned long physMemory;
 @property (nonatomic, assign, readonly) unsigned long sockBufferSize;
-@property (nonatomic, assign, readonly) unsigned long totalSDSize;
-@property (nonatomic, assign, readonly) unsigned long freeSDSize;
+@property (nonatomic, assign, readonly) unsigned long long totalSDSize;
+@property (nonatomic, assign, readonly) unsigned long long freeSDSize;
 @property (nonatomic, strong, readonly, nullable) NSString *network;
 @property (nonatomic, assign, readonly) BOOL isJB;
 @property (nonatomic, assign, readonly) BOOL isCYExist;
