@@ -64,18 +64,9 @@
         tap.numberOfTapsRequired = 2;
         [self addGestureRecognizer:tap];
         
-        [self reloadView];
+        [self reloadLogoText];
     }
     return self;
-}
-
-- (void)reloadView
-{
-    if ([[QCAPIRequest currentDomain] isEqualToString:DefaultAPIHost] || [[QCAPIRequest currentDomain] isEqualToString:TrialAPIHost]) {
-        [self setHidden:YES];
-    }else {
-        [self setHidden:NO];
-    }
 }
 
 - (void)reloadMemory
@@ -91,19 +82,7 @@
 
 - (void)reloadLogoText
 {
-    if ([[QCAPIRequest currentDomain] isEqualToString:DefaultAPIHost]) {
-        roundView.text = @"正式";
-    }else if ([[QCAPIRequest currentDomain] isEqualToString:TrialAPIHost]) {
-        roundView.text = @"试用";
-    }else if ([[QCAPIRequest currentDomain] isEqualToString:PreReleaseAPIHost]) {
-        roundView.text = @"预发布";
-    }else if ([[QCAPIRequest currentDomain] isEqualToString:QAAPIHost]) {
-        roundView.text = @"测试";
-    }else if ([[QCAPIRequest currentDomain] isEqualToString:DeveloperAPIHost]) {
-        roundView.text = @"开发";
-    }else {
-        roundView.text = @"自定义";
-    }
+    roundView.text = QCCurrentDomain().title;
 }
 
 #pragma mark - touch events

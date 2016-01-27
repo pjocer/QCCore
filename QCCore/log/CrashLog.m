@@ -119,7 +119,7 @@ static inline NSString * GetCrashDateString()
     _totalSDSize = device.totalDiskSpace;
     _freeSDSize = device.freeDiskSpace;
     _network = [NetSniffer defaultSniffer].currentStatusString;
-    _apiDomain = [QCAPIRequest currentDomain];
+    _apiDomain = QCCurrentDomain().domain;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder

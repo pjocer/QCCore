@@ -20,7 +20,7 @@
 		215C79CC1C4C8909008B1B65 /* QCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C79CA1C4C8909008B1B65 /* QCLocationManager.m */; };
 		218340921C4F64B600D0B9E7 /* QCDebugController.h in Headers */ = {isa = PBXBuildFile; fileRef = 218340901C4F64B600D0B9E7 /* QCDebugController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		218340931C4F64B600D0B9E7 /* QCDebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218340911C4F64B600D0B9E7 /* QCDebugController.m */; };
-		218340981C4F784E00D0B9E7 /* DebugManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 218340961C4F784E00D0B9E7 /* DebugManager.h */; };
+		218340981C4F784E00D0B9E7 /* DebugManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 218340961C4F784E00D0B9E7 /* DebugManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		218340991C4F784E00D0B9E7 /* DebugManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 218340971C4F784E00D0B9E7 /* DebugManager.m */; };
 		2183409C1C4F8A8200D0B9E7 /* QCDebugInfoController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2183409A1C4F8A8200D0B9E7 /* QCDebugInfoController.h */; };
 		2183409D1C4F8A8200D0B9E7 /* QCDebugInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2183409B1C4F8A8200D0B9E7 /* QCDebugInfoController.m */; };
@@ -552,6 +552,7 @@
 				218340A01C4F93D300D0B9E7 /* NetworkUtil.h in Headers */,
 				219C09FC1C434599002E10CB /* FMDatabaseQueue.h in Headers */,
 				215C79CB1C4C8909008B1B65 /* QCLocationManager.h in Headers */,
+				218340981C4F784E00D0B9E7 /* DebugManager.h in Headers */,
 				218340B61C5082B100D0B9E7 /* QCDebugLogo.h in Headers */,
 				218340921C4F64B600D0B9E7 /* QCDebugController.h in Headers */,
 				215C79791C4A1A15008B1B65 /* DebugKits.h in Headers */,
@@ -566,7 +567,6 @@
 				219C09E41C434599002E10CB /* UIActivityIndicatorView+AFNetworking.h in Headers */,
 				219C09CF1C434599002E10CB /* AFHTTPRequestOperationManager.h in Headers */,
 				219C0A021C434599002E10CB /* RNCryptor+Private.h in Headers */,
-				218340981C4F784E00D0B9E7 /* DebugManager.h in Headers */,
 				218340B21C50785100D0B9E7 /* QCDebugLogDetailController.h in Headers */,
 				21CED7D91C3118A0003875EA /* QCNetworkService.h in Headers */,
 				218340AA1C50741100D0B9E7 /* QCDebugCrashListController.h in Headers */,
@@ -610,6 +610,7 @@
 				2135AE401C28F3F300AB3C1C /* Resources */,
 				2135AE5C1C28F4FE00AB3C1C /* ShellScript */,
 				624E053D70911DD107CC7B5D /* Frameworks */,
+				211C757A1C575581007A5401 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -692,6 +693,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		211C757A1C575581007A5401 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FRAMEWORK_LOCN=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework\"\nMERGE_LOCN=\"${SRCROOT}/Build\"\n\nif [ ! -d \"$MERGE_LOCN\" ]; then\nmkdir -p \"$MERGE_LOCN\"\nfi\n\ncp -rf \"$FRAMEWORK_LOCN\" \"$MERGE_LOCN/${PLATFORM_NAME}_${PRODUCT_NAME}.framework\"\n\nopen \"$MERGE_LOCN\"";
+		};
 		2135AE5C1C28F4FE00AB3C1C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

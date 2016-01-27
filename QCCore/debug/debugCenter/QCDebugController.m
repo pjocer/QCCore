@@ -76,7 +76,7 @@
     }
     if (indexPath.section == 0) {
         cell.textLabel.text = @"API";
-        cell.detailTextLabel.text = [QCAPIRequest currentDomain];
+        cell.detailTextLabel.text = QCCurrentDomain().domain;
     }else {
         if (indexPath.row == 0) {
             cell.textLabel.text = @"信息采集";
@@ -93,7 +93,14 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"API" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"正式" otherButtonTitles:@"试用", @"预发布", @"测试", @"开发", @"自定义", nil];
+        UIActionSheet *sheet = [[UIActionSheet alloc] init];
+        [sheet setTitle:@"APIDomain"];
+        for (int i=0; i<[DebugManager manager].domains.count; i++) {
+            [sheet addButtonWithTitle:[DebugManager manager].domains[i].title];
+        }
+        [sheet addButtonWithTitle:@"自定义"];
+        [sheet addButtonWithTitle:@"取消"];
+        sheet.delegate = self;
         [sheet showInView:self.view];
     }else {
         UIViewController *controller;
@@ -111,17 +118,11 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        [DebugManager manager].customDomain = nil;
-    }else if (buttonIndex == 1) {
-        [DebugManager manager].customDomain = TrialAPIHost;
-    }else if (buttonIndex == 2) {
-        [DebugManager manager].customDomain = PreReleaseAPIHost;
-    }else if (buttonIndex == 3) {
-        [DebugManager manager].customDomain = QAAPIHost;
-    }else if (buttonIndex == 4) {
-        [DebugManager manager].customDomain = DeveloperAPIHost;
-    }else if (buttonIndex == 5) {
+    if ([DebugManager manager].domains.count > buttonIndex) {
+        Domain *dom = [DebugManager manager].domains[buttonIndex];
+        QCChangeCurrentDomain(dom);
+        [NSKeyedArchiver archiveRootObject:dom toFile:SavedDomainPath()];
+    }else if ([DebugManager manager].domains.count == buttonIndex) {
         UIAlertView *alert = [[UIAlertView alloc] init];
         alert.delegate = self;
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -130,7 +131,7 @@
         [alert addButtonWithTitle:@"cancel"];
         [alert show];
     }
-    [[QCDebugLogo logo] reloadView];
+    [[QCDebugLogo logo] reloadLogoText];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -138,9 +139,11 @@
 {
     if (buttonIndex == 0) {
         UITextField *textField = [alertView textFieldAtIndex:0];
-        [DebugManager manager].customDomain = textField ? textField.text : @"";
+        Domain *dom = [Domain domain:textField.text title:nil isMain:NO];
+        QCChangeCurrentDomain(dom);
+        [NSKeyedArchiver archiveRootObject:dom toFile:SavedDomainPath()];
         [textField resignFirstResponder];
-        [[QCDebugLogo logo] reloadView];
+        [[QCDebugLogo logo] reloadLogoText];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }

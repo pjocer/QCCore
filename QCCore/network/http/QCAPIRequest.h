@@ -7,6 +7,10 @@
 //
 
 #import "QCHttpRequest.h"
+#import "DebugManager.h"
+
+FOUNDATION_EXTERN Domain * _Nullable QCCurrentDomain();
+FOUNDATION_EXTERN void QCChangeCurrentDomain( Domain * _Nonnull domain);
 
 typedef const NSString APIName;
 
@@ -79,8 +83,6 @@ typedef void (^APIFailedBlock)(QCAPIRequest * _Nonnull request);
  */
 - (void)startWithAPISuccessBlock:(nullable APISuccessBlock)successBlock
                   APIFailedBlock:(nullable APISuccessBlock)failedBlock;
-
-+ (nonnull NSString *)currentDomain;
 
 #pragma mark - 失效函数
 

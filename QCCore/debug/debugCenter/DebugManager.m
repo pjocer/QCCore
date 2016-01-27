@@ -7,22 +7,16 @@
 //
 
 #import "DebugManager.h"
-#import <UIKit/UIKit.h>
-#import "QCDebugLogo.h"
 
-#ifdef DEBUG
-NSString *const DefaultAPIHost = @"http://api.qccost.com/";
-NSString *const TrialAPIHost = @"http://trial.fk.com/api/";
-#else
-NSString *const DefaultAPIHost = @"http://api.qccost.com/";
-NSString *const TrialAPIHost = @"http://trial.qccost.com/";
-#endif
-
-NSString *const PreReleaseAPIHost = @"http://dev.qccost.com/api/";
-NSString *const QAAPIHost = @"http://api.qa.fk.com/";
-NSString *const DeveloperAPIHost = @"http://dev.fk.com/api/";
+NSString * SavedDomainPath()
+{
+    return [NSTemporaryDirectory() stringByAppendingPathComponent:@"domain.dat"];
+}
 
 @implementation DebugManager
+{
+    NSMutableArray *_domains;
+}
 
 + (instancetype)manager
 {
@@ -37,24 +31,75 @@ NSString *const DeveloperAPIHost = @"http://dev.fk.com/api/";
 - (id)_init
 {
     if (self = [super init]) {
-        
+        _domains = [NSMutableArray array];
     }
     return self;
 }
 
-- (NSString *)customDomain
+- (NSArray<Domain *> *)domains
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"CustomDomain"];
+    return _domains;
 }
 
-- (void)setCustomDomain:(NSString *)customDomain
+- (void)addDomain:(Domain *)domain
 {
-    if (!customDomain || customDomain.length == 0) {
-        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"CustomDomain"];
-    }else {
-        [[NSUserDefaults standardUserDefaults] setObject:customDomain forKey:@"CustomDomain"];
+    if (!domain || ![domain isKindOfClass:[Domain class]]) return;
+    [_domains addObject:domain];
+}
+
+//- (NSString *)customDomain
+//{
+//    return [[NSUserDefaults standardUserDefaults] objectForKey:@"CustomDomain"];
+//}
+//
+//- (void)setCustomDomain:(NSString *)customDomain
+//{
+//    if (!customDomain || customDomain.length == 0) {
+//        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"CustomDomain"];
+//    }else {
+//        [[NSUserDefaults standardUserDefaults] setObject:customDomain forKey:@"CustomDomain"];
+//    }
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
+
+@end
+
+@interface Domain ()
+@property (nonatomic, strong) NSString *domain;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, assign) BOOL isMain;
+@end
+@implementation Domain
+
++ (instancetype)domain:(NSString *)domain title:(NSString *)title isMain:(BOOL)isMain
+{
+    Domain *dom = [[Domain alloc] init];
+    dom.domain = domain?:@"";
+    dom.title = title?:@"自定义";
+    dom.isMain = isMain;
+    return dom;
+}
+
++ (BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super init]) {
+        self.domain = [aDecoder decodeObjectForKey:@"domain"];
+        self.title = [aDecoder decodeObjectForKey:@"title"];
+        self.isMain = [aDecoder decodeBoolForKey:@"isMain"];
     }
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.domain forKey:@"domain"];
+    [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeBool:self.isMain forKey:@"isMain"];
 }
 
 @end

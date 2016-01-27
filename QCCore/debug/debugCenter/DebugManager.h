@@ -8,17 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
-FOUNDATION_EXTERN NSString *const DefaultAPIHost;
-FOUNDATION_EXTERN NSString *const TrialAPIHost;
-FOUNDATION_EXTERN NSString *const PreReleaseAPIHost;
-FOUNDATION_EXTERN NSString *const QAAPIHost;
-FOUNDATION_EXTERN NSString *const DeveloperAPIHost;
+@class Domain;
+
+FOUNDATION_EXTERN NSString * SavedDomainPath();
 
 @interface DebugManager : NSObject
 
 + (instancetype)manager;
 - (id)init NS_UNAVAILABLE;
 
-@property (readwrite) NSString *customDomain;
-
+@property (readonly) NSArray<Domain *> *domains;
+- (void)addDomain:(Domain *)domain;
 @end
+
+@interface Domain : NSObject <NSSecureCoding>
+@property (nonatomic, strong, readonly) NSString *domain;
+@property (nonatomic, strong, readonly) NSString *title;
+@property (nonatomic, assign, readonly) BOOL isMain;
++ (instancetype)domain:(NSString *)domain title:(NSString *)title isMain:(BOOL)isMain;
+@end
+

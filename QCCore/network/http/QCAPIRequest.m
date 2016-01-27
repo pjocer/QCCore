@@ -13,19 +13,38 @@
 #import "RNDecryptor.h"
 #import "AFNetworking.h"
 #import "UIDevice+Hardware.h"
-#import "DebugManager.h"
+//#import "DebugManager.h"
 
 #define ENCRYPTION_AES @"CLB_AES"
 #define ENCRYOT_PASSWORD @"ELQmHaX5ECDEJDd5r19eAWdZBzIwci4u"
 
+#ifdef DEBUG
+NSString *const DefaultAPIHost = @"http://api.qccost.com/";
+NSString *const TrialAPIHost = @"http://trial.fk.com/api/";
+#else
+NSString *const DefaultAPIHost = @"http://api.qccost.com/";
+NSString *const TrialAPIHost = @"http://trial.qccost.com/";
+#endif
+
+static Domain *__currentDomain = nil;
+
+Domain * QCCurrentDomain()
+{
+    return __currentDomain;
+}
+
+void QCChangeCurrentDomain( Domain * domain)
+{
+    __currentDomain = domain;
+}
+
 // 配合deprecated方法写的函数，去除deprecated函数后可以删除
 static inline NSString * FilteURLDomain(NSString * url)
 {
-    NSString *domain = [QCAPIRequest currentDomain];
     if ([url rangeOfString:DefaultAPIHost].location != NSNotFound) {
-        return [url stringByReplacingOccurrencesOfString:DefaultAPIHost withString:domain];
+        return [url stringByReplacingOccurrencesOfString:DefaultAPIHost withString:QCCurrentDomain().domain];
     }else if ([url rangeOfString:TrialAPIHost].location != NSNotFound) {
-        return [url stringByReplacingOccurrencesOfString:TrialAPIHost withString:domain];
+        return [url stringByReplacingOccurrencesOfString:TrialAPIHost withString:QCCurrentDomain().domain];
     }
     return url;
 }
@@ -47,7 +66,7 @@ static inline NSString * FilteURLDomain(NSString * url)
 
 - (nullable id)initWithAPIName:(nonnull APIName *)apiName
                  requestMethod:(RequestMethod)requestMethod {
-    self = [super initWithUrl:[NSString stringWithFormat:@"%@%@", [QCAPIRequest currentDomain], apiName] requestMethod:requestMethod];
+    self = [super initWithUrl:[NSString stringWithFormat:@"%@%@", QCCurrentDomain().domain, apiName] requestMethod:requestMethod];
     return self;
 }
 
@@ -113,18 +132,6 @@ static inline NSString * FilteURLDomain(NSString * url)
     }
     
     _isFromCache = NO;
-}
-
-+ (NSString *)currentDomain
-{
-    if ([DebugManager manager].customDomain && [DebugManager manager].customDomain.length > 0) {
-        return [DebugManager manager].customDomain;
-    }
-#if TARGET_IPHONE_SIMULATOR
-    return DeveloperAPIHost;
-#else
-    return DefaultAPIHost;
-#endif
 }
 
 // 拆分了responseModel

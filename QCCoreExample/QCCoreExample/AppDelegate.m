@@ -10,6 +10,18 @@
 #import <QCCore/QCCore.h>
 //#import "QCDebugLogo.h"
 
+#ifdef DEBUG
+static NSString *const DefaultAPIHost = @"http://api.qccost.com/";
+static NSString *const TrialAPIHost = @"http://trial.fk.com/api/";
+#else
+static NSString *const DefaultAPIHost = @"http://api.qccost.com/";
+static NSString *const TrialAPIHost = @"http://trial.qccost.com/";
+#endif
+
+static NSString *const PreReleaseAPIHost = @"http://dev.qccost.com/api/";
+static NSString *const QAAPIHost = @"http://api.qa.fk.com/";
+static NSString *const DeveloperAPIHost = @"http://dev.fk.com/api/";
+
 @interface AppDelegate ()
 {
     __unsafe_unretained NSMutableArray *array;
@@ -25,6 +37,21 @@
 //    [[QCLocationManager defaultManager] startUpdatingLocation];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getLocation:) name:LocationUpdatedNotification object:nil];
+    
+    
+    [[DebugManager manager] addDomain:[Domain domain:DefaultAPIHost title:@"正式" isMain:YES]];
+    [[DebugManager manager] addDomain:[Domain domain:TrialAPIHost title:@"试用" isMain:YES]];
+    [[DebugManager manager] addDomain:[Domain domain:PreReleaseAPIHost title:@"预发布" isMain:NO]];
+    [[DebugManager manager] addDomain:[Domain domain:QAAPIHost title:@"测试" isMain:NO]];
+    [[DebugManager manager] addDomain:[Domain domain:DeveloperAPIHost title:@"开发" isMain:NO]];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:SavedDomainPath()]) {
+        Domain *dom = [NSKeyedUnarchiver unarchiveObjectWithFile:SavedDomainPath()];
+        QCChangeCurrentDomain(dom);
+    }else {
+        QCChangeCurrentDomain([Domain domain:DefaultAPIHost title:@"正式" isMain:YES]);
+    }
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];

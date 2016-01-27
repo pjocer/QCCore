@@ -33,7 +33,7 @@
     _dataArray = [NSMutableArray array];
     
     NSMutableArray *_apiData = [NSMutableArray array];
-    [_apiData addObject:@{@"title":@"APIDomain",@"detail":[QCAPIRequest currentDomain]}];
+    [_apiData addObject:@{@"title":@"APIDomain",@"detail":QCCurrentDomain().domain}];
     [_apiData addObject:@{@"title":@"APP版本",@"detail":[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]}];
     [_apiData addObject:@{@"title":@"渠道号", @"detail":@"0"}];
     

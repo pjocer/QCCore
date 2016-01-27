@@ -20,7 +20,7 @@ const int32_t CrashMaximum = 10;
 
 static inline NSString * XQCrashLogPath()
 {
-    return [NSTemporaryDirectory() stringByAppendingPathComponent:@"crashLogs"];;
+    return [NSTemporaryDirectory() stringByAppendingPathComponent:@"crashLogs"];
 }
 
 NSArray * crashBacktrace()

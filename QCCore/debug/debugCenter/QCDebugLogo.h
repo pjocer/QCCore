@@ -14,6 +14,6 @@
 - (id)init NS_UNAVAILABLE;
 - (id)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 
-- (void)reloadView;
+- (void)reloadLogoText;
 
 @end
