@@ -28,6 +28,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     NSCAssert([(NSObject*)CFBridgingRelease(info) isKindOfClass: [NetSniffer class]], @"info was the wrong class in ReachabilityCallback");
     
     @autoreleasepool {
+        NSLog(@"%@", [NetSniffer defaultSniffer]);
         [[NSNotificationCenter defaultCenter] postNotificationName:NetworkStatusChangedNotification object:(__bridge NetSniffer *)info];
     }
 }
@@ -58,7 +59,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         SCNetworkReachabilityRef ref = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr*)&zeroAddress);
         if (ref) {
             _reachabilityRef = ref;
-            [self startSnif];
         }
     }
     return self;
@@ -71,9 +71,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 - (BOOL)startSnif {
-    SCNetworkReachabilityContext context = {0, (__bridge void * _Nullable)(self), NULL, NULL, NULL};
+    SCNetworkReachabilityContext context = {0, (__bridge void * _Nonnull)(self), NULL, NULL, NULL};
     if(SCNetworkReachabilitySetCallback(_reachabilityRef, ReachabilityCallback, &context)) {
-        if(SCNetworkReachabilityScheduleWithRunLoop(_reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode)) {
+        if(SCNetworkReachabilityScheduleWithRunLoop(_reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopCommonModes)) {
             return YES;
         }
     }
@@ -82,7 +82,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 - (void)stopSnif {
     if(_reachabilityRef) {
-        SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+        SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
     }
 }
 

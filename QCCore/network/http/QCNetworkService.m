@@ -41,7 +41,7 @@
         _manager = [AFHTTPRequestOperationManager manager];
         _runningRequestArray = [NSMutableArray new];
         
-        [NetSniffer defaultSniffer];
+//        [[NetSniffer defaultSniffer] startSnif]; //callback与AFN冲突，暂时不要启用
     }
     return self;
 }

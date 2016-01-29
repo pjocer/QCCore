@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <QCCore/QCCore.h>
+#import "ViewController.h"
 //#import "QCDebugLogo.h"
 
 #ifdef DEBUG
@@ -34,6 +35,8 @@ static NSString *const DeveloperAPIHost = @"http://dev.fk.com/api/";
     
     [[CrashManager manager] installCrashHandler];
     
+    [[NetSniffer defaultSniffer] startSnif];
+    
 //    [[QCLocationManager defaultManager] startUpdatingLocation];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getLocation:) name:LocationUpdatedNotification object:nil];
@@ -58,7 +61,7 @@ static NSString *const DeveloperAPIHost = @"http://dev.fk.com/api/";
     
     QCDebugController *controller = [[QCDebugController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
-    self.window.rootViewController = navi;
+    self.window.rootViewController = [[ViewController alloc] init];
     
 //    QCAPIRequest *request = [[QCAPIRequest alloc] initWithAPIName:@"home/backlog" requestMethod:POST];
 //    [request startWithAPISuccessBlock:^(QCAPIRequest * _Nonnull request) {

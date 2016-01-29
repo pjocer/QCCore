@@ -19,6 +19,7 @@ typedef enum{
 @interface NetSniffer : NSObject
 
 + (NetSniffer *)defaultSniffer;
+- (BOOL)startSnif;
 
 @property (nonatomic, readonly) NetworkStatus currentStatus;
 @property (readonly) NSString *currentStatusString;

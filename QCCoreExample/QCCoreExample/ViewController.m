@@ -18,6 +18,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20, 20, 100, 100)];
+    view.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:view];
+    
+    CAGradientLayer *layer = [CAGradientLayer layer];
+    layer.borderWidth = 0;
+    layer.frame = CGRectMake(0, 60, 100, 40);
+    layer.colors = @[(id)[UIColor clearColor].CGColor, (id)[UIColor blackColor].CGColor];
+//    layer.locations = @[@0.5,@0.9,@1];
+    layer.startPoint = CGPointMake(0, 0.5);
+    layer.endPoint = CGPointMake(1, 0.5);
+    [view.layer addSublayer:layer];
 }
 
 - (void)viewDidAppear:(BOOL)animated
