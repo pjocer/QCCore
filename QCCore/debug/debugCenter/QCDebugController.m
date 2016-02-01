@@ -129,6 +129,8 @@
         alert.title = @"input domain";
         [alert addButtonWithTitle:@"confirm"];
         [alert addButtonWithTitle:@"cancel"];
+        UITextField *textField = [alert textFieldAtIndex:0];
+        textField.text = [DebugManager manager].placeholdURL?:@"";
         [alert show];
     }
     [[QCDebugLogo logo] reloadLogoText];

@@ -37,7 +37,7 @@ static NSString *const DeveloperAPIHost = @"http://dev.fk.com/api/";
     
     [[NetSniffer defaultSniffer] startSnif];
     
-//    [[QCLocationManager defaultManager] startUpdatingLocation];
+    [[QCLocationManager defaultManager] startUpdatingLocation];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getLocation:) name:LocationUpdatedNotification object:nil];
     

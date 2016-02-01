@@ -66,6 +66,9 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
             [self respondsToSelector:@selector(requestAlwaysAuthorization)])
         {
             [self requestWhenInUseAuthorization];
+        }else {
+            //iOS7下直接启动定位
+            [super startUpdatingLocation];
         }
     }
     return self;

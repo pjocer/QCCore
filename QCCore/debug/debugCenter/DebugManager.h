@@ -17,6 +17,8 @@ FOUNDATION_EXTERN NSString * SavedDomainPath();
 + (instancetype)manager;
 - (id)init NS_UNAVAILABLE;
 
+@property (nonatomic, strong) NSString *placeholdURL;
+
 @property (readonly) NSArray<Domain *> *domains;
 - (void)addDomain:(Domain *)domain;
 @end

@@ -47,21 +47,6 @@ NSString * SavedDomainPath()
     [_domains addObject:domain];
 }
 
-//- (NSString *)customDomain
-//{
-//    return [[NSUserDefaults standardUserDefaults] objectForKey:@"CustomDomain"];
-//}
-//
-//- (void)setCustomDomain:(NSString *)customDomain
-//{
-//    if (!customDomain || customDomain.length == 0) {
-//        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"CustomDomain"];
-//    }else {
-//        [[NSUserDefaults standardUserDefaults] setObject:customDomain forKey:@"CustomDomain"];
-//    }
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//}
-
 @end
 
 @interface Domain ()

@@ -40,6 +40,7 @@ static NSTimeInterval DEFAULT_TIMEOUT_INTERVAL = 20.0f;
         _timeoutInterval = timeoutInterval;
         _requestHeaders = [NSMutableDictionary dictionary];
         _requestParams = [NSMutableDictionary dictionary];
+        [self preprocessRequest];
     }
     return self;
 }

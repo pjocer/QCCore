@@ -54,7 +54,7 @@
     if ([_runningRequestArray containsObject:request]) {
         NSLog(@"Can't exec duplicate request at same time");
     } else {
-        [request preprocessRequest];
+//        [request preprocessRequest];
         [self handleRequest:request];
     }
 }
