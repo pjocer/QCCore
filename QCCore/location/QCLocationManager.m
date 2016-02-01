@@ -181,7 +181,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     [self stopUpdatingLocation];
     self.currentStatus = LocationFailed;
-    [self startUpdatingLocation];
+    [super startUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
