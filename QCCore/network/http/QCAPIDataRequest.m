@@ -33,7 +33,7 @@
     NSURLSessionUploadTask *_task;
 }
 
-- (id)initWithAPIName:(NSString *)apiName data:(NSData *)data
+- (id)initWithAPIName:(APIName *)apiName data:(NSData *)data
 {
     if (self = [super initWithAPIName:apiName requestMethod:POST]) {
         
@@ -51,10 +51,9 @@
     return self;
 }
 
-- (NSURLSessionUploadTask *)uploadWithSuccessBlock:(APIDataSuccessBlock)successBlock
-                                       failedBlock:(APIDataFailedBlock)failedBlock
+- (void)uploadWithSuccessBlock:(APIDataSuccessBlock)successBlock
+                   failedBlock:(APIDataFailedBlock)failedBlock
 {
-    
     _configuration.HTTPAdditionalHeaders = self.requestHeaders;
     
     _manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:_configuration];
@@ -65,18 +64,17 @@
     [request setHTTPMethod:@"POST"];
     
     _task = [_manager uploadTaskWithRequest:request fromData:[QCAPIDataRequest requestHttpBody:_data] progress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nonnull responseObject, NSError * _Nonnull error) {
-        
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         _responseStatusCode = httpResponse.statusCode;
         if(_responseStatusCode == 200){
             _responseData = responseObject;
             [super decodeResponseData];
             if (successBlock) successBlock(self);
-        }else{
-            failedBlock(self);
+        }else {
+            if (failedBlock) failedBlock(self);
         }
     }];
-    return _task;
+    [_task resume];
 }
 
 - (void)cancel
@@ -114,16 +112,63 @@
 {
     NSMutableString *desc = [NSMutableString string];
     [desc appendString:[super description]];
-    [desc appendFormat:@"\nURL= %@",self.url];
-    [desc appendFormat:@"\nMethod= %@", (self.requestMethod == GET?@"GET":(self.requestMethod == POST?@"POST":(self.requestMethod == PUT?@"PUT":@"DELETE")))];
-    [desc appendFormat:@"\nTimeOut= %.3fs",self.timeoutInterval];
-    [desc appendFormat:@"\nHeaders= %@",self.requestHeaders.description];
     [desc appendFormat:@"\nDataLength= %lu",(long)_data.length];
-    [desc appendFormat:@"\nResponseCode= %d",(int)self.responseStatusCode];
-    [desc appendFormat:@"\nResponseStatus= %d", (int)self.status];
-    [desc appendFormat:@"\nResponseMessage= %@", self.message];
-    [desc appendFormat:@"\nResponseData= %@", self.data];
     return desc;
+}
+
+@end
+
+@implementation QCAPIDataRequest (MultiRequest)
+
++ (void)uploadWithWithAPIName:(APIName *)apiName
+                    dataArray:(nonnull NSArray<NSData *> *)dataArray
+              completionBlock:(nullable APIDataMultiRequestBlock)completionBlock
+{
+    if (dataArray.count == 0) {
+        if (completionBlock) completionBlock(@[]);
+        return;
+    }
+    
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    __block int count = 0;
+    __block NSMutableArray *requests = [NSMutableArray array];
+    
+    for (NSData *data in dataArray) {
+        
+        dispatch_group_async(group, queue, ^{
+            
+            dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+            
+            QCAPIDataRequest *request = [[QCAPIDataRequest alloc] initWithAPIName:apiName data:data];
+            
+            [request uploadWithSuccessBlock:^(QCAPIDataRequest * _Nonnull request) {
+                
+                [requests addObject:request];
+                count++;
+                dispatch_semaphore_signal(semaphore);
+                
+            } failedBlock:^(QCAPIDataRequest * _Nonnull request) {
+                
+                dispatch_semaphore_signal(semaphore);
+                
+            }];
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        });
+    }
+    
+    dispatch_group_notify(group, queue, ^{
+        if (count == dataArray.count) {
+            if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(requests);
+            });
+        }else {
+            if (completionBlock) dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(requests);
+            });
+        }
+    });
 }
 
 @end

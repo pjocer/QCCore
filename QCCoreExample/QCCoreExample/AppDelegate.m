@@ -63,17 +63,8 @@ static NSString *const DeveloperAPIHost = @"http://dev.fk.com/api/";
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
     self.window.rootViewController = [[ViewController alloc] init];
     
-//    QCAPIRequest *request = [[QCAPIRequest alloc] initWithAPIName:@"home/backlog" requestMethod:POST];
-//    [request startWithAPISuccessBlock:^(QCAPIRequest * _Nonnull request) {
-//        
-//    } APIFailedBlock:^(QCAPIRequest * _Nonnull request) {
-//        
-//    }];
-    
-//    [@[] objectAtIndex:1];
     [self.window makeKeyAndVisible];
     
-//    [self.window addSubview:[QCDebugLogo logo]];
     
     return YES;
 }

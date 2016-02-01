@@ -178,12 +178,6 @@ static inline NSString * FilteURLDomain(NSString * url)
 {
     NSMutableString *desc = [NSMutableString string];
     [desc appendString:[super description]];
-    [desc appendFormat:@"\nURL= %@",self.url];
-    [desc appendFormat:@"\nMethod= %@", (self.requestMethod == GET?@"GET":(self.requestMethod == POST?@"POST":(self.requestMethod == PUT?@"PUT":@"DELETE")))];
-    [desc appendFormat:@"\nTimeOut= %.3fs",self.timeoutInterval];
-    [desc appendFormat:@"\nHeaders= %@",self.requestHeaders.description];
-    [desc appendFormat:@"\nParameters= %@",self.requestParams.description];
-    [desc appendFormat:@"\nResponseCode= %d",(int)self.responseStatusCode];
     [desc appendFormat:@"\nResponseStatus= %d", (int)self.status];
     [desc appendFormat:@"\nResponseMessage= %@", self.message];
     [desc appendFormat:@"\nResponseData= %@", self.data];

@@ -20,7 +20,7 @@ typedef void (^APIDataFailedBlock)(QCAPIDataRequest * _Nonnull request);
  @param apiName 传入接口名
  @param data 传入上传数据
  */
-- (nullable id)initWithAPIName:(nonnull NSString *)apiName data:(nonnull NSData *)data;
+- (nullable id)initWithAPIName:(nonnull APIName *)apiName data:(nonnull NSData *)data;
 
 /*
  启动上传操作
@@ -28,8 +28,8 @@ typedef void (^APIDataFailedBlock)(QCAPIDataRequest * _Nonnull request);
  @param failedBlock 上传失败的回调 可传nil
  @return 启动上传后，返回Task信息
  */
-- (nullable NSURLSessionUploadTask *)uploadWithSuccessBlock:(nullable APIDataSuccessBlock)successBlock
-                                                failedBlock:(nullable APIDataFailedBlock)failedBlock;
+- (void)uploadWithSuccessBlock:(nullable APIDataSuccessBlock)successBlock
+                   failedBlock:(nullable APIDataFailedBlock)failedBlock;
 
 #pragma mark - 失效函数
 /// @unavailable 弃用父类函数
@@ -44,5 +44,15 @@ typedef void (^APIDataFailedBlock)(QCAPIDataRequest * _Nonnull request);
 - (nullable id)initWithAPIName:(nonnull NSString *)apiName requestMethod:(RequestMethod)requestMethod NS_UNAVAILABLE;
 /// @unavailable 弃用父类函数
 - (void)startWithAPISuccessBlock:(nullable APISuccessBlock)successBlock APIFailedBlock:(nullable APISuccessBlock)failedBlock NS_UNAVAILABLE;
+
+@end
+
+typedef void (^APIDataMultiRequestBlock)(NSArray<QCAPIDataRequest *> * _Nonnull requests);
+
+@interface QCAPIDataRequest (MultiRequest)
+
++ (void)uploadWithWithAPIName:(nonnull APIName *)apiName
+                    dataArray:(nonnull NSArray<NSData *> *)dataArray
+              completionBlock:(nullable APIDataMultiRequestBlock)completionBlock;
 
 @end

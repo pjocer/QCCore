@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <QCCore/QCCore.h>
 
-@interface ViewController ()
+@interface ViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
@@ -17,34 +17,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20, 20, 100, 100)];
-    view.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:view];
-    
-    CAGradientLayer *layer = [CAGradientLayer layer];
-    layer.borderWidth = 0;
-    layer.frame = CGRectMake(0, 60, 100, 40);
-    layer.colors = @[(id)[UIColor clearColor].CGColor, (id)[UIColor blackColor].CGColor];
-//    layer.locations = @[@0.5,@0.9,@1];
-    layer.startPoint = CGPointMake(0, 0.5);
-    layer.endPoint = CGPointMake(1, 0.5);
-    [view.layer addSublayer:layer];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-//    QCDebugController *controller = [[QCDebugController alloc] init];
-//    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
-//    [self presentViewController:navi animated:YES completion:nil];
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:^{
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    NSData *data = UIImageJPEGRepresentation(image, 0.8);
+    
+//    QCAPIDataRequest *request = [[QCAPIDataRequest alloc] initWithAPIName:@"photo/upload" dataArray:@[data]];
+//    [request uploadWithSuccessBlock:^(QCAPIDataRequest * _Nonnull request) {
+//        DTrace();
+//    } failedBlock:^(QCAPIDataRequest * _Nonnull request) {
+//        DTrace();
+//    }];
+    
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
