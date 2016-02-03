@@ -14,7 +14,7 @@ FOUNDATION_EXTERN NSString * const LocationAuthStatusChangedNotification;
 /// LocationStatusChangedNotification在定位状态发生更变时发出。userInfo中含LocationOldStatusName和LocationCurrentStatusName信息
 FOUNDATION_EXTERN NSString * const LocationStatusChangedNotification;
 
-/* LocationUpdatedNotification在位置信息发生更新时发出，更新频率约为100米距离。
+/** LocationUpdatedNotification在位置信息发生更新时发出，更新频率约为100米距离。
     userInfo中含LocationCoordinateWGSName、LocationCoordinateGCJName、LocationCoordinateBDName、LocationAltitudeName、LocationCurrentStatusName和LocationCurrentAuthStatusName信息。
     其中CLLocationCoordinate2D，和CLLocationDistance请使用NSValue(CLLocation)类中提供的方法进行转换
  */

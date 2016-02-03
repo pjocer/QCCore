@@ -49,13 +49,13 @@ typedef void (^APIFailedBlock)(QCAPIRequest * _Nonnull request);
 */
 @interface QCAPIRequest : QCHttpRequest
 
-//Whether response data is from cache or not
+///Whether response data is from cache or not
 @property (nonatomic, assign, readonly) BOOL isFromCache;
 
-//The strategy of how to use cache
+///The strategy of how to use cache
 @property (nonatomic, assign) CacheStrategy cacheStrategy;
 
-//Response data in dictionary format
+///Response data in dictionary format
 @property (nonatomic, strong, readonly, nullable) NSDictionary *responseDict;
 
 //已将responseModel替换为只读属性访问

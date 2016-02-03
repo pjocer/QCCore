@@ -52,14 +52,14 @@ typedef void (^FailedBlock)(QCHttpRequest * _Nonnull request);
 - (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod;
 - (nullable id)initWithUrl:(nonnull NSString *)url requestMethod:(RequestMethod)requestMethod timeoutInterval:(NSTimeInterval)timeoutInterval;
 
-/*
+/**
  插入请求头信息。不允许直接对requestHeader进行操作
  @param value 头信息内容
  @param HTTPHeaderKey 头信息关键字
  */
 - (void)setValue:(nonnull id)value forHTTPHeaderKey:(nonnull NSString *)HTTPHeaderKey;
 
-/*
+/**
  启动请求操作
  @param successBlock 上传成功的回调 可传nil
  @param failedBlock 上传失败的回调 可传nil

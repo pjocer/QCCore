@@ -184,6 +184,12 @@ static inline NSString * FilteURLDomain(NSString * url)
     return desc;
 }
 
+- (void)cancel {
+    [[QCNetworkService sharedInstance] abort:self];
+    _successBlock = nil;
+    _failedBlock = nil;
+}
+
 #pragma mark - deprecated
 
 - (id)initWithUrl:(NSString *)url

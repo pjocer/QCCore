@@ -15,14 +15,14 @@ typedef void (^APIDataFailedBlock)(QCAPIDataRequest * _Nonnull request);
 
 @interface QCAPIDataRequest : QCAPIRequest
 
-/*
+/**
  创建数据上传Request
  @param apiName 传入接口名
  @param data 传入上传数据
  */
 - (nullable id)initWithAPIName:(nonnull APIName *)apiName data:(nonnull NSData *)data;
 
-/*
+/**
  启动上传操作
  @param successBlock 上传成功的回调 可传nil
  @param failedBlock 上传失败的回调 可传nil

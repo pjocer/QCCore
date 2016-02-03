@@ -55,10 +55,6 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
         self.distanceFilter = 100;   // 更新坐标的频率，即移动100米更新一次
         _currentStatus = LocationStopped;
         
-//        if (IOS8Later) {
-//            [self requestWhenInUseAuthorization];
-//        }
-        
         _debugCoordinate = CLLocationCoordinate2DMake(0, 0);
         
         if (IOS8Later &&
@@ -127,6 +123,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
         _stableTimer = nil;
     }
     if (super.location) {
+        DLog(@"location success");
         self.currentStatus = LocationSucceed;
         _lastLocation = super.location;
         [self sendLocationNotification];
@@ -179,6 +176,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    DLog(@"location failed");
     [self stopUpdatingLocation];
     self.currentStatus = LocationFailed;
     [super startUpdatingLocation];
