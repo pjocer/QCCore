@@ -10,11 +10,12 @@
 		2135AE461C28F3F300AB3C1C /* QCCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 2135AE451C28F3F300AB3C1C /* QCCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2135AE4D1C28F3F300AB3C1C /* QCCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2135AE421C28F3F300AB3C1C /* QCCore.framework */; };
 		2135AE521C28F3F300AB3C1C /* QCCoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2135AE511C28F3F300AB3C1C /* QCCoreTests.m */; };
+		21372EAD1C61EF7000FF4081 /* DebugKits.h in Headers */ = {isa = PBXBuildFile; fileRef = 21372EAB1C61EF7000FF4081 /* DebugKits.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21372EAE1C61EF7000FF4081 /* DebugKits.m in Sources */ = {isa = PBXBuildFile; fileRef = 21372EAC1C61EF7000FF4081 /* DebugKits.m */; };
 		215C781E1C48997B008B1B65 /* CrashLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C781C1C48997B008B1B65 /* CrashLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		215C781F1C48997B008B1B65 /* CrashLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C781D1C48997B008B1B65 /* CrashLog.m */; };
 		215C79751C49F7A7008B1B65 /* CrashManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C79731C49F7A7008B1B65 /* CrashManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		215C79761C49F7A7008B1B65 /* CrashManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C79741C49F7A7008B1B65 /* CrashManager.m */; };
-		215C79791C4A1A15008B1B65 /* DebugKits.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C79781C4A0E78008B1B65 /* DebugKits.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		215C79C81C4C88BB008B1B65 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 215C79C71C4C88BB008B1B65 /* CoreLocation.framework */; };
 		215C79CB1C4C8909008B1B65 /* QCLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 215C79C91C4C8909008B1B65 /* QCLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		215C79CC1C4C8909008B1B65 /* QCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 215C79CA1C4C8909008B1B65 /* QCLocationManager.m */; };
@@ -131,12 +132,13 @@
 		2135AE4C1C28F3F300AB3C1C /* QCCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QCCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2135AE511C28F3F300AB3C1C /* QCCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QCCoreTests.m; sourceTree = "<group>"; };
 		2135AE531C28F3F300AB3C1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21372EAB1C61EF7000FF4081 /* DebugKits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugKits.h; sourceTree = "<group>"; };
+		21372EAC1C61EF7000FF4081 /* DebugKits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugKits.m; sourceTree = "<group>"; };
 		215C781C1C48997B008B1B65 /* CrashLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashLog.h; sourceTree = "<group>"; };
 		215C781D1C48997B008B1B65 /* CrashLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashLog.m; sourceTree = "<group>"; };
 		215C79731C49F7A7008B1B65 /* CrashManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashManager.h; sourceTree = "<group>"; };
 		215C79741C49F7A7008B1B65 /* CrashManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashManager.m; sourceTree = "<group>"; };
 		215C79771C4A0D78008B1B65 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		215C79781C4A0E78008B1B65 /* DebugKits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugKits.h; sourceTree = "<group>"; };
 		215C79AB1C4A2A2C008B1B65 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		215C79C71C4C88BB008B1B65 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		215C79C91C4C8909008B1B65 /* QCLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCLocationManager.h; sourceTree = "<group>"; };
@@ -347,7 +349,8 @@
 			isa = PBXGroup;
 			children = (
 				2183408F1C4F64A800D0B9E7 /* debugCenter */,
-				215C79781C4A0E78008B1B65 /* DebugKits.h */,
+				21372EAB1C61EF7000FF4081 /* DebugKits.h */,
+				21372EAC1C61EF7000FF4081 /* DebugKits.m */,
 			);
 			path = debug;
 			sourceTree = "<group>";
@@ -553,9 +556,9 @@
 				219C09FC1C434599002E10CB /* FMDatabaseQueue.h in Headers */,
 				215C79CB1C4C8909008B1B65 /* QCLocationManager.h in Headers */,
 				218340981C4F784E00D0B9E7 /* DebugManager.h in Headers */,
+				21372EAD1C61EF7000FF4081 /* DebugKits.h in Headers */,
 				218340B61C5082B100D0B9E7 /* QCDebugLogo.h in Headers */,
 				218340921C4F64B600D0B9E7 /* QCDebugController.h in Headers */,
-				215C79791C4A1A15008B1B65 /* DebugKits.h in Headers */,
 				215C79751C49F7A7008B1B65 /* CrashManager.h in Headers */,
 				219C09D11C434599002E10CB /* AFHTTPSessionManager.h in Headers */,
 				219C09D81C434599002E10CB /* AFURLConnectionOperation.h in Headers */,
@@ -766,6 +769,7 @@
 				218340AB1C50741100D0B9E7 /* QCDebugCrashListController.m in Sources */,
 				219C09DD1C434599002E10CB /* AFURLResponseSerialization.m in Sources */,
 				219C09FB1C434599002E10CB /* FMDatabasePool.m in Sources */,
+				21372EAE1C61EF7000FF4081 /* DebugKits.m in Sources */,
 				219C0A0E1C434599002E10CB /* RNOpenSSLDecryptor.m in Sources */,
 				218340A51C4F970D00D0B9E7 /* QCDebugAnnoSelectController.m in Sources */,
 				219C09EC1C434599002E10CB /* UIImageView+AFNetworking.m in Sources */,

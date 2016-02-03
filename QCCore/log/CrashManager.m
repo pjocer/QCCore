@@ -149,7 +149,7 @@ static void SignalHandler(int signal)
 {
     [_currentLog excuteWithException:exception];
     
-    DLog(@"%@", _currentLog);
+    CoreLog(@"%@", _currentLog);
     
     [NSKeyedArchiver archiveRootObject:_currentLog toFile:_logPath];
     [_logStatus insertObject:@{@"name":_logName, @"status":[NSNumber numberWithBool:NO]} atIndex:0];

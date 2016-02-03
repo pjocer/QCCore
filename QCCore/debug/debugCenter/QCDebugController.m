@@ -93,6 +93,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
+        if (![DebugManager manager].allowSwitchDomain) return;
         UIActionSheet *sheet = [[UIActionSheet alloc] init];
         [sheet setTitle:@"APIDomain"];
         for (int i=0; i<[DebugManager manager].domains.count; i++) {

@@ -19,6 +19,7 @@ FOUNDATION_EXTERN NSString * SavedDomainPath();
 
 @property (nonatomic, strong) NSString *placeholdURL;
 
+@property (nonatomic, assign) BOOL allowSwitchDomain;
 @property (readonly) NSArray<Domain *> *domains;
 - (void)addDomain:(Domain *)domain;
 @end

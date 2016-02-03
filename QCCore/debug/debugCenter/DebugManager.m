@@ -87,4 +87,9 @@ NSString * SavedDomainPath()
     [aCoder encodeBool:self.isMain forKey:@"isMain"];
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@\nDomain=%@\nTitle=%@\nisMain=%@",[super description], self.domain, self.title, (self.isMain?@"YES":@"NO")];
+}
+
 @end

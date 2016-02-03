@@ -6,9 +6,12 @@
 //  Copyright © 2016 qcwl. All rights reserved.
 //
 
-#ifndef PrefixHeader_pch
-#define PrefixHeader_pch
-
 #import "DebugKits.h"
 
-#endif
+/// QCCore内部后台输出函数
+#define CoreLog(fmt, ...) ({ if (QCCoreDebugMode()) \
+                                NSLog((@"%s #%d " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);})
+
+/// QCCore内部打点函数
+#define CoreTrace() ({ if (QCCoreDebugMode()) \
+                                NSLog(@"%s #%d DTrace", __PRETTY_FUNCTION__, __LINE__);})

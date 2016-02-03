@@ -35,6 +35,11 @@
     return defaultNetworkService;
 }
 
++ (void)setDebugModeEnable:(BOOL)enable
+{
+    
+}
+
 - (id)initSingle {
     self = [super init];
     if (self) {
@@ -52,7 +57,7 @@
 
 - (void)exec:(QCHttpRequest *)request {
     if ([_runningRequestArray containsObject:request]) {
-        NSLog(@"Can't exec duplicate request at same time");
+        CoreLog(@"Can't exec duplicate request at same time");
     } else {
 //        [request preprocessRequest];
         [self handleRequest:request];
