@@ -8,19 +8,31 @@
 
 #import <UIKit/UIKit.h>
 
+/// 错误类型
 typedef NS_OPTIONS(uint8_t, CrashType) {
+    /// 未知或未发生Crash
     UnsetType,
+    /// OC对象类Crash
     NSObjectCrashType,
+    /// 信号类Crash
     SignalCrashType
 };
 
+/// 信号类Crash类型
 typedef NS_OPTIONS(uint8_t, SignalType) {
+    /// 其他未知信号Crash类型
     UnknownSignalType               = 0,
+    /// abort函数强制退出信号
     AbortType                       = SIGABRT,
+    /// 无效指令信号
     IllegalInstructionType          = SIGILL,
+    /// 僵尸内存信号
     ZombieMemoryType                = SIGSEGV,
+    /// 浮点运算异常信号
     FloatingPointExceptionType      = SIGFPE,
+    /// 总线错误信号
     BusErrorType                    = SIGBUS,
+    /// 野指针信号
     WildPointerType                 = SIGPIPE
 };
 

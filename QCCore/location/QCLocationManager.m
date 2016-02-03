@@ -123,7 +123,6 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
         _stableTimer = nil;
     }
     if (super.location) {
-        DLog(@"location success");
         self.currentStatus = LocationSucceed;
         _lastLocation = super.location;
         [self sendLocationNotification];
@@ -176,10 +175,12 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    DLog(@"location failed");
     [self stopUpdatingLocation];
     self.currentStatus = LocationFailed;
+#if TARGET_IPHONE_SIMULATOR
+#else
     [super startUpdatingLocation];
+#endif
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -243,6 +244,22 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
 {
     _debugCoordinate = coordinate;
     [[QCLocationManager defaultManager] reloadGEOInfo];
+}
+
+- (NSString *)description
+{
+    NSMutableString *str = [NSMutableString string];
+    [str appendString:[super description]];
+    [str stringByAppendingFormat:@"\nLocationStatus = %@", (_currentStatus==LocationLocating?@"LocationLocating":(_currentStatus==LocationSucceed?@"LocationSucceed":_currentStatus==LocationFailed?@"LocationFailed":_currentStatus==LocationTimeOut?@"LocationTimeOut":_currentStatus==LocationServiceDisabled?@"LocationServiceDisabled":@"LocationStopped"))];
+    [str stringByAppendingFormat:@"\nAuthorizationStatus = %@",(_authStatus==kCLAuthorizationStatusDenied?@"Denied":(_authStatus==kCLAuthorizationStatusNotDetermined?@"Not Determined":(_authStatus==kCLAuthorizationStatusRestricted?@"Restricted":@"Authorized")))];
+    [str stringByAppendingFormat:@"\nWGS = %.6f, %.6f", self.coordinateWGS.latitude, self.coordinateWGS.longitude];
+    [str stringByAppendingFormat:@"\nGCJ = %.6f, %.6f", self.coordinateGCJ.latitude, self.coordinateGCJ.longitude];
+    [str stringByAppendingFormat:@"\nBD = %.6f, %.6f", self.coordinateBD.latitude, self.coordinateBD.longitude];
+    [str stringByAppendingFormat:@"\nAltitude = %.6f", self.altitude];
+    if (self.geoCoder) {
+        [str stringByAppendingFormat:@"\nAddress = %@", self.address];
+    }
+    return str;
 }
 
 @end
