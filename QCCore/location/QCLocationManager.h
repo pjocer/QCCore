@@ -48,13 +48,13 @@ typedef NS_OPTIONS(uint8_t, LocationStatus) {
 @property (nonatomic, assign, readonly) LocationStatus currentStatus;
 
 /// GPS全球定位系统坐标 WGS-84
-@property (readonly) CLLocationCoordinate2D coordinateWGS;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinateWGS;
 /// 国家地理测绘坐标（火星坐标） GCJ-02
-@property (readonly) CLLocationCoordinate2D coordinateGCJ;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinateGCJ;
 /// 百度地图坐标 BD-09
-@property (readonly) CLLocationCoordinate2D coordinateBD;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinateBD;
 /// 海拔高度
-@property (readonly) CLLocationDistance altitude;
+@property (nonatomic, readonly) CLLocationDistance altitude;
 
 //unavailable super functions
 + (CLAuthorizationStatus)authorizationStatus NS_UNAVAILABLE;
@@ -71,7 +71,7 @@ FOUNDATION_EXTERN NSString * const LocationGEOErrorName;
 
 @property (nonatomic, strong, readonly) CLGeocoder *geoCoder;
 @property (nonatomic, strong, readonly) CLPlacemark *lastPlacemark;
-@property (readonly) NSString *address;
+@property (nonatomic, readonly) NSString *address;
 
 - (void)reloadGEOInfo;
 - (void)cancelGEOCoding;

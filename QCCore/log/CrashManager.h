@@ -19,10 +19,10 @@
 - (void)installCrashHandler;
 
 /// 显示未check的崩溃日志名，日志名不是日志详情，使用crashLogWithName:来获取详情
-@property (readonly) NSArray *unCheckedLogNames;
+@property (nonatomic, readonly) NSArray *unCheckedLogNames;
 
 /// 显示所有的崩溃日志名
-@property (readonly) NSArray *allLogNames;
+@property (nonatomic, readonly) NSArray *allLogNames;
 
 /// 通过文件名获取一个日志
 - (CrashLog *)crashLogWithName:(NSString *)name;

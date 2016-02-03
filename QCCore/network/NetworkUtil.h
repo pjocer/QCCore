@@ -22,7 +22,7 @@ typedef enum{
 - (BOOL)startSnif;
 
 @property (nonatomic, readonly) NetworkStatus currentStatus;
-@property (readonly) NSString *currentStatusString;
+@property (nonatomic, readonly) NSString *currentStatusString;
 
 @end
 

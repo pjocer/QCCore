@@ -126,6 +126,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
         self.currentStatus = LocationSucceed;
         _lastLocation = super.location;
         [self sendLocationNotification];
+        CoreLog(@"location success");
         [[QCLocationManager defaultManager] reloadGEOInfo];
     }else {
         _stableTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(excLocationSucceed) userInfo:nil repeats:NO];
@@ -177,6 +178,7 @@ NSString * const LocationAltitudeName = @"LocationAltitude";
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     [self stopUpdatingLocation];
     self.currentStatus = LocationFailed;
+    CoreLog(@"location failed");
 #if TARGET_IPHONE_SIMULATOR
 #else
     [super startUpdatingLocation];

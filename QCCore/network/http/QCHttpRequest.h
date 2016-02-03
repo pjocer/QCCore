@@ -38,13 +38,13 @@ typedef void (^FailedBlock)(QCHttpRequest * _Nonnull request);
 /// 超时时间
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
 /// 返回HTTP Response Status Code
-@property (readonly) NSInteger responseStatusCode;
+@property (nonatomic, readonly) NSInteger responseStatusCode;
 /// 返回Response头信息
-@property (readonly, nullable) NSDictionary *responseHeaders;
+@property (nonatomic, readonly, nullable) NSDictionary *responseHeaders;
 /// 返回Response数据
-@property (readonly, nullable) NSData *responseData;
+@property (nonatomic, readonly, nullable) NSData *responseData;
 /// 请求唯一标识字符串
-@property (readonly, nullable) NSString *uniqueKey;
+@property (nonatomic, readonly, nullable) NSString *uniqueKey;
 
 @property (nonatomic, readonly) NSTimeInterval responseInterval;
 

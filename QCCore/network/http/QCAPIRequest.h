@@ -61,11 +61,11 @@ typedef void (^APIFailedBlock)(QCAPIRequest * _Nonnull request);
 //已将responseModel替换为只读属性访问
 
 /// API返回状态码
-@property (readonly) int status;
+@property (nonatomic, readonly) int status;
 /// API返回数据内容
-@property (readonly, nullable) NSDictionary *data;
+@property (nonatomic, readonly, nullable) NSDictionary *data;
 /// API返回附加信息
-@property (readonly, nullable) NSString *message;
+@property (nonatomic, readonly, nullable) NSString *message;
 
 /**
  创建请求
