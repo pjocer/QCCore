@@ -30,7 +30,8 @@
 
 - (id)_init
 {
-    if (self = [super initWithFrame:CGRectMake(10, 30, 55, 55)]) {
+    CGRect screen = [UIScreen mainScreen].bounds;
+    if (self = [super initWithFrame:CGRectMake(screen.size.width-65, screen.size.height/2, 55, 55)]) {
         self.backgroundColor = [UIColor clearColor];
         
         roundView = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 45, 45)];

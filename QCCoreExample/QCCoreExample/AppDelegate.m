@@ -63,10 +63,11 @@ static NSString *const DeveloperAPIHost = @"http://dev.fk.com/api/";
     
     QCDebugController *controller = [[QCDebugController alloc] init];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:controller];
-    self.window.rootViewController = [[ViewController alloc] init];
+    self.window.rootViewController = navi;
     
     [self.window makeKeyAndVisible];
     
+    [self.window addSubview:[QCDebugLogo logo]];
     
     return YES;
 }
