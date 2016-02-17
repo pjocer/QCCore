@@ -10,6 +10,13 @@
 #import <MapKit/MapKit.h>
 #import "QCLocationManager.h"
 
+typedef NS_OPTIONS(int, PinType) {
+    DebugPinType,
+    WGSPinType,
+    GCJPinType,
+    BDPinType
+};
+
 @interface QCLocationManager ()
 - (void)setDebugCoordinate:(CLLocationCoordinate2D)coordinate;
 @end
@@ -18,6 +25,7 @@
 
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, assign) PinType type;
 
 @end
 
@@ -55,10 +63,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    QCDebugPin *pin = [[QCDebugPin alloc] init];
-    pin.coordinate = [QCLocationManager defaultManager].coordinateGCJ;
-    pin.title = [NSString stringWithFormat:@"%.6f,%.6f",pin.coordinate.latitude,pin.coordinate.longitude];
-    [_mapView addAnnotation:pin];
+    QCDebugPin *pinWGS = [[QCDebugPin alloc] init];
+    pinWGS.coordinate = [QCLocationManager defaultManager].coordinateWGS;
+    pinWGS.title = [NSString stringWithFormat:@"WGS: %.6f,%.6f",pinWGS.coordinate.latitude,pinWGS.coordinate.longitude];
+    pinWGS.type = WGSPinType;
+    [_mapView addAnnotation:pinWGS];
+    
+    QCDebugPin *pinGCJ = [[QCDebugPin alloc] init];
+    pinGCJ.coordinate = [QCLocationManager defaultManager].coordinateGCJ;
+    pinGCJ.title = [NSString stringWithFormat:@"GCJ: %.6f,%.6f",pinGCJ.coordinate.latitude,pinGCJ.coordinate.longitude];
+    pinGCJ.type = GCJPinType;
+    [_mapView addAnnotation:pinGCJ];
+    
+    QCDebugPin *pinBD = [[QCDebugPin alloc] init];
+    pinBD.coordinate = [QCLocationManager defaultManager].coordinateBD;
+    pinBD.title = [NSString stringWithFormat:@"BD: %.6f,%.6f",pinBD.coordinate.latitude,pinBD.coordinate.longitude];
+    pinBD.type = BDPinType;
+    [_mapView addAnnotation:pinBD];
     
     dpcoordinate = [QCLocationManager defaultManager].coordinateGCJ;
 }
@@ -79,23 +100,47 @@
 {
     CGPoint dp = [gesture locationInView:_mapView];
     dpcoordinate = [_mapView convertPoint:dp toCoordinateFromView:_mapView];
-    [_mapView removeAnnotations:_mapView.annotations];
+    for (QCDebugPin *pin in _mapView.annotations) {
+        [_mapView removeAnnotations:@[pin]];
+    }
     
     QCDebugPin *pin = [[QCDebugPin alloc] init];
     pin.coordinate = dpcoordinate;
     pin.title = [NSString stringWithFormat:@"%.6f,%.6f",dpcoordinate.latitude,dpcoordinate.longitude];
+    pin.type = DebugPinType;
     [_mapView addAnnotation:pin];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    NSString *identifier = @"pin";
-    MKPinAnnotationView *view = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-    if (!view) {
-        view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
-        view.canShowCallout = YES;
+    if (((QCDebugPin *)annotation).type == DebugPinType) {
+        NSString *identifier = @"pin";
+        MKPinAnnotationView *view = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        if (!view) {
+            view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+            view.canShowCallout = YES;
+        }
+        return view;
+    }else {
+        NSString *identifier = @"location";
+        MKAnnotationView *view = (MKAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        if (!view) {
+            view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+            view.frame = CGRectMake(0, 0, 14, 14);
+//            view.clipsToBounds = YES;
+            view.layer.cornerRadius = 7;
+            view.layer.borderWidth = 1/[UIScreen mainScreen].scale;
+            view.layer.borderColor = [UIColor grayColor].CGColor;
+            view.canShowCallout = YES;
+        }
+        switch (((QCDebugPin *)annotation).type) {
+            case WGSPinType: view.backgroundColor = [UIColor blueColor]; break;
+            case GCJPinType: view.backgroundColor = [UIColor redColor]; break;
+            case BDPinType: view.backgroundColor = [UIColor yellowColor]; break;
+            default: view.backgroundColor = [UIColor lightGrayColor]; break;
+        }
+        return view;
     }
-    return view;
 }
 
 @end
